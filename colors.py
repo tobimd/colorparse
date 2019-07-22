@@ -1,4 +1,7 @@
-import os, sys, re
+import os
+import sys
+import re
+import platform
 
 
 class Color:
@@ -460,5 +463,6 @@ This module helps color coding strings with custom commands.
         print('\n\t' + function_help_strings[function].strip())
 
 
-os.system('color')
+if platform.system() == 'Windows':
+	os.system('color')
 Color._true_color(True)
