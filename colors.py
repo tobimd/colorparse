@@ -13,7 +13,7 @@ class Color:
         by all terminals. Otherwise, if it is True, then 'true color' is
         available and works, which means RGB values can be directly used
         in the color codes.
-        
+
         """
 
         if is_supported:
@@ -89,7 +89,7 @@ class Color:
 def code_list():
     """Returns a string with a list of all the available
     color names and their respective codes.
-    
+
     """
 
     help_string = """The following are the color codes: 
@@ -101,7 +101,6 @@ def code_list():
 \t- ";BDARK_BLUE;!":      ;B      (dark blue)
 \t- ";MDARK_MAGENTA;!":   ;M      (dark magenta)
 \t- ";CDARK_CYAN;!":      ;C      (dark cyan)
-
 \t- ";rRED;!":            ;r      (red)
 \t- ";oORANGE;!":         ;o      (orange)
 \t- ";gGREEN;!":          ;g      (green)
@@ -109,7 +108,6 @@ def code_list():
 \t- ";bBLUE;!":           ;b      (blue)
 \t- ";mMAGENTA;!":        ;m      (magenta)
 \t- ";cCYAN;!":           ;c      (cyan)
-
 \t- ";rrSTRONG_RED;!":     ;rr     (strong red)
 \t- ";ooSTRONG_ORANGE;!":  ;oo     (strong orange)
 \t- ";ggSTRONG_GREEN;!":   ;gg     (strong green)
@@ -123,7 +121,6 @@ def code_list():
 \t- ";aGRAY;!":           ;a      (gray)
 \t- ";aaLIGHT_GRAY;!":     ;aa     (light gray)
 \t- ";wWHITE;!":          ;w      (white)
-
 \t- "ENDC":           ;!      (end color)"""
 
     extra_string = """
@@ -141,7 +138,7 @@ def code_list():
 def _fix_min_max_values(number):
     """Fixes the number if it's lower than 0 or higher than
     255, and returns it as a string.
-    
+
     """
     if number < 0:
         number = 0
@@ -155,7 +152,7 @@ def _fix_min_max_values(number):
 def _percent_to_rgb(string):
     """Replaces the percentages in a comma separated
     rgb values with 0 to 255 numbers.
-    
+
     """
     # if it's an unfinished code (e.g. "%0.8,,", missing the last two)
     string = string.split(',')
@@ -178,7 +175,7 @@ def _percent_to_rgb(string):
 def _hex_to_rgb(string):
     """Replaces the hexadecimal rgb values with 0 to 
     255 numbers
-    
+
     """
     # if it's an unfinished hex (e.g. "#FF01", missing the last two)
     string += '0' * (6 - len(string))  # fill with '0'
@@ -194,7 +191,7 @@ def _hex_to_rgb(string):
 
 def _color_repl(matchobj):
     """Returns the new string for a match object.
-    
+
     """
 
     code_to_color = {
@@ -252,7 +249,6 @@ def _color_repl(matchobj):
         # split the values and place them in the color code for rgb
         r, g, b = matched_rgb
         return f'{Color.ENDC}\033[38;2;{r};{g};{b}m'
-
     
     # otherwise, if the matched string is a known color code
     else:
@@ -262,10 +258,9 @@ def _color_repl(matchobj):
 def _color_format(string):
     """Returns a string that has the color codes replaced
     by the colors needed.
-
     Function arguments:
     string -- the input string to be formatted
-    
+
     """
 
     # clean the string at the start and the end
@@ -280,10 +275,9 @@ def _color_format(string):
     return re.sub(regex, _color_repl, string)
 
 
-def brush(*strings, **options):
+def paint(*strings, **options):
     """Returns a string (can be printed directly) that reads
     and decodes color codes to make words or sentences be colored.
-
     Having the option to print ('out') as False doesn't mean the string 
     won't be returned by this function. It is always returned.
 
@@ -301,6 +295,9 @@ def brush(*strings, **options):
     string object by default. Also, color codes in the options arguments
     will not be parsed.
 
+    Finally, having "look" set to 2 (classic) won't parse custom color
+    codes.
+
     Function arguments:
     *strings -- all the strings that need to be decoded or printed
     **options:
@@ -310,7 +307,7 @@ def brush(*strings, **options):
       end -- what is used to end the result string (default '\n')
       file -- object with a 'write(string)' method (default sys.stdout)
       flush -- if the stream is forcibly flushed (default False)
-    
+
     """
 
     # default values
@@ -352,10 +349,11 @@ def brush(*strings, **options):
 def look(mode=1):
     """This changes the overall color codes to a more "classic" feel
     by changin to a more standard and platform supported color codes.
-    
+
     Function arguments:
     mode -- this can be either 1 (or "new") for the true color look 
     and feel, or 2 (or "classic") for the old color scheme (default 1)
+
     """
     repeated = ''
 
@@ -375,29 +373,31 @@ def look(mode=1):
 
 def help(function=None):
     """This prints a help menu with all of the commands.
-    
+
     Function arguments:
     function -- the function to get the help menu from (default None)
+
     """
 
     function_help_strings = {
         'help' : """This prints a help menu with all of the commands.
-    
+
     Function arguments:
     function -- the function to get the help menu from (default None)
+
     """,
 
         'look' : """This changes the overall color codes to a more "classic" feel
     by changin to a more standard and platform supported color codes.
-    
+
     Function arguments:
     mode -- this can be either 1 (or "new") for the true color look 
     and feel, or 2 (or "classic") for the old color scheme (default 1)
+
     """,
 
-        'brush' : """Returns a string (can be printed directly) that reads
+        'paint' : """Returns a string (can be printed directly) that reads
     and decodes color codes to make words or sentences be colored.
-
     Having the option to print ('out') as False doesn't mean the string 
     won't be returned by this function. It is always returned.
 
@@ -415,6 +415,9 @@ def help(function=None):
     string object by default. Also, color codes in the options arguments
     will not be parsed.
 
+    Finally, having "look" set to 2 (classic) won't parse custom color
+    codes.
+
     Function arguments:
     *strings -- all the strings that need to be decoded or printed
     **options:
@@ -424,19 +427,17 @@ def help(function=None):
       end -- what is used to end the result string (default '\\n')
       file -- object with a 'write(string)' method (default sys.stdout)
       flush -- if the stream is forcibly flushed (default False)
-    
+
     """,
 
         'code_list' : """Returns a string with a list of all the available
     color names and their respective codes.
-    
+
     """,
     }
 
-    help_string = """
+    help_string = """This module helps color coding strings with custom commands.
 
-This module helps color coding strings with custom commands.
-    
     To format a string, use the function 'brush' that will read the color codes
     used and format it to show the wanted colors. To see the list of color codes, 
     there is a function called 'code_list' that will print out all the colors 
@@ -451,10 +452,8 @@ This module helps color coding strings with custom commands.
     Functions:
     help -- prints this message, if you put a function as argument, it will print it's 
             help menu
-
     brush -- returns and prints* a string with the formatted colors as used according to
              the color codes present
-
     code_list -- prints a list of all the colors and color codes available"""
 
     if function == None:
@@ -464,5 +463,7 @@ This module helps color coding strings with custom commands.
 
 
 if platform.system() == 'Windows':
-	os.system('color')
-Color._true_color(True)
+    os.system('color')
+    Color._true_color(True)
+else:
+    Color._true_color(False)
