@@ -49,28 +49,28 @@ class Color:
             Color.true_color = True
         else:
             Color.DARK_RED        = '\033[38;5;88m'   # ;R
-            Color.DARK_ORANGE     = '\033[38;5;94m'   # ;O
-            Color.DARK_GREEN      = '\033[38;5;70m'   # ;G
-            Color.DARK_YELLOW     = '\033[38;5;100m'  # ;Y
-            Color.DARK_BLUE       = '\033[38;5;20m'   # ;B
+            Color.DARK_ORANGE     = '\033[38;5;130m'  # ;O
+            Color.DARK_GREEN      = '\033[38;5;22m'   # ;G
+            Color.DARK_YELLOW     = '\033[38;5;142m'  # ;Y
+            Color.DARK_BLUE       = '\033[38;5;17m'   # ;B
             Color.DARK_MAGENTA    = '\033[38;5;55m'   # ;M
-            Color.DARK_CYAN       = '\033[38;5;39m'   # ;C
+            Color.DARK_CYAN       = '\033[38;5;31m'   # ;C
 
-            Color.RED             = '\033[38;5;160m'  # ;r
+            Color.RED             = '\033[38;5;124m'  # ;r
             Color.ORANGE          = '\033[38;5;166m'  # ;o
-            Color.GREEN           = '\033[38;5;40m'   # ;g
-            Color.YELLOW          = '\033[38;5;220m'  # ;y
+            Color.GREEN           = '\033[38;5;34m'   # ;g
+            Color.YELLOW          = '\033[38;5;184m'  # ;y
             Color.BLUE            = '\033[38;5;27m'   # ;b
-            Color.MAGENTA         = '\033[38;5;165m'  # ;m
-            Color.CYAN            = '\033[38;5;45m'   # ;c
+            Color.MAGENTA         = '\033[38;5;127m'  # ;m
+            Color.CYAN            = '\033[38;5;39m'   # ;c
 
             Color.STRONG_RED      = '\033[38;5;196m'  # ;rr
             Color.STRONG_ORANGE   = '\033[38;5;202m'  # ;oo
-            Color.STRONG_GREEN    = '\033[38;5;82m'   # ;gg
-            Color.STRONG_YELLOW   = '\033[38;5;11m'   # ;yy
+            Color.STRONG_GREEN    = '\033[38;5;46m'   # ;gg
+            Color.STRONG_YELLOW   = '\033[38;5;226m'  # ;yy
             Color.STRONG_BLUE     = '\033[38;5;21m'   # ;bb
-            Color.STRONG_MAGENTA  = '\033[38;5;5m'    # ;mm
-            Color.STRONG_CYAN     = '\033[38;5;6m'    # ;cc
+            Color.STRONG_MAGENTA  = '\033[38;5;200m'  # ;mm
+            Color.STRONG_CYAN     = '\033[38;5;51m'   # ;cc
 
             Color.BLACK           = '\033[38;5;0m'    # ;k
             Color.DARK_GRAY       = '\033[38;5;238m'  # ;A
