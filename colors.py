@@ -86,7 +86,7 @@ class Color:
             Color.true_color = False
 
 
-def code_list():
+def codes():
     """Returns a string with a list of all the available
     color names and their respective codes.
 
@@ -101,6 +101,7 @@ def code_list():
 \t- ";BDARK_BLUE;!":      ;B      (dark blue)
 \t- ";MDARK_MAGENTA;!":   ;M      (dark magenta)
 \t- ";CDARK_CYAN;!":      ;C      (dark cyan)
+
 \t- ";rRED;!":            ;r      (red)
 \t- ";oORANGE;!":         ;o      (orange)
 \t- ";gGREEN;!":          ;g      (green)
@@ -108,6 +109,7 @@ def code_list():
 \t- ";bBLUE;!":           ;b      (blue)
 \t- ";mMAGENTA;!":        ;m      (magenta)
 \t- ";cCYAN;!":           ;c      (cyan)
+
 \t- ";rrSTRONG_RED;!":     ;rr     (strong red)
 \t- ";ooSTRONG_ORANGE;!":  ;oo     (strong orange)
 \t- ";ggSTRONG_GREEN;!":   ;gg     (strong green)
@@ -121,6 +123,7 @@ def code_list():
 \t- ";aGRAY;!":           ;a      (gray)
 \t- ";aaLIGHT_GRAY;!":     ;aa     (light gray)
 \t- ";wWHITE;!":          ;w      (white)
+
 \t- "ENDC":           ;!      (end color)"""
 
     extra_string = """
@@ -129,10 +132,10 @@ def code_list():
 \t- "CUSTOM HEX":     ;#      (hexadecimal)     [from 000000 to ffffff]
     """
 
-    brush(help_string, out=True)
+    paint(help_string, out=True)
 
     if Color.true_color:
-        brush(extra_string, out=True)
+        paint(extra_string, out=True)
 
 
 def _fix_min_max_values(number):
@@ -287,9 +290,10 @@ def paint(*strings, **options):
     used when printing, for consistency.
 
     A color code can end with '/' to avoid problems with strong
-    colors being accidentally used (e.g. ";ggo home" would return "o home"
-    in strong green). The use of '/' at the end of a color code is
-    completely optional.
+    colors being accidentally used (e.g. ";rred box" would return "ed box"
+    in strong red, it should be ";r/red box"). The use of '/' at the end
+    of a color code is completely optional, but encouraged to be allways
+    used.
 
     Note that any unclosed color code will pass through to the next
     string object by default. Also, color codes in the options arguments
@@ -346,24 +350,29 @@ def paint(*strings, **options):
     return result
 
 
-def look(mode=1):
+def mode(mode_type=1):
     """This changes the overall color codes to a more "classic" feel
-    by changin to a more standard and platform supported color codes.
+    by changin to a more standard and platform supported color codes
+    and viceversa to the "new" color scheme.
 
     Function arguments:
-    mode -- this can be either 1 (or "new") for the true color look 
-    and feel, or 2 (or "classic") for the old color scheme (default 1)
+    mode_type -- this can be either 1 (or "new") for the true
+    color look and feel, or 2 (or "classic") for the old color
+    scheme (default 1)
 
     """
     repeated = ''
 
-    if mode == 2 or (type(mode) == str and mode.lower() == 'classic'):
+    t = mode_type
+
+    if t == 2 or (type(t) == str and t.lower() == 'classic'):
+        
         if not Color.true_color:
             repeated = 'were already '
 
         Color._true_color(False)
         paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gclassic;!.')
-    elif mode == 1 or (type(mode) == str and mode.lower() == 'new'):
+    elif t == 1 or (type(t) == str and t.lower() == 'new'):
         if Color.true_color:
             repeated = 'were already '
 
@@ -380,43 +389,29 @@ def help(function=None):
     """
 
     function_help_strings = {
-        'help' : """This prints a help menu with all of the commands.
+        'help' : """This prints a help menu with all of the commands for a certain function.
 
     Function arguments:
-    function -- the function to get the help menu from (default None)
+    function -- the functions name (default None)
 
     """,
 
-        'look' : """This changes the overall color codes to a more "classic" feel
-    by changin to a more standard and platform supported color codes.
+        'mode' : """This changes the overall color codes to a more "classic" feel by changin to a more standard and platform supported color codes.
 
     Function arguments:
-    mode -- this can be either 1 (or "new") for the true color look 
-    and feel, or 2 (or "classic") for the old color scheme (default 1)
+    mode_type -- this can be either 1 (or "new") for the true color look and feel, or 2 (or "classic") for the old color scheme (default 1)
 
     """,
 
-        'paint' : """Returns a string (can be printed directly) that reads
-    and decodes color codes to make words or sentences be colored.
-    Having the option to print ('out') as False doesn't mean the string 
-    won't be returned by this function. It is always returned.
+        'paint' : """Returns a string (can be printed directly) that reads and decodes color codes to make words or sentences be colored. Having the option to print ('out') as False doesn't mean the string won't be returned by this function. It is always returned.
 
-    Some of the options won't affect the resulting string if the argument
-    'out' is False, because those are for printing only ('file' and
-    'flush' to be precise). The only exception is 'end', which is only
-    used when printing, for consistency.
+    Some of the options won't affect the resulting string if the argument 'out' is False, because those are for printing only ('file' and 'flush' to be precise). The only exception is 'end', which is only used when printing, for consistency.
 
-    A color code can end with '/' to avoid problems with strong
-    colors being accidentally used (e.g. ";ggo home" would return "o home"
-    in strong green). The use of '/' at the end of a color code is
-    completely optional.
+    A color code can end with '/' to avoid problems with strong colors being accidentally used (e.g. ";rred box" would return "ed box" in strong red, it should be ";r/red box"). The use of '/' at the end of a color code is completely optional, but encouraged to be allways used.
 
-    Note that any unclosed color code will pass through to the next
-    string object by default. Also, color codes in the options arguments
-    will not be parsed.
+    Note that any unclosed color code will pass through to the next string object by default. Also, color codes in the options arguments will not be parsed.
 
-    Finally, having "look" set to 2 (classic) won't parse custom color
-    codes.
+    Finally, having "look" set to 2 (classic) won't parse custom color codes.
 
     Function arguments:
     *strings -- all the strings that need to be decoded or printed
@@ -430,36 +425,34 @@ def help(function=None):
 
     """,
 
-        'code_list' : """Returns a string with a list of all the available
-    color names and their respective codes.
+        'codes' : """Returns a string with a list of all the available color names and their respective codes.
 
     """,
     }
 
     help_string = """This module helps color coding strings with custom commands.
 
-    To format a string, use the function 'brush' that will read the color codes
-    used and format it to show the wanted colors. To see the list of color codes, 
-    there is a function called 'code_list' that will print out all the colors 
-    available.
+    To format a string, use the function 'paint' that will read the color codes used and format it to show the wanted colors. To see the list of color codes,  there is a function called 'codes' that will print out all the colors  available.
     
-    You can access individual colors with the Color class. For example: 'Color.DARK_RED'
-    will return the string corresponding to a dark red color code. 
+    You can access individual colors with the Color class. For example: 'Color.DARK_RED' will return the string corresponding to a dark red color code. 
     
-    Finally, if colors are not being correctly displayed, the use of the 'look' function
-    will help using the old, classic colors that should be cross-platform.
+    Finally, if colors are not being correctly displayed, the use of the 'mode' function will help using the old, classic colors that should be cross-platform.
     
     Functions:
-    help -- prints this message, if you put a function as argument, it will print it's 
-            help menu
-    brush -- returns and prints* a string with the formatted colors as used according to
-             the color codes present
-    code_list -- prints a list of all the colors and color codes available"""
+    help -- prints this message, if you put a function as argument, it will print it's help menu
 
-    if function == None:
-        print(help_string)
+    paint -- returns and prints* a string with the formatted colors as used according to the color codes present
+
+    codes -- prints a list of all the colors and color codes available
+
+    mode -- changes the colors to a more platform-supported terminal colors (if mode set to "classic") or to a more updated ones (if set to "new")
+
+    """
+
+    if function == None or function not in function_help_strings:
+        print('\n    ' + help_string)
     else:
-        print('\n\t' + function_help_strings[function].strip())
+        print('\n    ' + function_help_strings[function].strip())
 
 
 if platform.system() == 'Windows':
