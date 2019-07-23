@@ -362,13 +362,13 @@ def look(mode=1):
             repeated = 'were already '
 
         Color._true_color(False)
-        brush(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gclassic;!.')
+        paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gclassic;!.')
     elif mode == 1 or (type(mode) == str and mode.lower() == 'new'):
         if Color.true_color:
             repeated = 'were already '
 
         Color._true_color(True)
-        brush(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gnew;!.')
+        paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gnew;!.')
 
 
 def help(function=None):
