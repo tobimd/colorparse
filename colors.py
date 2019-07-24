@@ -532,7 +532,7 @@ def help(fn=None):
 
                       (str) sep=' ' -- used to separate the string arguments.
 
-                     (str) end='\n' -- used at the end of a string when
+                     (str) end='\\n' -- used at the end of a string when
                                        printed.
 
          (file obj) file=sys.stdout -- used by the interpreter for standard
