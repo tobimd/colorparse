@@ -7,15 +7,21 @@ import platform
 class Color:
     @classmethod
     def _true_color(cls, is_supported):
-        """This function changes the values of all the base colors
-        to the one your terminal supports. If 'value' is False,
-        then the colors will turn to a more classic look being supported
-        by all terminals. Otherwise, if it is True, then 'true color' is
-        available and works, which means RGB values can be directly used
-        in the color codes.
+        """This function changes the set of chosen colors. If "true color" is
+        supported by whatever stdout is being used. Some terminals don't
+        support "true color", so it should be set to False.
+
+        Arguments:
+                 (boolean) is_supported -- if the color set should be "true
+                                           color" (True) or what could be
+                                           called "classic" (False).
+
+        Example use:
+        Color._true_color(False) -- sets the color set to "classic".
 
         """
 
+	# if the stdout supports rgb color escape sequences
         if is_supported:
             Color.DARK_RED        = '\033[38;2;80;0;0m'        # ;R
             Color.DARK_ORANGE     = '\033[38;2;80;40;0m'       # ;G
@@ -49,7 +55,9 @@ class Color:
 
             Color.ENDC            = '\033[0m'                  # ;!
             
-            Color.true_color = True
+            Color.true_color = True  # current value
+
+	# if the stdout does not support rgb color escape sequences
         else:
             Color.DARK_RED        = '\033[38;5;88m'   # ;R
             Color.DARK_ORANGE     = '\033[38;5;130m'  # ;O
@@ -83,12 +91,45 @@ class Color:
 
             Color.ENDC            = '\033[0m'         # ;!
 
-            Color.true_color = False
+            Color.true_color = False  # current value
 
 
 def codes():
-    """Returns a string with a list of all the available
-    color names and their respective codes.
+    """ Prints a list with all the colors available, their codes and their
+    names.
+
+        If "true color" is available (see 'mode' function), then 3 other color
+    codes are added. These are "custom color codes" which allow rgb values to
+    be set, using the normal 0 to 255 integers for red, green and blue (using
+    ';='); percentages from 0 to 1 for each color value, up to 10 decimals
+    (using ';%') and finally, a simple hex code that will represent the color
+    values (using ';#').
+
+        Both ';=' and ';%' (rgb and percentage) use comma separated values,
+    which only allow up to one space before and after the comma. The value 0
+    can be omitted, though the comma must be in the color code, otherwise it
+    won't be parsed. Also, for hex values, the 0 will be filled up to the 6th
+    value if needed, meaning that having ';#ff', ';ff0', etc. will always
+    return the red color (having ';#' only, is allowed and will return black).
+
+        Color codes examples (for the 'paint' function):
+
+                        ";Rred box" -- paints "red box" in dark red.
+
+                       ";r/red box" -- paints "red box" in red and uses '/' to
+                                       force the color code to end.
+
+                       ";gggrass;!" -- paints "grass" in strong green (';gg')
+                                       and finishes the color printing.
+
+               ";=255, 0, 0red box" -- paints "red box" in red.
+
+                   ";=255,,red box" -- paints "red box" in red.
+
+  ";%0.9882352941, .5, 0.8pink box" -- paints "pink box" in pink
+
+                ";#Fc71b9/pink box" -- paints "pink box" in pink (note that
+                                       mixed casing is allowed).
 
     """
 
@@ -127,9 +168,9 @@ def codes():
 \t- "ENDC":           ;!      (end color)"""
 
     extra_string = """
-\t- "CUSTOM RGB":     ;=      (rgb)             [from 0 to 255, comma separated]
-\t- "CUSTOM RGB%":    ;%      (rgb)             [from 0\u00b710\u00b9\u2070 to 1, comma separated]
-\t- "CUSTOM HEX":     ;#      (hexadecimal)     [from 000000 to ffffff]
+\t- "CUSTOM RGB":     ;=      (rgb)         [from 0 to 255, comma separated]
+\t- "CUSTOM RGB%":    ;%      (rgb)         [from 0 to 1, comma separated]
+\t- "CUSTOM HEX":     ;#      (hexadecimal) [from 000000 to ffffff]
     """
 
     paint(help_string, out=True)
@@ -138,9 +179,12 @@ def codes():
         paint(extra_string, out=True)
 
 
-def _fix_min_max_values(number):
-    """Fixes the number if it's lower than 0 or higher than
-    255, and returns it as a string.
+def clamp(number):
+    """ Fixes the number if it's lower than 0 or higher than 255, and returns
+    it as a string.
+
+    Arguments:
+                       (int) number -- the number to fix.
 
     """
     if number < 0:
@@ -153,8 +197,12 @@ def _fix_min_max_values(number):
 
 
 def _percent_to_rgb(string):
-    """Replaces the percentages in a comma separated
-    rgb values with 0 to 255 numbers.
+    """ Replaces the percentages in a comma separated rgb values with integers
+    from 0 to 255.
+
+    Arguments:                                    
+                       (str) string -- the percentage string to be replaced by
+                                       rgb values.
 
     """
     # if it's an unfinished code (e.g. "%0.8,,", missing the last two)
@@ -172,12 +220,15 @@ def _percent_to_rgb(string):
     b = int(255 * percentages[2])
 
     # return the fixed rgb values
-    return map(_fix_min_max_values, [r, g, b])
+    return map(clamp, [r, g, b])
 
 
 def _hex_to_rgb(string):
-    """Replaces the hexadecimal rgb values with 0 to 
-    255 numbers
+    """ Replaces the hexadecimal values with integers from 0 to 255.
+
+    Arguments:
+                       (str) string -- the hex string to be replaced by rgb
+                                       values.
 
     """
     # if it's an unfinished hex (e.g. "#FF01", missing the last two)
@@ -189,11 +240,16 @@ def _hex_to_rgb(string):
     b = int(string[4:], 16)
 
     # return the fixed rgb values
-    return map(_fix_min_max_values, [r, g, b])
+    return map(clamp, [r, g, b])
 
 
 def _color_repl(matchobj):
-    """Returns the new string for a match object.
+    """ The color code replacement (with real color escape sequences) when
+    found by the regex used.
+
+    Arguments:
+            (match object) matchobj -- the matched object that the regex
+                                       returns when a color code is found.
 
     """
 
@@ -259,10 +315,11 @@ def _color_repl(matchobj):
 
 
 def _color_format(string):
-    """Returns a string that has the color codes replaced
-    by the colors needed.
-    Function arguments:
-    string -- the input string to be formatted
+    """ With regex, finds the color codes to be replaced and returns the string
+    with real color escape sequences.
+
+    Arguments:
+                       (str) string -- the input string to be formatted.
 
     """
 
@@ -279,38 +336,56 @@ def _color_format(string):
 
 
 def paint(*strings, **options):
-    """Returns a string (can be printed directly) that reads
-    and decodes color codes to make words or sentences be colored.
-    Having the option to print ('out') as False doesn't mean the string 
-    won't be returned by this function. It is always returned.
+    """ Returns and prints a string (if the 'out' argument is False, the string
+    won't be printed) that will have color codes parsed or converted to real
+    color escape sequences.
 
-    Some of the options won't affect the resulting string if the argument
-    'out' is False, because those are for printing only ('file' and
-    'flush' to be precise). The only exception is 'end', which is only
-    used when printing, for consistency.
+        Some values in the 'options' argument, won't affect the resulting
+    string because those are meant to be used if the string is printed, which
+    are 'end', 'file' and 'flush'.
 
-    A color code can end with '/' to avoid problems with strong
-    colors being accidentally used (e.g. ";rred box" would return "ed box"
-    in strong red, it should be ";r/red box"). The use of '/' at the end
-    of a color code is completely optional, but encouraged to be allways
-    used.
+        Color codes can be "closed" (not to be confused with "ended" which will
+    be explained later) with the character '/' (slash). This helps when the
+    color code is followed by the same letter (e.g. ";rred box" then returns
+    "ed box" in dark red, so to avoid this, use '/' like: ";r/red box"). It is
+    recommended to always close color codes, for readability and unwanted
+    mistakes.
 
-    Note that any unclosed color code will pass through to the next
-    string object by default. Also, color codes in the options arguments
-    will not be parsed.
+        This function allows more than one string to be given as an argument,
+    like printing does (this similarity also applies to the options, as they
+    have to be used with the key word). If a color code is not "ended", it
+    means that the color code ";!" has not been used. If that happens, then the
+    color will not pass through to the other available strings given as an
+    argument by default. To change this this, the option "overflow" can be set
+    to "True".
 
-    Finally, having "look" set to 2 (classic) won't parse custom color
-    codes.
+        Finally, it's important to know the following: for security reasons,
+    any resulting strings are returned with the ";!" color code at the
+    beggining and the end; having the 'mode' function set to 2 or 'classic'
+    (see 'mode' function) won't show and won't parse the extra 3 custom color
+    codes (see 'codes' function)
 
-    Function arguments:
-    *strings -- all the strings that need to be decoded or printed
+    Arguments:
+                      (str) *string -- one or more strings that may have color
+                                       codes.
+
     **options:
-      out -- if the result should be printed (default True)
-      overflow -- if the color codes pass through objects (default False)
-      sep -- what is used to separate the strings (default ' ')
-      end -- what is used to end the result string (default '\n')
-      file -- object with a 'write(string)' method (default sys.stdout)
-      flush -- if the stream is forcibly flushed (default False)
+                    (bool) out=True -- prints the resulting string if set to
+                                       True.
+
+              (bool) overflow=False --  let's color codes pass through other
+                                        string arguments if set to True.
+
+                      (str) sep=' ' -- used to separate the string arguments.
+
+                     (str) end='\n' -- used at the end of a string when
+                                       printed.
+
+         (file obj) file=sys.stdout -- used by the interpreter for standard
+                                       output.
+
+                 (bool) flush=False -- the stream is forcibly flushed if set
+                                       to True.
 
     """
 
@@ -350,15 +425,19 @@ def paint(*strings, **options):
     return result
 
 
-def mode(mode_type=1):
-    """This changes the overall color codes to a more "classic" feel
-    by changin to a more standard and platform supported color codes
-    and viceversa to the "new" color scheme.
+def mode(mode_type=1, out=False):
+    """ This changes the set of colors. If this module is being used in
+    Windows, then it's set to 1 or "new" beforehand, in any other case it's
+    set to 2 or "classic" by default. This is because some terminals or other
+    stdout don't have support for "true color" which is used when set to 1.
 
-    Function arguments:
-    mode_type -- this can be either 1 (or "new") for the true
-    color look and feel, or 2 (or "classic") for the old color
-    scheme (default 1)
+    Arguments:
+            (int | str) mode_type=1 -- this can be either 1 (or "new") for the
+                                       true color look and feel, or 2 (or
+                                       "classic") for the old color scheme.
+
+                   (bool) out=False -- if the change should be verbose and
+                                       printed.
 
     """
     repeated = ''
@@ -371,88 +450,167 @@ def mode(mode_type=1):
             repeated = 'were already '
 
         Color._true_color(False)
-        paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gclassic;!.')
+        return paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gclassic;!.', out=out)
     elif t == 1 or (type(t) == str and t.lower() == 'new'):
         if Color.true_color:
             repeated = 'were already '
 
         Color._true_color(True)
-        paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gnew;!.')
+        return paint(f'[ ;acolor scheme;! ] Colors {repeated}set to ;gnew;!.', out=out)
 
 
-def help(function=None):
-    """This prints a help menu with all of the commands.
+def help(fn=None):
+    """ This prints a help menu with all of the commands available.
 
-    Function arguments:
-    function -- the function to get the help menu from (default None)
+    Arguments:
+           (function | str) fn=None -- the function to get the help from.
 
     """
 
-    function_help_strings = {
-        'help' : """This prints a help menu with all of the commands for a certain function.
+    help_strings = {
+        'help' : """ This prints a help menu with all of the commands available.
 
-    Function arguments:
-    function -- the functions name (default None)
-
-    """,
-
-        'mode' : """This changes the overall color codes to a more "classic" feel by changin to a more standard and platform supported color codes.
-
-    Function arguments:
-    mode_type -- this can be either 1 (or "new") for the true color look and feel, or 2 (or "classic") for the old color scheme (default 1)
+    Arguments:
+           (function | str) fn=None -- the function to get the help from.
 
     """,
 
-        'paint' : """Returns a string (can be printed directly) that reads and decodes color codes to make words or sentences be colored. Having the option to print ('out') as False doesn't mean the string won't be returned by this function. It is always returned.
+        'mode' : """ This changes the set of colors. If this module is being used in
+    Windows, then it's set to 1 or "new" beforehand, in any other case it's
+    set to 2 or 'classic' by default. This is because some terminals or other
+    stdout don't have support for "true color" which is used when set to 1.
 
-    Some of the options won't affect the resulting string if the argument 'out' is False, because those are for printing only ('file' and 'flush' to be precise). The only exception is 'end', which is only used when printing, for consistency.
+    Arguments:
+            (int | str) mode_type=1 -- this can be either 1 (or "new") for the
+                                       true color look and feel, or 2 (or
+                                       "classic") for the old color scheme.
 
-    A color code can end with '/' to avoid problems with strong colors being accidentally used (e.g. ";rred box" would return "ed box" in strong red, it should be ";r/red box"). The use of '/' at the end of a color code is completely optional, but encouraged to be allways used.
+                   (bool) out=False -- if the change should be verbose and
+                                       printed.
 
-    Note that any unclosed color code will pass through to the next string object by default. Also, color codes in the options arguments will not be parsed.
+    """,
 
-    Finally, having "look" set to 2 (classic) won't parse custom color codes.
+        'paint' : """ Returns and prints a string (if the 'out' argument is False, the string
+    won't be printed) that will have color codes parsed or converted to real
+    color escape sequences.
 
-    Function arguments:
-    *strings -- all the strings that need to be decoded or printed
+        Some values in the 'options' argument, won't affect the resulting
+    string because those are meant to be used if the string is printed, which
+    are 'end', 'file' and 'flush'.
+
+        Color codes can be "closed" (not to be confused with "ended" which will
+    be explained later) with the character '/' (slash). This helps when the
+    color code is followed by the same letter (e.g. ";rred box" then returns
+    "ed box" in dark red, so to avoid this, use '/' like: ";r/red box"). It is
+    recommended to always close color codes, for readability and unwanted
+    mistakes.
+
+        This function allows more than one string to be given as an argument,
+    like printing does (this similarity also applies to the options, as they
+    have to be used with the key word). If a color code is not "ended", it
+    means that the color code ";!" has not been used. If that happens, then the
+    color will not pass through to the other available strings given as an
+    argument by default. To change this this, the option "overflow" can be set
+    to "True".
+
+        Finally, it's important to know the following: for security reasons,
+    any resulting strings are returned with the ";!" color code at the
+    beggining and the end; having the 'mode' function set to 2 or 'classic'
+    (see 'mode' function) won't show and won't parse the extra 3 custom color
+    codes (see 'codes' function)
+
+    Arguments:
+                      (str) *string -- one or more strings that may have color
+                                       codes.
+
     **options:
-      out -- if the result should be printed (default True)
-      overflow -- if the color codes pass through objects (default False)
-      sep -- what is used to separate the strings (default ' ')
-      end -- what is used to end the result string (default '\\n')
-      file -- object with a 'write(string)' method (default sys.stdout)
-      flush -- if the stream is forcibly flushed (default False)
+                    (bool) out=True -- prints the resulting string if set to
+                                       True.
+
+              (bool) overflow=False --  let's color codes pass through other
+                                        string arguments if set to True.
+
+                      (str) sep=' ' -- used to separate the string arguments.
+
+                     (str) end='\n' -- used at the end of a string when
+                                       printed.
+
+         (file obj) file=sys.stdout -- used by the interpreter for standard
+                                       output.
+
+                 (bool) flush=False -- the stream is forcibly flushed if set
+                                       to True.
 
     """,
 
-        'codes' : """Returns a string with a list of all the available color names and their respective codes.
+        'codes' : """ Prints a list with all the colors available, their codes and their
+    names.
+
+        If "true color" is available (see 'mode' function), then 3 other color
+    codes are added. These are "custom color codes" which allow rgb values to
+    be set, using the normal 0 to 255 integers for red, green and blue (using
+    ';='); percentages from 0 to 1 for each color value, up to 10 decimals
+    (using ';%') and finally, a simple hex code that will represent the color
+    values (using ';#').
+
+        Both ';=' and ';%' (rgb and percentage) use comma separated values,
+    which only allow up to one space before and after the comma. The value 0
+    can be omitted, though the comma must be in the color code, otherwise it
+    won't be parsed. Also, for hex values, the 0 will be filled up to the 6th
+    value if needed, meaning that having ';#ff', ';ff0', etc. will always
+    return the red color (having ';#' only, is allowed and will return black).
+
+        Color codes examples (for the 'paint' function):
+
+                        ";Rred box" -- paints "red box" in dark red.
+
+                       ";r/red box" -- paints "red box" in red and uses '/' to
+                                       force the color code to be closed.
+
+                       ";gggrass;!" -- paints "grass" in strong green (';gg')
+                                       and ends the color printing.
+
+               ";=255, 0, 0red box" -- paints "red box" in red.
+
+                   ";=255,,red box" -- paints "red box" in red.
+
+  ";%0.9882352941, .5, 0.8pink box" -- paints "pink box" in pink
+
+                ";#Fc71b9/pink box" -- paints "pink box" in pink (note that
+                                       mixed casing is allowed).
 
     """,
     }
 
-    help_string = """This module helps color coding strings with custom commands.
+    help_string = """ This module helps coloring strings with ease, by using
+    color codes. If "true color" is available, then three other color codes
+    are added which let the use of custom rgb colors.
 
-    To format a string, use the function 'paint' that will read the color codes used and format it to show the wanted colors. To see the list of color codes,  there is a function called 'codes' that will print out all the colors  available.
-    
-    You can access individual colors with the Color class. For example: 'Color.DARK_RED' will return the string corresponding to a dark red color code. 
-    
-    Finally, if colors are not being correctly displayed, the use of the 'mode' function will help using the old, classic colors that should be cross-platform.
-    
-    Functions:
-    help -- prints this message, if you put a function as argument, it will print it's help menu
+        The following are the functions available:
 
-    paint -- returns and prints* a string with the formatted colors as used according to the color codes present
+                      help(fn=None) -- prints helpful messages and guides,
+                                       where "fn" can be this module's
+                                       functions or their respective names.
 
-    codes -- prints a list of all the colors and color codes available
+                            codes() -- prints a list of all the color codes.
 
-    mode -- changes the colors to a more platform-supported terminal colors (if mode set to "classic") or to a more updated ones (if set to "new")
+          paint(*string, **options) -- returns and prints all the given strings
+                                       with the color codes parsed to the real
+                                       color escape sequences.
 
+                  mode(mode_type=1) -- changes what color set is being used,
+                                       where 1 is the same as "new" and 2 is
+                                       the same as "classic".
+        
     """
 
-    if function == None or function not in function_help_strings:
-        print('\n    ' + help_string)
+    if ((callable(fn) and fn.__name__ in help_strings)
+        or (type(fn) == str and fn in help_strings)):
+
+        print('\n\t' + help_strings[fn.__name__].strip())
+
     else:
-        print('\n    ' + function_help_strings[function].strip())
+        print('\n\t' + help_string)
 
 
 if platform.system() == 'Windows':
