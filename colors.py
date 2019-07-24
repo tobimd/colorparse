@@ -604,10 +604,11 @@ def help(fn=None):
         
     """
 
-    if ((callable(fn) and fn.__name__ in help_strings)
-        or (type(fn) == str and fn in help_strings)):
-
+    if callable(fn) and fn.__name__ in help_strings:
         print('\n\t' + help_strings[fn.__name__].strip())
+
+    elif type(fn) == str and fn in help_strings:
+        print('\n\t' + help_strings[fn].strip())
 
     else:
         print('\n\t' + help_string)
