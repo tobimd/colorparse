@@ -101,16 +101,16 @@ def codes():
         If "true color" is available (see 'mode' function), then 3 other color
     codes are added. These are "custom color codes" which allow rgb values to
     be set, using the normal 0 to 255 integers for red, green and blue (using
-    ';='); percentages from 0 to 1 for each color value, up to 10 decimals
-    (using ';%') and finally, a simple hex code that will represent the color
-    values (using ';#').
+    ";="); percentages from 0 to 1 for each color value, up to 10 decimals
+    (using ";%") and finally, a simple hex code that will represent the color
+    values (using ";#").
 
-        Both ';=' and ';%' (rgb and percentage) use comma separated values,
+        Both ";=" and ";%" (rgb and percentage) use comma separated values,
     which only allow up to one space before and after the comma. The value 0
     can be omitted, though the comma must be in the color code, otherwise it
     won't be parsed. Also, for hex values, the 0 will be filled up to the 6th
-    value if needed, meaning that having ';#ff', ';ff0', etc. will always
-    return the red color (having ';#' only, is allowed and will return black).
+    value if needed, meaning that having ";#ff", ";ff0", etc. will always
+    return the red color (having ";#" only, is allowed and will return black).
 
         Color codes examples (for the 'paint' function):
 
@@ -119,7 +119,7 @@ def codes():
                        ";r/red box" -- paints "red box" in red and uses '/' to
                                        force the color code to end.
 
-                       ";gggrass;!" -- paints "grass" in strong green (';gg')
+                       ";gggrass;!" -- paints "grass" in strong green (";gg")
                                        and finishes the color printing.
 
                ";=255, 0, 0red box" -- paints "red box" in red.
@@ -336,13 +336,13 @@ def _color_format(string):
 
 
 def paint(*strings, **options):
-    """ Returns and prints a string (if the 'out' argument is False, the string
+    """ Returns and prints a string (if the "out" argument is False, the string
     won't be printed) that will have color codes parsed or converted to real
     color escape sequences.
 
-        Some values in the 'options' argument, won't affect the resulting
+        Some values in the "options" argument, won't affect the resulting
     string because those are meant to be used if the string is printed, which
-    are 'end', 'file' and 'flush'.
+    are "end", "file" and "flush".
 
         Color codes can be "closed" (not to be confused with "ended" which will
     be explained later) with the character '/' (slash). This helps when the
@@ -361,7 +361,7 @@ def paint(*strings, **options):
 
         Finally, it's important to know the following: for security reasons,
     any resulting strings are returned with the ";!" color code at the
-    beggining and the end; having the 'mode' function set to 2 or 'classic'
+    beggining and the end; having the 'mode' function set to 2 or "classic"
     (see 'mode' function) won't show and won't parse the extra 3 custom color
     codes (see 'codes' function)
 
@@ -376,9 +376,9 @@ def paint(*strings, **options):
               (bool) overflow=False --  let's color codes pass through other
                                         string arguments if set to True.
 
-                      (str) sep=' ' -- used to separate the string arguments.
+                      (str) sep=" " -- used to separate the string arguments.
 
-                     (str) end='\n' -- used at the end of a string when
+                     (str) end="\n" -- used at the end of a string when
                                        printed.
 
          (file obj) file=sys.stdout -- used by the interpreter for standard
@@ -477,7 +477,7 @@ def help(fn=None):
 
         'mode' : """ This changes the set of colors. If this module is being used in
     Windows, then it's set to 1 or "new" beforehand, in any other case it's
-    set to 2 or 'classic' by default. This is because some terminals or other
+    set to 2 or "classic" by default. This is because some terminals or other
     stdout don't have support for "true color" which is used when set to 1.
 
     Arguments:
@@ -490,13 +490,13 @@ def help(fn=None):
 
     """,
 
-        'paint' : """ Returns and prints a string (if the 'out' argument is False, the string
+        'paint' : """ Returns and prints a string (if the "out" argument is False, the string
     won't be printed) that will have color codes parsed or converted to real
     color escape sequences.
 
-        Some values in the 'options' argument, won't affect the resulting
+        Some values in the "options" argument, won't affect the resulting
     string because those are meant to be used if the string is printed, which
-    are 'end', 'file' and 'flush'.
+    are "end", "file" and "flush".
 
         Color codes can be "closed" (not to be confused with "ended" which will
     be explained later) with the character '/' (slash). This helps when the
@@ -515,7 +515,7 @@ def help(fn=None):
 
         Finally, it's important to know the following: for security reasons,
     any resulting strings are returned with the ";!" color code at the
-    beggining and the end; having the 'mode' function set to 2 or 'classic'
+    beggining and the end; having the 'mode' function set to 2 or "classic"
     (see 'mode' function) won't show and won't parse the extra 3 custom color
     codes (see 'codes' function)
 
@@ -530,9 +530,9 @@ def help(fn=None):
               (bool) overflow=False --  let's color codes pass through other
                                         string arguments if set to True.
 
-                      (str) sep=' ' -- used to separate the string arguments.
+                      (str) sep=" " -- used to separate the string arguments.
 
-                     (str) end='\\n' -- used at the end of a string when
+                     (str) end="\\n" -- used at the end of a string when
                                        printed.
 
          (file obj) file=sys.stdout -- used by the interpreter for standard
@@ -549,16 +549,16 @@ def help(fn=None):
         If "true color" is available (see 'mode' function), then 3 other color
     codes are added. These are "custom color codes" which allow rgb values to
     be set, using the normal 0 to 255 integers for red, green and blue (using
-    ';='); percentages from 0 to 1 for each color value, up to 10 decimals
-    (using ';%') and finally, a simple hex code that will represent the color
-    values (using ';#').
+    ";="); percentages from 0 to 1 for each color value, up to 10 decimals
+    (using ";%") and finally, a simple hex code that will represent the color
+    values (using ";#").
 
-        Both ';=' and ';%' (rgb and percentage) use comma separated values,
+        Both ";=" and ";%" (rgb and percentage) use comma separated values,
     which only allow up to one space before and after the comma. The value 0
     can be omitted, though the comma must be in the color code, otherwise it
     won't be parsed. Also, for hex values, the 0 will be filled up to the 6th
-    value if needed, meaning that having ';#ff', ';ff0', etc. will always
-    return the red color (having ';#' only, is allowed and will return black).
+    value if needed, meaning that having ";#ff", ";ff0", etc. will always
+    return the red color (having ";#" only, is allowed and will return black).
 
         Color codes examples (for the 'paint' function):
 
@@ -567,7 +567,7 @@ def help(fn=None):
                        ";r/red box" -- paints "red box" in red and uses '/' to
                                        force the color code to be closed.
 
-                       ";gggrass;!" -- paints "grass" in strong green (';gg')
+                       ";gggrass;!" -- paints "grass" in strong green (";gg")
                                        and ends the color printing.
 
                ";=255, 0, 0red box" -- paints "red box" in red.
