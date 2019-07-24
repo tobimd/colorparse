@@ -158,7 +158,7 @@ def codes():
 \t- ";bbSTRONG_BLUE;!":    ;bb     (strong blue)
 \t- ";mmSTRONG_MAGENTA;!": ;mm     (strong magenta)
 \t- ";ccSTRONG_CYAN;!":    ;cc     (strong cyan)
-	
+
 \t- ";kBLACK;!":          ;k      (black)
 \t- ";ADARK_GRAY;!":      ;A      (dark gray)
 \t- ";aGRAY;!":           ;a      (gray)
