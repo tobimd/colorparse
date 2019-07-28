@@ -126,30 +126,30 @@ class _Foreground:
             self.PURPLE          = '\033[38;5;57m'   # ;p
             self.MAGENTA         = '\033[38;5;127m'  # ;m
 
-            self.STRONG_RED      = '\033[38;5;9m'    # ;rr
+            self.STRONG_RED      = '\033[38;5;196m'    # ;rr
             self.STRONG_ORANGE   = '\033[38;5;202m'  # ;oo
-            self.STRONG_YELLOW   = '\033[38;5;11m'   # ;yy
-            self.STRONG_GREEN    = '\033[38;5;10m'   # ;gg                
-            self.STRONG_CYAN     = '\033[38;5;14m'   # ;cc
+            self.STRONG_YELLOW   = '\033[38;5;226m'   # ;yy
+            self.STRONG_GREEN    = '\033[38;5;82m'   # ;gg                
+            self.STRONG_CYAN     = '\033[38;5;45m'   # ;cc
             self.STRONG_BLUE     = '\033[38;5;21m'   # ;bb
             self.STRONG_PURPLE   = '\033[38;5;93m'   # ;pp
-            self.STRONG_MAGENTA  = '\033[38;5;13m'   # ;mm
+            self.STRONG_MAGENTA  = '\033[38;5;200m'   # ;mm
 
-            self.BLACK           = '\033[38;5;0m'    # ;k
+            self.BLACK           = '\033[38;5;232m'    # ;k
             self.DARK_GRAY       = '\033[38;5;238m'  # ;A
             self.GRAY            = '\033[38;5;244m'  # ;a
             self.LIGHT_GRAY      = '\033[38;5;250m'  # ;aa
-            self.WHITE           = '\033[38;5;15m'   # ;w
+            self.WHITE           = '\033[38;5;256m'   # ;w
 
 
 class _Background:
     def __init__(self):
-        self.DARK_RED        = '\033[48;5;52m'   # :R
+        self.DARK_RED        = '\033[48;5;88m'   # :R
         self.DARK_ORANGE     = '\033[48;5;130m'  # :O
         self.DARK_YELLOW     = '\033[48;5;142m'  # :Y
         self.DARK_GREEN      = '\033[48;5;22m'   # :G
         self.DARK_CYAN       = '\033[48;5;31m'   # :C
-        self.DARK_BLUE       = '\033[48;5;4m'    # :B
+        self.DARK_BLUE       = '\033[48;5;19m'    # :B
         self.DARK_PURPLE     = '\033[48;5;54m'   # :P
         self.DARK_MAGENTA    = '\033[48;5;127m'  # :M
 
@@ -159,23 +159,23 @@ class _Background:
         self.GREEN           = '\033[48;5;34m'   # :g
         self.CYAN            = '\033[48;5;45m'   # :c
         self.BLUE            = '\033[48;5;27m'   # :b
-        self.PURPLE          = '\033[48;5;57m'   # :p
+        self.PURPLE          = '\033[48;5;93m'   # :p
         self.MAGENTA         = '\033[48;5;165m'  # :m
 
-        self.STRONG_RED      = '\033[48;5;9m'    # :rr
+        self.STRONG_RED      = '\033[48;5;196m'    # :rr
         self.STRONG_ORANGE   = '\033[48;5;202m'  # :oo
-        self.STRONG_YELLOW   = '\033[48;5;11m'   # :yy
-        self.STRONG_GREEN    = '\033[48;5;10m'   # :gg
-        self.STRONG_CYAN     = '\033[48;5;14m'   # :cc
-        self.STRONG_BLUE     = '\033[48;5;12m'   # :bb
-        self.STRONG_PURPLE   = '\033[48;5;93m'   # :pp
-        self.STRONG_MAGENTA  = '\033[48;5;13m'   # :mm
+        self.STRONG_YELLOW   = '\033[48;5;226m'   # :yy
+        self.STRONG_GREEN    = '\033[48;5;82m'   # :gg
+        self.STRONG_CYAN     = '\033[48;5;45m'   # :cc
+        self.STRONG_BLUE     = '\033[48;5;21m'   # :bb
+        self.STRONG_PURPLE   = '\033[48;5;128m'   # :pp
+        self.STRONG_MAGENTA  = '\033[48;5;200m'   # :mm
 
-        self.BLACK           = '\033[48;5;0m'    # :k
+        self.BLACK           = '\033[48;5;232m'    # :k
         self.DARK_GRAY       = '\033[48;5;238m'  # :A
         self.GRAY            = '\033[48;5;244m'  # :a
         self.LIGHT_GRAY      = '\033[48;5;250m'  # :aa
-        self.WHITE           = '\033[48;5;15m'   # :w
+        self.WHITE           = '\033[48;5;255m'   # :w
 
 
 def _clamp(number):
@@ -355,7 +355,7 @@ def codes():
 
     paint(help_string, out=True)
 
-    if Color.true_colo():
+    if Color.true_color():
         paint(extra_string, out=True)
 
 
@@ -365,6 +365,19 @@ def change_defaults(fn, **kwargs):
 
     for k, v in kwargs.items():
         getattr(_Defaults, fn)[k] = v
+
+
+def all_colors(type='foreground'):
+    if type.lower() == 'foreground':
+        n = '38'
+    else:
+        n = '48'
+
+    for i in range(16):
+        for j in range(16):
+            c = str(i * 16 + j)
+            print(f'\033[{n};5;{c}m{c.ljust(4)}', end='')
+        print('\033[0m')
 
 
 Color()
