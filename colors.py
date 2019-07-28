@@ -7,7 +7,7 @@ import re
 __version__ = '0.0.0'
 
 
-class Defaults:
+class _Defaults:
     paint = {
         'out': True,
         'overflow': False,
@@ -16,8 +16,6 @@ class Defaults:
         'file': sys.stdout,
         'flush': False,
     }
-
-    _custom_codes = r''
 
     _color_list = {
         'rr': 'DARK_RED',
@@ -59,7 +57,7 @@ class Color:
 
         cls.foreground = _Foreground(False)
         cls.background = _Background()
-        cls.true_color(False)
+        cls.true_color(True)
 
     @classmethod
     def true_color(cls, value=None):
@@ -70,41 +68,37 @@ class Color:
         cls._true_color_active = value
         cls.foreground = _Foreground(value)
 
-    @classmethod
-    def define_color(cls, code, value):
-        pass
-
 
 class _Foreground:
     def __init__(self, true_color):
 	    # if the stdout does support rgb color escape sequences
         if true_color:
-            self.DARK_RED        = '\033[38;2;80;0;0m'        # ;R
-            self.DARK_ORANGE     = '\033[38;2;80;40;0m'       # ;O
-            self.DARK_YELLOW     = '\033[38;2;87;74;0m'       # ;Y
+            self.DARK_RED        = '\033[38;2;130;0;0m'       # ;R
+            self.DARK_ORANGE     = '\033[38;2;160;50;0m'      # ;O
+            self.DARK_YELLOW     = '\033[38;2;150;120;0m'     # ;Y
             self.DARK_GREEN      = '\033[38;2;0;80;0m'        # ;G
-            self.DARK_CYAN       = '\033[38;2;0;80;110m'      # ;C
-            self.DARK_BLUE       = '\033[38;2;0;30;100m'      # ;B
-            self.DARK_PURPLE     = '\033[38;2;0;30;100m'      # ;P
-            self.DARK_MAGENTA    = '\033[38;2;50;0;70m'       # ;M
+            self.DARK_CYAN       = '\033[38;2;0;120;130m'     # ;C
+            self.DARK_BLUE       = '\033[38;2;20;50;130m'     # ;B
+            self.DARK_PURPLE     = '\033[38;2;90;0;150m'      # ;P
+            self.DARK_MAGENTA    = '\033[38;2;130;0;100m'     # ;M
 
-            self.RED             = '\033[38;2;150;0;0m'       # ;r
-            self.ORANGE          = '\033[38;2;170;70;0m'      # ;o
-            self.YELLOW          = '\033[38;2;150;130;0m'     # ;y
+            self.RED             = '\033[38;2;180;0;0m'       # ;r
+            self.ORANGE          = '\033[38;2;200;90;0m'      # ;o
+            self.YELLOW          = '\033[38;2;190;170;0m'     # ;y
             self.GREEN           = '\033[38;2;0;150;0m'       # ;g
             self.CYAN            = '\033[38;2;0;190;200m'     # ;c
-            self.BLUE            = '\033[38;2;0;40;180m'      # ;b
-            self.CYAN            = '\033[38;2;0;190;200m'     # ;p
-            self.MAGENTA         = '\033[38;2;140;0;180m'     # ;m
+            self.BLUE            = '\033[38;2;0;70;255m'      # ;b
+            self.PURPLE          = '\033[38;2;100;0;180m'     # ;p
+            self.MAGENTA         = '\033[38;2;190;0;150m'     # ;m
 
             self.STRONG_RED      = '\033[38;2;255;0;0m'       # ;rr
-            self.STRONG_ORANGE   = '\033[38;2;255;100;0m'     # ;oo
+            self.STRONG_ORANGE   = '\033[38;2;255;150;0m'     # ;oo
             self.STRONG_YELLOW   = '\033[38;2;255;255;0m'     # ;yy
-            self.STRONG_GREEN    = '\033[38;2;80;255;15m'     # ;gg
+            self.STRONG_GREEN    = '\033[38;2;0;255;0m'       # ;gg
             self.STRONG_CYAN     = '\033[38;2;0;255;255m'     # ;cc
             self.STRONG_BLUE     = '\033[38;2;0;20;255m'      # ;bb
-            self.STRONG_CYAN     = '\033[38;2;0;255;255m'     # ;pp
-            self.STRONG_MAGENTA  = '\033[38;2;200;0;255m'     # ;mm
+            self.STRONG_PURPLE   = '\033[38;2;150;0;255m'     # ;pp
+            self.STRONG_MAGENTA  = '\033[38;2;225;0;225m'     # ;mm
 
             self.BLACK           = '\033[38;2;0;0;0m'         # ;k
             self.DARK_GRAY       = '\033[38;2;70;70;70m'      # ;A
@@ -119,8 +113,8 @@ class _Foreground:
             self.DARK_YELLOW     = '\033[38;5;142m'  # ;Y
             self.DARK_GREEN      = '\033[38;5;22m'   # ;G
             self.DARK_CYAN       = '\033[38;5;31m'   # ;C
-            self.DARK_BLUE       = '\033[38;5;17m'   # ;B
-            self.DARK_PURPLE     = '\033[38;5;53m'   # ;P
+            self.DARK_BLUE       = '\033[38;5;24m'   # ;B
+            self.DARK_PURPLE     = '\033[38;5;54m'   # ;P
             self.DARK_MAGENTA    = '\033[38;5;90m'   # ;M
 
             self.RED             = '\033[38;5;124m'  # ;r
@@ -129,17 +123,17 @@ class _Foreground:
             self.GREEN           = '\033[38;5;34m'   # ;g
             self.CYAN            = '\033[38;5;39m'   # ;c
             self.BLUE            = '\033[38;5;27m'   # ;b
-            self.PURPLE          = '\033[38;5;55m'   # ;p
+            self.PURPLE          = '\033[38;5;57m'   # ;p
             self.MAGENTA         = '\033[38;5;127m'  # ;m
 
-            self.STRONG_RED      = '\033[38;5;196m'  # ;rr
+            self.STRONG_RED      = '\033[38;5;9m'    # ;rr
             self.STRONG_ORANGE   = '\033[38;5;202m'  # ;oo
-            self.STRONG_YELLOW   = '\033[38;5;226m'  # ;yy
-            self.STRONG_GREEN    = '\033[38;5;46m'   # ;gg                
-            self.STRONG_CYAN     = '\033[38;5;51m'   # ;cc
+            self.STRONG_YELLOW   = '\033[38;5;11m'   # ;yy
+            self.STRONG_GREEN    = '\033[38;5;10m'   # ;gg                
+            self.STRONG_CYAN     = '\033[38;5;14m'   # ;cc
             self.STRONG_BLUE     = '\033[38;5;21m'   # ;bb
-            self.STRONG_PURPLE   = '\033[38;5;57m'   # ;pp
-            self.STRONG_MAGENTA  = '\033[38;5;13m'  # ;mm
+            self.STRONG_PURPLE   = '\033[38;5;93m'   # ;pp
+            self.STRONG_MAGENTA  = '\033[38;5;13m'   # ;mm
 
             self.BLACK           = '\033[38;5;0m'    # ;k
             self.DARK_GRAY       = '\033[38;5;238m'  # ;A
@@ -151,31 +145,31 @@ class _Foreground:
 class _Background:
     def __init__(self):
         self.DARK_RED        = '\033[48;5;52m'   # :R
-        self.DARK_ORANGE     = '\033[48;5;94m'   # :O
+        self.DARK_ORANGE     = '\033[48;5;130m'  # :O
         self.DARK_YELLOW     = '\033[48;5;142m'  # :Y
         self.DARK_GREEN      = '\033[48;5;22m'   # :G
         self.DARK_CYAN       = '\033[48;5;31m'   # :C
         self.DARK_BLUE       = '\033[48;5;4m'    # :B
-        self.DARK_PURPLE     = '\033[48;5;31m'   # :P
-        self.DARK_MAGENTA    = '\033[48;5;54m'   # :M
+        self.DARK_PURPLE     = '\033[48;5;54m'   # :P
+        self.DARK_MAGENTA    = '\033[48;5;127m'  # :M
 
         self.RED             = '\033[48;5;124m'  # :r
-        self.ORANGE          = '\033[48;5;130m'  # :o
+        self.ORANGE          = '\033[48;5;166m'  # :o
         self.YELLOW          = '\033[48;5;184m'  # :y
         self.GREEN           = '\033[48;5;34m'   # :g
         self.CYAN            = '\033[48;5;45m'   # :c
         self.BLUE            = '\033[48;5;27m'   # :b
-        self.PURPLE          = '\033[48;5;45m'   # :p
-        self.MAGENTA         = '\033[48;5;127m'  # :m
+        self.PURPLE          = '\033[48;5;57m'   # :p
+        self.MAGENTA         = '\033[48;5;165m'  # :m
 
-        self.STRONG_RED      = '\033[48;5;196m'  # :rr
+        self.STRONG_RED      = '\033[48;5;9m'    # :rr
         self.STRONG_ORANGE   = '\033[48;5;202m'  # :oo
-        self.STRONG_YELLOW   = '\033[48;5;190m'  # :yy
-        self.STRONG_GREEN    = '\033[48;5;46m'   # :gg
+        self.STRONG_YELLOW   = '\033[48;5;11m'   # :yy
+        self.STRONG_GREEN    = '\033[48;5;10m'   # :gg
         self.STRONG_CYAN     = '\033[48;5;14m'   # :cc
-        self.STRONG_BLUE     = '\033[48;5;21m'   # :bb
-        self.STRONG_PURPLE   = '\033[48;5;14m'   # :pp
-        self.STRONG_MAGENTA  = '\033[48;5;201m'  # :mm
+        self.STRONG_BLUE     = '\033[48;5;12m'   # :bb
+        self.STRONG_PURPLE   = '\033[48;5;93m'   # :pp
+        self.STRONG_MAGENTA  = '\033[48;5;13m'   # :mm
 
         self.BLACK           = '\033[48;5;0m'    # :k
         self.DARK_GRAY       = '\033[48;5;238m'  # :A
@@ -187,6 +181,9 @@ class _Background:
 def _clamp(number):
     if number == '':
         number = 0
+
+    if type(number) == str:
+        number = int(number)
 
     if number < 0:
         number = 0
@@ -226,32 +223,35 @@ def _color_repl(matchobj):
 
     # foreground color code
     elif col_type == ';':
-        return getattr(Color.foreground, Defaults._color_list[col_val])
+        return getattr(Color.foreground, _Defaults._color_list[col_val])
 
     # background color code
     else:
-        return getattr(Color.background, Defaults._color_list[col_val])
+        return getattr(Color.background, _Defaults._color_list[col_val])
 
 
 def _color_format(string):
     # a failed attempt to make this a less convoluted regex
-    pre = r'((\[(?=[^/\)]+\]))\s*|(\((?=[^/\]]+\)))\s*|/)?((?:(;)|(:))'
+    prefix = r'((\[(?=[^/\)]+\]))\s*|(\((?=[^/\]]+\)))\s*|/)?((?:(;)|(:))'
     color = r'(;|:|[ROYGCBPMkAw]|([roygcbpma])\8?'
     rgb = r'|(?(5)(= ?\d{0,3}\s?,\s?\d{0,3}\s?,\s?\d{0,3}'
     hex_rgb = r'|# ?[0-9A-Fa-f]{0,6})|\5)'
-    cstm = Defaults._custom_codes
     suffix = r'))(/|(?(2)\s*\]|(?(3)\s*\))))?'
 
     # set regex to use (with true color, use custom color codes)
     if Color._true_color_active:
-        regex = f'{pre}{color}{rgb}{hex_rgb}{cstm}{suffix}'
-        endc_regex = f'{pre}{color}{rgb}{hex_rgb}{suffix}'
+        regex = f'{prefix}{color}{rgb}{hex_rgb}{suffix}'
+        endc_regex = f'{prefix}{color}{rgb}{hex_rgb}{suffix}'
 
     else:
-        regex = f'{pre}{color}{suffix}'
-        endc_regex = f'{pre}{color}|;|:{suffix}'
+        regex = f'{prefix}{color}{suffix}'
+        endc_regex = f'{prefix}{color}|;|:{suffix}'
 
-    while ';;' in string or '::' in string: 
+    while ';;' in string or '::' in string:
+        if ';::' in string or ':;;' in string:
+            string = string.replace(';::', '[;:]:')
+            string = string.replace(':;;', '[;:];')
+
         codes = re.finditer(endc_regex, string)
         saved = []
         for matchobj in codes:
@@ -277,19 +277,17 @@ def _color_format(string):
 
 
 def paint(*strings, **options):
-
     # get the options' arguments
-    _out = options.get('out', Defaults.paint['out'])
-    _overflow = options.get('overflow', Defaults.paint['overflow'])
-    _sep = options.get('sep', Defaults.paint['sep'])
-    _end = options.get('end', Defaults.paint['end'][_out])
-    _file = options.get('file', Defaults.paint['file'])
-    _flush = options.get('flush', Defaults.paint['flush'])
-
-    result = ''
+    _out = options.get('out', _Defaults.paint['out'])
+    _overflow = options.get('overflow', _Defaults.paint['overflow'])
+    _sep = options.get('sep', _Defaults.paint['sep'])
+    _end = options.get('end', _Defaults.paint['end'][_out])
+    _file = options.get('file', _Defaults.paint['file'])
+    _flush = options.get('flush', _Defaults.paint['flush'])
 
     # if overflow is true, then color the strings as one
     if _overflow:
+        value = strings + _Defaults.paint['end'][False]
         result = _color_format(_sep.join(strings))
     
     # else, colors one by one and the join them
@@ -297,60 +295,61 @@ def paint(*strings, **options):
         formatted_strings = []
 
         for string in strings:
-            formatted_strings.append(_color_format(string))
+            value = string + _Defaults.paint['end'][False]
+            formatted_strings.append(_color_format(value))
         
         result = _sep.join(formatted_strings)
 
     # if out is True, then print
-    if _out:
+    if _out or _out is None:
         print(result, end=_end, file=_file, flush=_flush)
 
-    return result
+    # if out is not None, then return
+    if _out is not None:
+        return result
 
 
 def codes():
-    help_string = []
+    help_string = """
+ [background] [foreground] [code]   [name]
+   "(;w):(;a)<code>(;:)"   "(;w);(;a)<code>(;:)"\n
+   [:rr]        [;:]     [;rr]red     [;:]     [;w]rr[;:]   (DARK_RED)
+   [:oo]        [;:]     [;oo]orange  [;:]     [;w]oo[;:]   (DARK_ORANGE)
+   [:yy]        [;:]     [;yy]yellow  [;:]     [;w]yy[;:]   (DARK_YELLOW)
+   [:gg]        [;:]     [;gg]green   [;:]     [;w]gg[;:]   (DARK_GREEN)
+   [:cc]        [;:]     [;cc]cyan    [;:]     [;w]cc[;:]   (DARK_CYAN)
+   [:bb]        [;:]     [;bb]blue    [;:]     [;w]bb[;:]   (DARK_BLUE)
+   [:pp]        [;:]     [;pp]purple  [;:]     [;w]pp[;:]   (DARK_PURPLE)
+   [:mm]        [;:]     [;mm]magenta [;:]     [;w]mm[;:]   (DARK_MAGENTA)
 
-    for code in Defaults._color_list.keys():
-        pass
+   [:r ]        [;:]     [;r ]red     [;:]     [;w]r [;:]   (RED)
+   [:o ]        [;:]     [;o ]orange  [;:]     [;w]o [;:]   (ORANGE)
+   [:y ]        [;:]     [;y ]yellow  [;:]     [;w]y [;:]   (YELLOW)
+   [:g ]        [;:]     [;g ]green   [;:]     [;w]g [;:]   (GREEN)
+   [:c ]        [;:]     [;c ]cyan    [;:]     [;w]c [;:]   (CYAN)
+   [:b ]        [;:]     [;b ]blue    [;:]     [;w]b [;:]   (BLUE)
+   [:p ]        [;:]     [;p ]purple  [;:]     [;w]p [;:]   (PURPLE)
+   [:m ]        [;:]     [;m ]magenta [;:]     [;w]m [;:]   (MAGENTA)
 
-    help_string = """The following are the color codes: 
-\t  < colors >     < code >   < name >
-\t- ";RDARK_RED;!":       ;R      (dark red)
-\t- ";ODARK_ORANGE;!":    ;O      (dark orange)
-\t- ";GDARK_GREEN;!":     ;G      (dark green)
-\t- ";YDARK_YELLOW;!":    ;Y      (dark yellow)
-\t- ";BDARK_BLUE;!":      ;B      (dark blue)
-\t- ";MDARK_MAGENTA;!":   ;M      (dark magenta)
-\t- ";CDARK_CYAN;!":      ;C      (dark cyan)
+   [:R ]        [;:]     [;R ]red     [;:]     [;w]R [;:]   (STRONG_RED)
+   [:O ]        [;:]     [;O ]orange  [;:]     [;w]O [;:]   (STRONG_ORANGE)
+   [:Y ]        [;:]     [;Y ]yellow  [;:]     [;w]Y [;:]   (STRONG_YELLOW)
+   [:G ]        [;:]     [;G ]green   [;:]     [;w]G [;:]   (STRONG_GREEN)
+   [:C ]        [;:]     [;C ]cyan    [;:]     [;w]C [;:]   (STRONG_CYAN)
+   [:B ]        [;:]     [;B ]blue    [;:]     [;w]B [;:]   (STRONG_BLUE)
+   [:P ]        [;:]     [;P ]purple  [;:]     [;w]P [;:]   (STRONG_PURPLE)
+   [:M ]        [;:]     [;M ]magenta [;:]     [;w]M [;:]   (STRONG_MAGENTA)
 
-\t- ";rRED;!":            ;r      (red)
-\t- ";oORANGE;!":         ;o      (orange)
-\t- ";gGREEN;!":          ;g      (green)
-\t- ";yYELLOW;!":         ;y      (yellow)
-\t- ";bBLUE;!":           ;b      (blue)
-\t- ";mMAGENTA;!":        ;m      (magenta)
-\t- ";cCYAN;!":           ;c      (cyan)
+   [:k ]        [;:]    [;k ]black     [;:]    [;w]k [;:]   (BLACK)
+   [:aa]        [;:]    [;aa]dark gray [;:]    [;w]aa[;:]   (DARK_GRAY)
+   [:a ]        [;:]    [;a ]gray      [;:]    [;w]a [;:]   (GRAY)
+   [:A ]        [;:]    [;A ]light gray[;:]    [;w]A [;:]   (LIGHT_GRAY)
+   [:w ]        [;:]    [;w ]white     [;:]    [;w]w [;:]   (WHITE)
 
-\t- ";rrSTRONG_RED;!":     ;rr     (strong red)
-\t- ";ooSTRONG_ORANGE;!":  ;oo     (strong orange)
-\t- ";ggSTRONG_GREEN;!":   ;gg     (strong green)
-\t- ";yySTRONG_YELLOW;!":  ;yy     (strong yellow)
-\t- ";bbSTRONG_BLUE;!":    ;bb     (strong blue)
-\t- ";mmSTRONG_MAGENTA;!": ;mm     (strong magenta)
-\t- ";ccSTRONG_CYAN;!":    ;cc     (strong cyan)
-
-\t- ";kBLACK;!":          ;k      (black)
-\t- ";ADARK_GRAY;!":      ;A      (dark gray)
-\t- ";aGRAY;!":           ;a      (gray)
-\t- ";aaLIGHT_GRAY;!":     ;aa     (light gray)
-\t- ";wWHITE;!":          ;w      (white)
-
-\t- "ENDC":           ;!      (end color)"""
+               end color     [;w];:[;:]   (ENDC)"""
 
     extra_string = """
 \t- "CUSTOM RGB":     ;=      (rgb)         [from 0 to 255, comma separated]
-\t- "CUSTOM RGB%":    ;%      (rgb)         [from 0 to 1, comma separated]
 \t- "CUSTOM HEX":     ;#      (hexadecimal) [from 000000 to ffffff]
     """
 
@@ -359,6 +358,13 @@ def codes():
     if Color._true_color_active:
         paint(extra_string, out=True)
 
+
+def change_defaults(fn, **kwargs):
+    if callable(fn):
+        fn = fn.__name__
+
+    for k, v in kwargs.items():
+        getattr(_Defaults, fn)[k] = v
 
 
 Color()
