@@ -57,7 +57,7 @@ class Color:
 
         cls.foreground = _Foreground(False)
         cls.background = _Background()
-        cls.true_color(True)
+        cls.true_color(False)
 
     @classmethod
     def true_color(cls, value=None):
@@ -355,7 +355,7 @@ def codes():
 
     paint(help_string, out=True)
 
-    if Color._true_color_active:
+    if Color.true_colo():
         paint(extra_string, out=True)
 
 
