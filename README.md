@@ -36,8 +36,8 @@ When importing `colorparse`, the function `paint` is the most important one. Thi
 
 The following functions are the ones that can be used when importing this module:
 
-- **paint:**
-
+---
+### paint:
 `paint(string, ..., print=True, ret=True, overflow=False, sep=' ', end='\n', file=sys.stdout, flush=False)`
 `paint(*string, **options)`
 
@@ -49,11 +49,32 @@ Example:
 
   ![python example using the `paint` funciton](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
 
-- **codes:**
+---
+### codes:
 `codes()`
 
 Prints a list of all the color codes available. It shows the background, foreground, code and the name of each color code.
 
+---
+### true_color:
+`true_color(value=None)`
+
+There are two available options for how to colors are printed. When `true_color` is set to `True`, it means that the set of foreground colors will be using direct *rgb* values for each ANSI escape sequence. Note that background colors do not support this funcitonallity, so even if you have `true_color` active, background colors will always look the same. Be warned, that not all terminals support true color (this way, it's set to `False` at the beggining of the program by default).
+
+If no value is given, then the current state is returned (returns if true color is active or not)
+
+---
+### change_defaults:
+`change_defaults(fn, key=value, ...)`
+`change_defaults(fn, **kwargs)`
+
+This can be used at the beggining of the program, to set the default values permanently for the rest of it. This way one can avoid setting the values for the function options (like in `paint`) each time it's used.
+
+The argument `fn` can be the exact function or the function's name as a string. This was designed for future pruposes as more functions may be added with time.
+
+Example:
+
+![python example using the `change_defaults` funciton](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_2.png)
 
 # Usage in terminal
 
