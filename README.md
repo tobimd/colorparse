@@ -36,10 +36,12 @@ When importing `colorparse`, the function `paint` is the most important one. Thi
 
 The following functions are the ones that can be used when importing this module:
 
+---
 
 `paint(string, ..., print=True, ret=True, overflow=False, sep=' ', end='\n', file=sys.stdout, flush=False)`
 
 `paint(*string, **options)`
+
 
 Returns a string that will have color codes converted to real ANSI color escape sequences (if `print` is `False`, then the string won't be printed and the arguments: `end`, `file` and `flush` won't be considered whatever their values may be, because those are for printing purposes only). The returned and/or printed string will always end all color codes, returning to normal even if they were already ended. Having `ret` as `False` will not return a string, though it's normally unnecessary to change this value.
 
@@ -48,16 +50,16 @@ If there is more than one string given as argument, then having `overflow` as `T
 Example:
 
   ![python example using the `paint` function](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
+ 
 
-
-
+---
 
 `codes()`
 
 Prints a list of all the color codes available. It shows the background, foreground, code and the name of each color code.
 
 
-
+---
 
 `true_color(value=None)`
 
@@ -66,8 +68,10 @@ There are two available options for how to colors are printed. When `true_color`
 If no value is given, then the current state is returned (returns if true color is active or not)
 
 
+---
 
 `change_defaults(fn, key=value, ...)`
+
 `change_defaults(fn, **kwargs)`
 
 This can be used at the beggining of the program, to set the default values permanently for the rest of it. This way one can avoid setting the values for the function options (like in `paint`) each time it's used.
