@@ -1,5 +1,7 @@
 # color.py module
 
+__in progress__
+
 ### contents:
-- `color.py`: the module, that shall be imported and used as needed
-- `color`: the script to be ran when using *color* on the terminal
+- `colorparse.py`: the module, that shall be imported and used as needed
+- `colorparse`: the script to be ran when using *color* on the terminal
