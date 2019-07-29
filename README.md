@@ -4,9 +4,16 @@ _current version: v0.0.1_
 
 This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
-Colorparse will simplify the work by reading it's self-defined `color codes` inside the strings (e.g. " ;r " will produce the color red).
+Colorparse will simplify the work by reading it's self-defined "*color codes*" inside the strings (e.g. " ;r " will produce the color red).
 
-# Content
+# Index
+- [Installation](https://github.com/tubi-carrillo/colorparse#installation)
+- [Use as an imported module](https://github.com/tubi-carrillo/colorparse#use-as-imported-module)
+- [Use in terminal](https://github.com/tubi-carrillo/colorparse#use-in-terminal)
+- [Color codes](https://github.com/tubi-carrillo/colorparse#color-codes)
+- [Further reading](https://github.com/tubi-carrillo/colorparse#further-reading)
+
+# Installation
 
 # Using colorparse as an imported module
 
@@ -27,7 +34,7 @@ Color codes can be "*ended*" (or "*finished*") which means that after a certain 
 
 Finally, color codes can also be escaped with a "\\" (backslash) to make the program ignore it.
 
-# Using colorpase in terminal
+# Using colorpase in the terminal
 
 # Color codes
 
