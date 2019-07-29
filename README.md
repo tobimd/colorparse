@@ -1,4 +1,4 @@
-# color.py module
+# colorparse.py module
 
 __in progress__
 
