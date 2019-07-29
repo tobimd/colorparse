@@ -110,8 +110,8 @@ optional arguments:
                         end of said file.
   -o, --overflow        make color codes overflow to other strings if the
                         previous one has not ended the color code.
-  -S SEP, --sep SEP     specify what to use to separate string arguments.
-  -E END, --end END     specify what to use at the end of the resulting
+  -s SEP, --sep SEP     specify what to use to separate string arguments.
+  -e END, --end END     specify what to use at the end of the resulting
                         formatted string
   -c, --codes           show the available color codes and exit.
   -v, --version         show the current version of this module and exit.
@@ -119,6 +119,28 @@ optional arguments:
 ```
 
 # Color codes
+
+Each of the following colors (with the exception of the `ENDC` with it's variants, and the custom color codes that are available when the `true_color` function is set to true) can have either a " ; " (semicolon) for foreground or a " : " (colon) for background, preceding the letter.
+
+```
+    DARK             NORMAL          STRONG
+
+rr (DARK_RED)       r (RED)       R (STRONG_RED)
+oo (DARK_ORANGE)    o (ORANGE)    O (STRONG_ORANGE)
+yy (DARK_YELLOW)    y (YELLOW)    Y (STRONG_YELLOW)
+gg (DARK_GREEN)     g (GREEN)     G (STRONG_GREEN)
+cc (DARK_CYAN)      c (CYAN)      C (STRONG_CYAN)
+bb (DARK_BLUE)      b (BLUE)      B (STRONG_BLUE)
+pp (DARK_PURPLE)    p (PURPLE)    P (STRONG_PURPLE)
+mm (DARK_MAGENTA)   m (MAGENTA)   M (STRONG_MAGENTA)
+```
+
+For `ENDC` (end color) and it's variants, it can be `;:` and `:;` to end both foreground and background colors (regargless if there is one or the other actually being colored), `;;` to end only the foreground color and  `::` to end only the background color. Note that only `;:` and `:;` can be accessed by the `Color` class (with `Color.ENDC`) because te other two are the same concept, but they don't exist and is parsed by the program by analysing what previous color was being used.
+
+Finally, if true color is active:
+- `;=` will read rgb values, where all the following color codes are accepted: `;=255,255,255`, `;=255,255` (is the same as `;=255,255,0`), `;=255,,` (is the same as `;=255,0,0`), `;=` (is the same as `;=,,` and `;=0,0,0`). 
+
+- `;#` will read hexadecimal values, where the following color codes are accepted: `;#ff00ff`, `;#00ff` (is the same as `;#00ff00`), `;#000` (is the same as `;#` and`;#000000`).
 
 # Further reading
 
