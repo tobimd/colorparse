@@ -427,6 +427,8 @@ def arg_parser():
 
 
 Color()
+if sys.platform[:3] == 'win':
+        os.system('color')
 
 
 def _main():
@@ -447,8 +449,4 @@ def _main():
 
 
 if __name__ == '__main__':
-    pass
-
-else:
-    if sys.platform[:3] == 'win':
-        os.system('color')
+    _main()
