@@ -1,7 +1,17 @@
-# colorparse.py module
+# Colorparse v0.0.1
 
-__in progress__
+This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
-### contents:
-- `colorparse.py`: the module, that shall be imported and used as needed
-- `colorparse`: the script to be ran when using *colorparse* on the terminal
+Colorparse will simplify the work by reading it's self-defined `color codes` inside the strings (e.g. ";r" will produce the color red).
+
+# Content
+
+# Using colorparse as an imported module
+
+# Using colorpase in terminal
+
+# Color codes
+
+# Further reading
+### Conventions
+### Known Issues
