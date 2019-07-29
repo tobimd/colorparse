@@ -90,13 +90,15 @@ Example:
 
 Using `colorparse` in the terminal has the following options:
 
-```term
-colorparse [-h] [-s [STRING [STRING ...]]] [-t] [-f [FILE]] [-o] [-S SEP] [-E END] [-c] [-v]
+```
+colorparse [-h] [-t] [-f [FILE]] [-o] [-S SEP] [-E END] [-c] [-v]
+                  [string [string ...]]
+
+positional arguments:
+  string                a string that may contain color codes
 
 optional arguments:
   -h, --help            show this help message and exit
-  -s [STRING [STRING ...]], --string [STRING [STRING ...]]
-                        a string that may contain color codes
   -t, --true-color      use of rgb values for the color escape sequences,
                         allowing customized foreground color codes and having
                         the color set be more accurate (warning: having this
@@ -113,6 +115,7 @@ optional arguments:
                         formatted string
   -c, --codes           show the available color codes and exit.
   -v, --version         show the current version of this module and exit.
+
 ```
 
 # Color codes
