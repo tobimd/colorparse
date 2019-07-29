@@ -1,6 +1,6 @@
 # Colorparse
 
-_current version: v0.0.1_
+_current version: v0.0.1_\\
 
 This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
@@ -39,6 +39,7 @@ The following functions are the ones that can be used when importing this module
 
 ### paint:
 `paint(string, ..., print=True, ret=True, overflow=False, sep=' ', end='\n', file=sys.stdout, flush=False)`
+
 `paint(*string, **options)`
 
 Returns a string that will have color codes converted to real ANSI color escape sequences (if `print` is `False`, then the string won't be printed and the arguments: `end`, `file` and `flush` won't be considered whatever their values may be, because those are for printing purposes only). The returned and/or printed string will always end all color codes, returning to normal even if they were already ended. Having `ret` as `False` will not return a string, though it's normally unnecessary to change this value.
@@ -72,6 +73,7 @@ If no value is given, then the current state is returned (returns if true color 
 
 ### change_defaults:
 `change_defaults(fn, key=value, ...)`
+
 `change_defaults(fn, **kwargs)`
 
 This can be used at the beggining of the program, to set the default values permanently for the rest of it. This way one can avoid setting the values for the function options (like in `paint`) each time it's used.
