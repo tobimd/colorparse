@@ -53,6 +53,7 @@ If there is more than one string given as argument, then having `overflow` as `T
 
 Example:
 
+_In this example, the red color passes through to the next string because `overflow` was set to `True` in the first part. This is not the case for the second part, where `overflow` was `False` and that made the red color to stay within the first string_
   ![python example using the `paint` function](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
  
 
@@ -67,7 +68,7 @@ Prints a list of all the color codes available. It shows the background, foregro
 
 `true_color(value=None)`
 
-There are two available options for how to colors are printed. When `true_color` is set to `True`, it means that the set of foreground colors will be using direct *rgb* values for each ANSI escape sequence. Note that background colors do not support this funcitonallity, so even if you have `true_color` active, background colors will always look the same. Be warned, that not all terminals support true color (this way, it's set to `False` at the beggining of the program by default).
+There are two available options for how colors are printed. When `value` is `True`, it means that the set of foreground colors will be using direct *rgb* values for each ANSI escape sequence. Note that background colors do not support this funcitonallity, so even if truecolor is active, background colors will always look the same. Be warned, that not all terminals support true color (because of that, it's set to `False` at the beggining of the program by default).
 
 If no value is given, then the current state is returned (returns if true color is active or not)
 
@@ -126,18 +127,18 @@ Each of the following colors (with the exception of the `ENDC` with it's variant
     DARK             NORMAL          STRONG
 
 rr (DARK_RED)       r (RED)       R (STRONG_RED)
-oo (DARK_ORANGE)    o (ORANGE)    O (STRONG_ORANGE)
-yy (DARK_YELLOW)    y (YELLOW)    Y (STRONG_YELLOW)
-gg (DARK_GREEN)     g (GREEN)     G (STRONG_GREEN)
+oo (DARK_ORANGE)    o (ORANGE)    O (STRONG_ORANGE)         examples: 
+yy (DARK_YELLOW)    y (YELLOW)    Y (STRONG_YELLOW)            ;oo (sets foreground color to dark orange)
+gg (DARK_GREEN)     g (GREEN)     G (STRONG_GREEN)             ;r (sets foreground color to red)
 cc (DARK_CYAN)      c (CYAN)      C (STRONG_CYAN)
-bb (DARK_BLUE)      b (BLUE)      B (STRONG_BLUE)
-pp (DARK_PURPLE)    p (PURPLE)    P (STRONG_PURPLE)
+bb (DARK_BLUE)      b (BLUE)      B (STRONG_BLUE)              :pp (sets the background color to dark purple)
+pp (DARK_PURPLE)    p (PURPLE)    P (STRONG_PURPLE)            :B (sets background color to strong blue)
 mm (DARK_MAGENTA)   m (MAGENTA)   M (STRONG_MAGENTA)
 ```
 
-For `ENDC` (end color) and it's variants, it can be `;:` and `:;` to end both foreground and background colors (regargless if there is one or the other actually being colored), `;;` to end only the foreground color and  `::` to end only the background color. Note that only `;:` and `:;` can be accessed by the `Color` class (with `Color.ENDC`) because te other two are the same concept, but they don't exist and is parsed by the program by analysing what previous color was being used.
+For `ENDC` (end color) and it's variants, it can be `;:` or `:;` to end both foreground and background colors (regardless if there is one or the other actually being colored), `;;` to end only the foreground color and  `::` to end only the background color. Note that only `;:` and `:;` can be accessed by the `Color` class (with `Color.ENDC`) because the other two are the same concept, but they don't exist and are parsed by analysing what previous color was being used.
 
-Finally, if true color is active:
+Finally, if true color is active, custom colors will have this structure (note that missing values are assigned to 0):
 - `;=` will read rgb values, where all the following color codes are accepted: `;=255,255,255`, `;=255,255` (is the same as `;=255,255,0`), `;=255,,` (is the same as `;=255,0,0`), `;=` (is the same as `;=,,` and `;=0,0,0`). 
 
 - `;#` will read hexadecimal values, where the following color codes are accepted: `;#ff00ff`, `;#00ff` (is the same as `;#00ff00`), `;#000` (is the same as `;#` and`;#000000`).
