@@ -8,8 +8,8 @@ Colorparse will simplify the work by reading it's self-defined "*color codes*" i
 
 # Index
 - [Installation](https://github.com/tubi-carrillo/colorparse#installation)
-- [Use as an imported module](https://github.com/tubi-carrillo/colorparse#use-as-imported-module)
-- [Use in terminal](https://github.com/tubi-carrillo/colorparse#use-in-terminal)
+- [Usage as imported module](https://github.com/tubi-carrillo/colorparse#usage-as-imported-module)
+- [Usage in terminal](https://github.com/tubi-carrillo/colorparse#usage-in-terminal)
 - [Color codes](https://github.com/tubi-carrillo/colorparse#color-codes)
 - [Further reading](https://github.com/tubi-carrillo/colorparse#further-reading)
 
