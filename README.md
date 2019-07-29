@@ -6,14 +6,29 @@ This unoriginal package let's the user generate strings with ansi color escape s
 
 Colorparse will simplify the work by reading it's self-defined "*color codes*" inside the strings (e.g. " ;r " will produce the color red).
 
+Beware that the words "color code(s)" will be used extensively.
+
 # Index
 - [Installation](https://github.com/tubi-carrillo/colorparse#installation)
+- [How to color code](https://github.com/tubi-carrillo/colorparse#how-to-color-code)
 - [Usage as imported module](https://github.com/tubi-carrillo/colorparse#usage-as-imported-module)
 - [Usage in terminal](https://github.com/tubi-carrillo/colorparse#usage-in-terminal)
 - [Color codes](https://github.com/tubi-carrillo/colorparse#color-codes)
 - [Further reading](https://github.com/tubi-carrillo/colorparse#further-reading)
 
 # Installation
+
+# How to color code
+### list of color codes
+To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse#color-codes) below.
+
+### how color codes work
+
+### closing color codes
+
+### ending color codes
+
+### escaping color codes
 
 # Usage as imported module
 
@@ -23,16 +38,22 @@ The following functions are the ones that can be used when importing this module
 
 - **paint:**
 
-`paint(string, ..., out=True, overflow=False, sep=' ', end='\n', file=sys.stdout, flush=False)`
+`paint(string, ..., print=True, ret=True, overflow=False, sep=' ', end='\n', file=sys.stdout, flush=False)`
 `paint(*string, **options)`
 
-Returns a string that will have color codes converted to real ANSI color escape sequences (if `out` is `False`, then the string won't be printed and the arguments: `end`, `file` and `flush` won't be considered whatever their values may be, because those are for printing purposes only).
+Returns a string that will have color codes converted to real ANSI color escape sequences (if `print` is `False`, then the string won't be printed and the arguments: `end`, `file` and `flush` won't be considered whatever their values may be, because those are for printing purposes only). The returned and/or printed string will always end all color codes, returning to normal even if they were already ended. Having `ret` as `False` will not return a string, though it's normally unnecessary to change this value.
 
-Color codes can be "*closed*" which means that any color code can have extra characters to help the readability (e.g. the color code for red " ;r " can be closed with "\[ ;r \]", "/ ;r /", " ;r/ ", etc. where all mean the same). Closing a color code can be done by adding square brackets or normal parenthesis in both sides of the color code. A "/" (slash) can be on one side or both, but it's important to know that only one type of closing can be used for a color code (i.e. having "\[ ;r/ \]" will only convert " ;r/ " and leave the square brackets as they are).
+If there is more than one string given as argument, then having `overflow` as `True`, will allow any unfinished color from a color code to pass through to the other strings. If it's `False` (which is by default), then all colors will be finished at the end of each string.
 
-Color codes can be "*ended*" (or "*finished*") which means that after a certain color has been initialized, if it's imperative to stop that color, the use of " ;: " or " :; " (semicolon followed by a colon, or viceversa) will finish both foreground **and** background colors (this works even if only one type of color, like a foreground color, has been initialized). One can also use " ;; " (two semicolons) to end only the current **foreground color** and " :: " (two colons) to end only the current **background color**. All of the strings will have a " ;: " (a semicolon and colon) added to the end of it, so if the option `overflow` is `False`, then this is added to the end of each string given **and** the end of the whole.
+Example:
 
-Finally, color codes can also be escaped with a "\\" (backslash) to make the program ignore it.
+  ![python example using the `paint` funciton](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
+
+- **codes:**
+`codes()`
+
+Prints a list of all the color codes available. It shows the background, foreground, code and the name of each color code.
+
 
 # Usage in terminal
 
