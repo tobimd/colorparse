@@ -36,7 +36,7 @@ When importing `colorparse`, the function `paint` is the most important one. Thi
 
 The following functions are the ones that can be used when importing this module:
 
----
+
 ### paint:
 `paint(string, ..., print=True, ret=True, overflow=False, sep=' ', end='\n', file=sys.stdout, flush=False)`
 `paint(*string, **options)`
@@ -47,15 +47,15 @@ If there is more than one string given as argument, then having `overflow` as `T
 
 Example:
 
-  ![python example using the `paint` funciton](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
+  ![python example using the `paint` function](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
 
----
+
 ### codes:
 `codes()`
 
 Prints a list of all the color codes available. It shows the background, foreground, code and the name of each color code.
 
----
+
 ### true_color:
 `true_color(value=None)`
 
@@ -63,7 +63,7 @@ There are two available options for how to colors are printed. When `true_color`
 
 If no value is given, then the current state is returned (returns if true color is active or not)
 
----
+
 ### change_defaults:
 `change_defaults(fn, key=value, ...)`
 `change_defaults(fn, **kwargs)`
@@ -74,7 +74,7 @@ The argument `fn` can be the exact function or the function's name as a string. 
 
 Example:
 
-![python example using the `change_defaults` funciton](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_2.png)
+![python example using the `change_defaults` function](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_2.png)
 
 # Usage in terminal
 
