@@ -15,7 +15,7 @@ Colorparse will simplify the work by reading it's self-defined "*color codes*" i
 
 # Installation
 
-# Using colorparse as an imported module
+# Usage as imported module
 
 When importing `colorparse`, the function `paint` is the most important one. This function is the one that will return and/or print the color coded string.
 
@@ -34,7 +34,7 @@ Color codes can be "*ended*" (or "*finished*") which means that after a certain 
 
 Finally, color codes can also be escaped with a "\\" (backslash) to make the program ignore it.
 
-# Using colorpase in the terminal
+# Usage in terminal
 
 # Color codes
 
