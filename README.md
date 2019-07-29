@@ -10,7 +10,7 @@ Beware that the words "color code(s)" will be used extensively.
 
 # Index
 - [Installation](https://github.com/tubi-carrillo/colorparse#installation)
-- [How to color code](https://github.com/tubi-carrillo/colorparse#how-to-color-code)
+- [How to use](https://github.com/tubi-carrillo/colorparse#how-to-use)
 - [Usage as imported module](https://github.com/tubi-carrillo/colorparse#usage-as-imported-module)
 - [Usage in terminal](https://github.com/tubi-carrillo/colorparse#usage-in-terminal)
 - [Color codes](https://github.com/tubi-carrillo/colorparse#color-codes)
@@ -18,7 +18,9 @@ Beware that the words "color code(s)" will be used extensively.
 
 # Installation
 
-# How to color code
+# How to use
+This will be a general approach to how the strings are parsed and how to use the color codes.
+
 ### list of color codes
 To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse#color-codes) below.
 
@@ -33,6 +35,8 @@ To read the list of all available color codes, go to [color codes](https://githu
 # Usage as imported module
 
 When importing `colorparse`, the function `paint` is the most important one. This function is the one that will return and/or print the color coded string.
+
+There is the option to get each color individually, by accessing the `Color` class with this structure: "`Color.type.color`", where `type` can be either `foreground` or `background`, and `color` is the color name in uppercase as shown when using the `codes` function (e.g. `Color.foreground.DARK_RED` returns the dark red color).
 
 The following functions are the ones that can be used when importing this module:
 
@@ -83,6 +87,33 @@ Example:
 ![python example using the `change_defaults` function](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_2.png)
 
 # Usage in terminal
+
+Using `colorparse` in the terminal has the following options:
+
+```term
+colorparse [-h] [-s [STRING [STRING ...]]] [-t] [-f [FILE]] [-o] [-S SEP] [-E END] [-c] [-v]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s [STRING [STRING ...]], --string [STRING [STRING ...]]
+                        a string that may contain color codes
+  -t, --true-color      use of rgb values for the color escape sequences,
+                        allowing customized foreground color codes and having
+                        the color set be more accurate (warning: having this
+                        option won't work on all terminals as they do not all
+                        have true color).
+  -f [FILE], --file [FILE]
+                        specify an output file to send the resulting formatted
+                        string. If the file exists, it will be appended to the
+                        end of said file.
+  -o, --overflow        make color codes overflow to other strings if the
+                        previous one has not ended the color code.
+  -S SEP, --sep SEP     specify what to use to separate string arguments.
+  -E END, --end END     specify what to use at the end of the resulting
+                        formatted string
+  -c, --codes           show the available color codes and exit.
+  -v, --version         show the current version of this module and exit.
+```
 
 # Color codes
 
