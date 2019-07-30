@@ -15,7 +15,7 @@ colorparse
 .. |docs| image:: https://img.shields.io/badge/docs-in%20process-orange?style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse
    :alt: Documentation
-
+----
 
 
 ``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily written, simplifying the work for the user.
@@ -47,7 +47,7 @@ Usage
 
 A ``color code`` is defined in two parts. The first, is the ``type`` which can be either *foreground* or *background* using a ``;`` (semicolon) or a ``:`` (colon) respectively. Second, comes the ``value`` representing the color that will be displayed.
 
-The ``value`` can be defined letters, another ``type`` character and, if the terminal supports `true color`_, the option to use custom color codes is avaliable (detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below).
+The ``value`` can be defined letters, another ``type`` character and, if the terminal supports `true color <https://github.com/tubi-carrillo/colorparse#about-true-color>`_, the option to use custom color codes is avaliable (detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below).
 
 This guide will use the terminal form of this package, but this also applies to the function ``paint``, when the module is imported.
 
@@ -60,6 +60,9 @@ The following command, will return the string " red box" in the color red (notic
     red box
 
 This happens because the ``type`` is a semicolon representing foreground colors and the ``value`` is the letter *r*. When the parser reads that, it understands that from there, the color red will be initiated and removes the ``color code``, which didn't include the space after it.
+
+Closing a color
+---------------
 
 If we were to remove the space character when using the command, then only "ed box" in dark red would be returned, because the parser thinks that ``;rr`` is the code for dark red. To avoid this and having to use unwanted spaces, you can "*close*" a ``color code``.
 
@@ -102,6 +105,14 @@ The other two ways, is using ``;;`` to stop only the current foreground color an
 
    $ colorparse ":b/;r/both colors ;;/only the blue background"
    $ colorparse ":b/;r/both colors ::/only the red foreground"
+   
+Escaping a color
+----------------
+
+To escape color codes, add a ``\`` (backslash) to the beggining of the ``color code``s ``type`` character::
+
+   $ colorparse "[\;r] this text is not red"
+   [\;r] this text is not red
 
 List of Color Codes
--------------------
+===================
