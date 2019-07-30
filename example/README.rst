@@ -26,6 +26,10 @@ Contents
 
 * `Installation <https://github.com/tubi-carrillo/colorparse#installation>`_
 * `Usage <https://github.com/tubi-carrillo/colorparse#usage>`_
+   - `Initiating a color <https://github.com/tubi-carrillo/colorparse#initiating-a-color>`_
+   - `Closing a color <https://github.com/tubi-carrillo/colorparse#closing-a-color>`_
+   - `Finishing a color <https://github.com/tubi-carrillo/colorparse#finishing-a-color>`_
+   - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
 
@@ -77,10 +81,13 @@ Note that, the variations for closing a color shown before, cannot be mixed with
    
    $ colorparse "[ ;r/ ]red box"
    [  ]red box
+   
    $ colorparse "[ /;r ]red box"
    [  ]red box
+   
    $ colorparse "[;r red box]"
-    red box]    # bad!
+    red box]                    # bad!
+    
    $ colorparse "[/;r/ red box ]"
    [ red box ]
    
@@ -109,7 +116,7 @@ The other two ways, is using ``;;`` to stop only the current foreground color an
 Escaping a color
 ----------------
 
-To escape ``color codes``, add a ``\`` (backslash) to the beggining of the ``type`` character::
+To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``type`` character (the one that determines if it is a background or a foreground color)::
 
    $ colorparse "[\;r] this text is not red"
    [\;r] this text is not red
