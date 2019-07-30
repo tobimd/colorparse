@@ -103,7 +103,7 @@ To change colors, all is needed is to initiate like before::
 
 This can be mixed with background colors as well, changing the ``;`` to ``:``.
 
-Resetting to normal, can be done in 3 major ways, where 1 of those can be used in two forms (it is used to stop both background and foreground colors)::
+Resetting to normal, can be done in 3 major ways, where 1 of those can be used in two forms (it is used to stop both background and foreground colors). The following two strings have the exact meaning::
 
    $ colorparse ":b/;r/both foreground and background colors stop ;:/here"
    $ colorparse ":b/;r/both foreground and background colors stop :;/here"
