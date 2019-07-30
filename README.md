@@ -18,6 +18,9 @@ Beware that the words "color code(s)" will be used extensively.
 
 # Installation
 
+- with pip:
+`pip install --user colorparse`
+
 # How to use
 This will be a general approach to how the strings are parsed and how to use the color codes.
 
