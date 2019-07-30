@@ -2,8 +2,8 @@ colorparse
 ==========
 
 .. image:: https://img.shields.io/badge/version-1.0.0-green
+   :target: https://github.com/tubi-carrillo/colorparse
    :alt: Package version
-
 .. image:: https://img.shields.io/badge/docs-in%20process-yellow
    :target: https://github.com/tubi-carrillo/colorparse
    :alt: Has documentation
