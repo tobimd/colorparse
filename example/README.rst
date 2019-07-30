@@ -109,7 +109,7 @@ The other two ways, is using ``;;`` to stop only the current foreground color an
 Escaping a color
 ----------------
 
-To escape color codes, add a ``\`` (backslash) to the beggining of the ``color code``s ``type`` character::
+To escape ``color codes``, add a ``\`` (backslash) to the beggining of the ``type`` character::
 
    $ colorparse "[\;r] this text is not red"
    [\;r] this text is not red
