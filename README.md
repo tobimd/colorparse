@@ -25,7 +25,7 @@ This will be a general approach to how the strings are parsed and how to use the
 To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse#color-codes) below.
 
 ### How color codes work
-The parser will look for color codes that always start with a semicolon or a colon (foreground and background respectively), and replace that value with it's ANSI color escape sequence. These sequences have a structure similar to this: `ESC[<n>;<n>;...;<n>m` where they start with a specific `ESC` string (which in this case, we use `\\033`) and always end with the letter `m`. When accessing each color in the `Color` class, the returned value will be these color escape sequences.
+The parser will look for color codes that always start with a semicolon or a colon (foreground and background respectively), and replace that value with it's ANSI color escape sequence. These sequences have a structure similar to this: `ESC[<n>;<n>;...;<n>m` where they start with a specific `ESC` string (which in this case, we use `\033`) and always end with the letter `m`. When accessing each color in the `Color` class, the returned value will be these color escape sequences.
 
 When a color is initialized, it means that within the string, when we use a color code (like `;g` for green in the following example) the proceeding characters will have the same color until they are reset or changed to other color.
 
@@ -45,7 +45,7 @@ Options to close a color code:
 - Slash: there can be one at each side, or only one at one side: `<color code>/`, `/<color code>` and `/<color code>/`, for example: `"... ;r/ ..."`, `"... /;r ..."` and `"... /;r/ ..."` (no spaces are allowed before nor after the color code).
 
 ### Escaping color codes
-Sometimes it may be neccessary to escape color codes, so the use of a `\\` (backslash) immediately before the `;` or `:` will make the parser ignore that color code (e.g. `"... \\;r ..."` won't parse the red color).
+Sometimes it may be neccessary to escape color codes, so the use of a `\` (backslash) immediately before the `;` or `:` will make the parser ignore that color code (e.g. `"... \;r ..."` won't parse the red color).
 
 # Usage as imported module
 
