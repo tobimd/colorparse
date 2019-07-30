@@ -164,6 +164,13 @@ Finally, if true color is active, custom colors will have this structure (note t
 # Further reading
 
 ### Conventions
+The following shall be considered as a recommendations:
+
+- Allways use the color codes with one of the closing options, preferably the brackets. And stick to that for the rest of the string.
+- Do not use `;;` nor `::` for large strings, as it may become difficult to remember where the color was initiated.
+- Always write the complete values for the custom color codes (even if the values are 0, which the program allowes them to be omitted).
+- If using slash as a color closing option, use it on both sides of the color codes.
+
 ### Known Issues
 ### Change log
 
