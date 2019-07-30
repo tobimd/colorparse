@@ -175,6 +175,8 @@ The following shall be considered as a recommendations:
 - If using slash as a color closing option, use it on both sides of the color codes.
 
 ### Known Issues
+- Installing package on Windows won't generate script file with ".exe" extention, therefore using `colorparse` on the command line doesn't work.
+
 ### Change log
 
 ```diff
