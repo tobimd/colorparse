@@ -24,10 +24,10 @@ colorparse
 Contents
 ========
 
-* `Installation<https://github.com/tubi-carrillo/colorparse#installation>`_
-* `Usage<https://github.com/tubi-carrillo/colorparse#usage>`_
-* `List of Color Codes<https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
-* `Further Reading<https://github.com/tubi-carrillo/colorparse#further-reading>`_
+* `Installation <https://github.com/tubi-carrillo/colorparse#installation>`_
+* `Usage <https://github.com/tubi-carrillo/colorparse#usage>`_
+* `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
+* `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
 
 Installation
 ============
