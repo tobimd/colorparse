@@ -35,10 +35,17 @@ _The first colored text shows how the green color code `;g` is displayed. Next, 
 ![example codes](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_3.png)
 
 ### Closing color codes
+To close a color code means that the parser will recognize normally what the color code is, but improves readability by making the user see better where the colors are being initialized or finished. Doing this is completely optional, but helps avoiding problems like getting `";rred box"` shown as `ed box` in dark red (the `;rr` is considered a color code). Instead, one could use `";r/red box"`.
 
-### Ending color codes
+Options to close a color code:
+- Square brackets: there must be two opposing square brackets as such: `\[<color code>\]`, for example:`" ... [;r] ... "` (space characters are allowed at both sides).
+
+- Normal parenthesis: the same as square brackets: `(<color code>)`, for example: `"... (;r) ..."`.
+
+- Slash: there can be one at each side, or only one at one side: `<color code>/`, `/<color code>` and `/<color code>/`, for example: `"... ;r/ ..."`, `"... /;r ..."` and `"... /;r/ ..."` (no spaces are allowed before nor after the color code).
 
 ### Escaping color codes
+Sometimes it may be neccessary to escape color codes, so the use of a `\\` (backslash) immediately before the `;` or `:` will make the parser ignore that color code (e.g. `"... \\;r ..."` won't parse the red color).
 
 # Usage as imported module
 
