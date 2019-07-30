@@ -40,7 +40,7 @@ To close a color code means that the parser will recognize normally what the col
 Options to close a color code:
 - Square brackets: there must be two opposing square brackets as such: `[<color code>]`, for example:`" [;r] "` (space characters are allowed at both sides).
 
-- Normal parenthesis: the same as square brackets: `(<color code>)`, for example: `" (;r) "`.
+- Normal brackets: the same as square brackets: `(<color code>)`, for example: `" (;r) "`.
 
 - Slash: there can be one at each side, or only one at one side: `<color code>/`, `/<color code>` and `/<color code>/`, for example: `" ;r/ "`, `" /;r "` and `" /;r/ "` (no spaces are allowed before nor after the color code).
 
