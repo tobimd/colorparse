@@ -1,6 +1,6 @@
 # Colorparse
 
-#### current version: 0.0.1
+#### Current version: 0.0.1
 
 This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
@@ -21,10 +21,10 @@ Beware that the words "color code(s)" will be used extensively.
 # How to use
 This will be a general approach to how the strings are parsed and how to use the color codes.
 
-### list of color codes
+### List of color codes
 To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse#color-codes) below.
 
-### how color codes work
+### How color codes work
 The parser will look for color codes that always start with a semicolon or a colon (foreground and background respectively), and replace that value with it's ANSI color escape sequence. These sequences have a structure similar to this: `ESC[<n>;<n>;...;<n>m` where they start with a specific `ESC` string (which in this case, we use `\\033`) and always end with the letter `m`. When accessing each color in the `Color` class, the returned value will be these color escape sequences.
 
 When a color is initialized, it means that within the string, when we use a color code (like `;g` for green in the following example) the proceeding characters will have the same color until they are reset or changed to other color.
@@ -34,11 +34,11 @@ The best way to explain is with an example, note that the color codes have a "/"
 _The first colored text shows how the green color code `;g` is displayed. Next, the following 3 show how the use of each "end color" works (`;:` ends all colors, `;;` ends foreground colors and `::` ends background colors). Finally, the last two show how can `::` and `;;` help by only endind that type of color)._
 ![example codes](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_3.png)
 
-### closing color codes
+### Closing color codes
 
-### ending color codes
+### Ending color codes
 
-### escaping color codes
+### Escaping color codes
 
 # Usage as imported module
 
