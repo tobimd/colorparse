@@ -44,7 +44,7 @@ Options to close a color code:
 
 - Slash: there can be one at each side, or only one at one side: `<color code>/`, `/<color code>` and `/<color code>/`, for example: `" ;r/ "`, `" /;r "` and `" /;r/ "` (no spaces are allowed before nor after the color code).
 
-Having more than one closing for a color code is not accepted by the parser, which may be usefull when trying to get a color code inside brackets like `" [ /;r/ ]"`, that will return ` [  ] ` with the second bracket in red. Having at least one slash is enough to make the parser ignore the brackets.
+Having more than one closing for a color code is not accepted by the parser, which may be usefull when trying to get a color code inside brackets like `" [ /;r/ ]"`, that will return `" [  ] "` with the second bracket in red. Having at least one slash is enough to make the parser ignore the brackets.
 
 ### Escaping color codes
 Sometimes it may be neccessary to escape color codes, so the use of a `\` (backslash) immediately before the `;` or `:` will make the parser ignore that color code (e.g. `" \;r "` won't parse the red color).
