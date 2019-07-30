@@ -1,6 +1,6 @@
 # Colorparse
 
-#### Current version: 0.0.1
+#### Current version: 0.0.2
 
 This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
@@ -175,11 +175,15 @@ The following shall be considered as a recommendations:
 - If using slash as a color closing option, use it on both sides of the color codes.
 
 ### Known Issues
-- Installing package on Windows won't generate script file with ".exe" extention, therefore using `colorparse` on the command line doesn't work.
+- Version in colorparse.py was not updated.
+- New line character (and presumably other of that type) don't work when used with from terminal.
 
 ### Change log
 
 ```diff
+! 0.0.2
+* fixed Windows script file
+
 ! 0.0.1
 # the first version has no changes
 ```
