@@ -1,10 +1,8 @@
-# Colorparse
-
-_current version: v0.0.1_\\
+# Colorparse (current version: 0.0.1)
 
 This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
-Colorparse will simplify the work by reading it's self-defined "*color codes*" inside the strings (e.g. " ;r " will produce the color red).
+Colorparse will simplify the work by reading it's self-defined "*color codes*" inside the strings (e.g. `;r` will produce the color red).
 
 Beware that the words "color code(s)" will be used extensively.
 
@@ -25,6 +23,14 @@ This will be a general approach to how the strings are parsed and how to use the
 To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse#color-codes) below.
 
 ### how color codes work
+The parser will look for color codes that always start with a semicolon or a colon (foreground and background respectively), and replace that value with it's ANSI color escape sequence. These sequences have a structure similar to this: `ESC[<n>;<n>;...;<n>m` where they start with a specific `ESC` string (which in this case, we use `\\033`) and always end with the letter `m`. When accessing each color in the `Color` class, the returned value will be these color escape sequences.
+
+When a color is initialized, it means that within the string, when we use a color code (like `;g` for green in the following example) the proceeding characters will have the same color until they are reset or changed to other color.
+
+The best way to explain is with an example, note that the color codes have a "/" (slash) in front, to make it clear what the color code is (check below for an explanation of how closing color codes work):
+
+_The first colored text shows how the green color code `;g` is displayed. Next, the following 3 show how the use of each color end code works (`;:` ends all colors, `;;` end foreground colors, `::` ends background colors). Finally, the last two show how can `::` and `;;` help by only endind that type of color)._
+[example codes](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_3.png)
 
 ### closing color codes
 
@@ -53,7 +59,8 @@ If there is more than one string given as argument, then having `overflow` as `T
 
 Example:
 
-_In this example, the red color passes through to the next string because `overflow` was set to `True` in the first part. This is not the case for the second part, where `overflow` was `False` and that made the red color to stay within the first string_
+_In this example, the red color passes through to the next string because `overflow` was set to `True` in the first part. This is not the case for the second part, where `overflow` was `False` and that made the red color to stay within the first string._
+
   ![python example using the `paint` function](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_1.png)
  
 
@@ -121,7 +128,7 @@ optional arguments:
 
 # Color codes
 
-Each of the following colors (with the exception of the `ENDC` with it's variants, and the custom color codes that are available when the `true_color` function is set to true) can have either a " ; " (semicolon) for foreground or a " : " (colon) for background, preceding the letter.
+Each of the following colors (with the exception of the `ENDC` with it's variants, and the custom color codes that are available when the `true_color` function is set to true) can have either a `;` (semicolon) for foreground or a `:` (colon) for background, preceding the letter.
 
 ```
     DARK             NORMAL          STRONG
