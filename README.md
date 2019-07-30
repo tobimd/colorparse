@@ -27,25 +27,25 @@ To read the list of all available color codes, go to [color codes](https://githu
 ### How color codes work
 The parser will look for color codes that always start with a semicolon or a colon (foreground and background respectively), and replace that value with it's ANSI color escape sequence. These sequences have a structure similar to this: `ESC[<n>;<n>;...;<n>m` where they start with a specific `ESC` string (which in this case, we use `\033`) and always end with the letter `m`. When accessing each color in the `Color` class, the returned value will be these color escape sequences.
 
-When a color is initialized, it means that within the string, when we use a color code (like `;g` for green in the following example) the proceeding characters will have the same color until they are reset or changed to other color.
+When a color is initialized, it means that within the string, when we use a color code (like `;g` for green in the following example) the proceeding characters will have the same color until they are reset or changed to other colors.
 
-The best way to explain is with an example, note that the color codes have a "/" (slash) in front, to make it clear what the color code is (check below for an explanation of how closing color codes work):
+The best way to explain is with an example. Note that the color codes have a "/" (slash) in front, to make it clear what the color code is (check below for an explanation of how closing color codes work):
 
-_The first colored text shows how the green color code `;g` is displayed. Next, the following 3 show how the use of each "end color" works (`;:` ends all colors, `;;` ends foreground colors and `::` ends background colors). Finally, the last two show how can `::` and `;;` help by only endind that type of color)._
+_The first colored text shows how the green color code `;g` is displayed. Next, the following 3 show how the use of each "end color" works (`;:` ends all colors, `;;` ends foreground colors and `::` ends background colors, which didn't work because the green color was used as foreground). Finally, the last two show how `::` and `;;` can help by only endind that type of color)._
 ![example codes](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_3.png)
 
 ### Closing color codes
 To close a color code means that the parser will recognize normally what the color code is, but improves readability by making the user see better where the colors are being initialized or finished. Doing this is completely optional, but helps avoiding problems like getting `";rred box"` shown as `ed box` in dark red (the `;rr` is considered a color code). Instead, one could use `";r/red box"`.
 
 Options to close a color code:
-- Square brackets: there must be two opposing square brackets as such: `\[<color code>\]`, for example:`" ... [;r] ... "` (space characters are allowed at both sides).
+- Square brackets: there must be two opposing square brackets as such: `[<color code>]`, for example:`" [;r] "` (space characters are allowed at both sides).
 
-- Normal parenthesis: the same as square brackets: `(<color code>)`, for example: `"... (;r) ..."`.
+- Normal parenthesis: the same as square brackets: `(<color code>)`, for example: `" (;r) "`.
 
-- Slash: there can be one at each side, or only one at one side: `<color code>/`, `/<color code>` and `/<color code>/`, for example: `"... ;r/ ..."`, `"... /;r ..."` and `"... /;r/ ..."` (no spaces are allowed before nor after the color code).
+- Slash: there can be one at each side, or only one at one side: `<color code>/`, `/<color code>` and `/<color code>/`, for example: `" ;r/ "`, `" /;r "` and `" /;r/ "` (no spaces are allowed before nor after the color code).
 
 ### Escaping color codes
-Sometimes it may be neccessary to escape color codes, so the use of a `\` (backslash) immediately before the `;` or `:` will make the parser ignore that color code (e.g. `"... \;r ..."` won't parse the red color).
+Sometimes it may be neccessary to escape color codes, so the use of a `\` (backslash) immediately before the `;` or `:` will make the parser ignore that color code (e.g. `" \;r "` won't parse the red color).
 
 # Usage as imported module
 
