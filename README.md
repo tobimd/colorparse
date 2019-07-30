@@ -1,4 +1,6 @@
-# Colorparse (current version: 0.0.1)
+# Colorparse
+
+#### current version: 0.0.1
 
 This unoriginal package let's the user generate strings with ansi color escape sequences (which are "*codes*" that tell the terminal what color to display the proceeding characters, and much more: <https://wikipedia.org/wiki/ANSI_escape_code>)
 
@@ -30,7 +32,7 @@ When a color is initialized, it means that within the string, when we use a colo
 The best way to explain is with an example, note that the color codes have a "/" (slash) in front, to make it clear what the color code is (check below for an explanation of how closing color codes work):
 
 _The first colored text shows how the green color code `;g` is displayed. Next, the following 3 show how the use of each color end code works (`;:` ends all colors, `;;` end foreground colors, `::` ends background colors). Finally, the last two show how can `::` and `;;` help by only endind that type of color)._
-[example codes](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_3.png)
+![example codes](https://github.com/tubi-carrillo/colorparse/blob/master/example/example_3.png)
 
 ### closing color codes
 
