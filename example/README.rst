@@ -1,5 +1,6 @@
+##########
 colorparse
-==========
+##########
 
 | |version| |wheel| |docs|
 
@@ -21,7 +22,7 @@ colorparse
 
 
 Contents
---------
+========
 
 * Installation
 * Usage
@@ -29,7 +30,7 @@ Contents
 * Further Reading
 
 Installation
-------------
+============
 
 To install, use this command::
 
@@ -42,11 +43,16 @@ After this, the package should be ready to use. To upgrade or uninstall, use the
    $ pip uninstall colorparse
    
 Usage
------
+=====
 
 A ``color code`` is defined in two parts. The first, is the ``type`` which can be either *foreground* or *background* using a ``;`` (semicolon) or a ``:`` (colon) respectively. Second, comes the ``value`` representing the color that will be displayed.
 
-The ``value`` can be defined letters, another ``type`` character and, if the terminal supports `true color`_, the option to use custom color codes is avaliable (detailed information about the possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below).
+The ``value`` can be defined letters, another ``type`` character and, if the terminal supports `true color`_, the option to use custom color codes is avaliable (detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below).
+
+This guide will use the terminal form of this package, but this also applies to the function ``paint``, when the module is imported.
+
+Initiating a color
+------------------
 
 The following command, will return the string " red box" in the color red (notice the space character at the start of the string)::
 
@@ -63,6 +69,39 @@ The following commands will return the same string ("red box") colored in normal
    $ colorparse "/;r/red box"
    $ colorparse "[;r]red box"
    $ colorparse "(;r)red box"
+   
+Note that, the variations for closing a color shown before, cannot be mixed with eachother. This might help to avoid absorbing the brackets when trying to use them for something else. The parser will not replace brackets if they have at least one ``/`` (slash) either at the start or the end of the ``color code`` (with no spaces in between). Some examples are::
+   
+   $ colorparse "[ ;r/ ]red box"
+   [  ]red box
+   $ colorparse "[ /;r ]red box"
+   [  ]red box
+   $ colorparse "[;r red box]"
+    red box]    # bad!
+   $ colorparse "[/;r/ red box ]"
+   [ red box ]
+   
+Finishing a color
+-----------------
+
+To finish a color, can mean two things: to change to another color, or reset to normal (to the color the terminal uses, which is normally not the white color). 
+
+To change colors, all is needed is to initiate like before::
+   
+   $ colorparse ";r/red box ;b/blue box"
+   red box blue box
+
+This can be mixed with background colors as well, changing the ``;`` to ``:``.
+
+Resetting to normal, can be done in 3 major ways, where 1 of those can be used in two forms (it is used to stop both background and foreground colors)::
+
+   $ colorparse ":b/;r/both foreground and background colors stop ;:/here"
+   $ colorparse ":b/;r/both foreground and background colors stop :;/here"
+   
+The other two ways, is using ``;;`` to stop only the current foreground color and ``::`` to stop only the current background color::
+
+   $ colorparse ":b/;r/both colors ;;/only the blue background"
+   $ colorparse ":b/;r/both colors ::/only the red foreground"
 
 List of Color Codes
 -------------------
