@@ -5,12 +5,13 @@ import re
 import argparse
 
 
-__version__ = '1.0.0'
+__version__ = '0.0.1'
 
 
 class _Defaults:
     paint = {
-        'out': True,
+        'print': True,
+        'ret': True,
         'overflow': False,
         'sep': ' ',
         'end': '\n',
@@ -54,17 +55,14 @@ class _Defaults:
 class Color:
     @classmethod
     def __init__(cls):
-        cls.ENDC = '\033[0m'  # ;;
+        cls.ENDC = '\033[0m'  # ;: | :;
 
         cls.foreground = _Foreground(False)
         cls.background = _Background()
         cls.true_color(False)
 
     @classmethod
-    def true_color(cls, value=None):
-        if value is None:
-            return cls._true_color_active
-        
+    def true_color(cls, value):        
         # set global value for true color
         cls._true_color_active = value
         cls.foreground = _Foreground(value)
@@ -221,8 +219,9 @@ def _color_repl(matchobj):
     if '#' in col_val or '=' in col_val:
         mode, val = col_val[0], col_val[1:]
 
-        r, g, b = (map(_clamp, val.split(',')) if mode == '='
-                   else _hex_to_rgb(val + '0' * (6 - len(val))))
+        fix = ((val + ',' * (2 - val.count(','))).split(',') if mode == '='
+                else _hex_to_rgb(val + '0' * (6 - len(val))))
+        r, g, b = map(_clamp, fix)
 
         return f'\033[38;2;{r};{g};{b}m'
 
@@ -240,53 +239,66 @@ def _color_format(string):
     start = r'((\[(?=[^/\)]+\]))\s*|(\((?=[^/\]]+\)))\s*|/)?('
     prefix = r'\\?(?:(;)|(:))'
     color = r'(;|:|[ROYGCBPMkAw]|([roygcbpma])\8?'
-    rgb = r'|(?(5)(= ?\d{0,3}\s?,\s?\d{0,3}\s?,\s?\d{0,3}'
+    rgb = r'|(?(5)(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?'
     hex_rgb = r'|# ?[0-9A-Fa-f]{0,6})|\5)'
     suffix = r'))(/|(?(2)\s*\]|(?(3)\s*\))))?'
 
     # set regex to use (with true color, use custom color codes)
     if Color._true_color_active:
         regex = f'{start}{prefix}{color}{rgb}{hex_rgb}{suffix}'
-        endc_regex = f'{start}{prefix}{color}{rgb}{hex_rgb}{suffix}'
+        endc_regex = f'{start}(?<!\\)(?:(;)|(:)){color}{rgb}{hex_rgb}{suffix}'
 
     else:
         regex = f'{start}{prefix}{color}{suffix}'
-        endc_regex = f'{start}{prefix}{color}|;|:{suffix}'
+        endc_regex = f'{start}(?<!\\)(?:(;)|(:)){color}|;|:{suffix}'
+    
+    # search for ';;'|'::' and replace them with end color + prev color
+    all_matches = list(re.finditer(regex, string))
+    for i, mo in enumerate(all_matches):
+        if (';;' in mo[0] or '::' in mo[0]) and '\\' not in mo[0]:
+            code = mo[0]
+            inv = ':' if ';;' in code else ';'
+            found = False
 
-    while ';;' in string or '::' in string:
-        if ';::' in string or ':;;' in string:
-            string = string.replace(';::', '[;:]:')
-            string = string.replace(':;;', '[;:];')
-
-        codes = re.finditer(endc_regex, string)
-        saved = []
-        for matchobj in codes:
-            code = matchobj[0]
-
-            if ';;' not in code and '::' not in code:
-                saved.append(matchobj)
-
-            else:
-                inv_code = '::' if ';;' in code else ';;'
-
-                for mo in saved[::-1]:
-                    if inv_code[0] in mo[0]:
-                        
-                        string = string.replace(code, '[;:]' + mo[0], 1)
-                        saved = []
-                    
-                if len(saved) > 0:
-                    string = string.replace(code, '[;:]', 1)
+            for _mo in all_matches[i - 1::-1]:
+                if ';:' in _mo[0] or ':;' in _mo[0]:
                     continue
+
+                is_color = (re.search(r'(?<!\\)' + inv + r'(\w|#|=)', _mo[0]) 
+                            is not None)
+                if is_color:
+                    string = string.replace(code, '[;:]' + _mo[0], 1)
+                    found = True
+                    all_matches.insert(i + 1, _mo)
+
+            if not found:
+                string = string.replace(code, '[;:]', 1)
+
+            all_matches[i] = ['[;:]']
 
     return re.sub(regex, _color_repl, string)
 
 
 def paint(*strings, **options):
+    """paint(strings, ..., print=True, ret=True, overflow=False, sep=' ',
+             end='\n', file=sys.stdout, flush=false) -> string
+
+    Returns a string that will have color codes converted to real ANSI
+    color escape sequences (if 'print' is False, then the string won't be
+    printed and the arguments 'end', 'file' and 'flush' won't be considered
+    whatever their values may be. The returned and/or printed string will
+    always end all color codes.
+
+    The overflow argument will allow any unfinished color to pass through
+    to the other strings if it's value is True. By default it's False, which
+    means that all the color will be finished at the end of each string.
+
+    """
     endc = '\033[0m'
 
     # get the options' arguments
-    _out = options.get('out', _Defaults.paint['out'])
+    _print = options.get('print', _Defaults.paint['print'])
+    _ret = options.get('ret', _Defaults.paint['ret'])
     _overflow = options.get('overflow', _Defaults.paint['overflow'])
     _sep = options.get('sep', _Defaults.paint['sep'])
     _end = options.get('end', _Defaults.paint['end'])
@@ -306,13 +318,19 @@ def paint(*strings, **options):
         result = (endc + _sep).join(map(_color_format, strings)) + endc
 
     # if out is True, then print
-    if _out:
+    if _print:
         print(result, end=_end, file=_file, flush=_flush)
-
-    return result
+    
+    if _ret:
+        return result
 
 
 def codes():
+    """Prints a list of all the color codes available. It shows the
+    background, foreground, code and the name of each code.
+
+    """
+
     help_string = """
  [background] [foreground] [code]   [name]
    "(;w):(;a)<code>(;:)"   "(;w);(;a)<code>(;:)"\n
@@ -349,22 +367,38 @@ def codes():
    [:A ]        [;:]    [;A ]light gray[;:]    [;w]A [;:]   (LIGHT_GRAY)
    [:w ]        [;:]    [;w ]white     [;:]    [;w]w [;:]   (WHITE)
 
-               end color   [;w]\;: | \:;[;:]   (ENDC)
+
+   color ending:
+
+               end color  [;w]\;: | \:;[;:] (ENDC)
+               end fg color  [;w]\;;[;:]
+               end bg color  [;w]\::[;:]
 
 """
 
-    extra_string = """
-\t- "CUSTOM RGB":     ;=      (rgb)         [from 0 to 255, comma separated]
-\t- "CUSTOM HEX":     ;#      (hexadecimal) [from 000000 to ffffff]
+    extra_string = """   custom colors:
+
+                 rgb         [;w]\;=[;:]    (RGB)         
+                 [from 0 to 255, comma separated]
+
+                 hex         [;w]\;#[;:]    (HEXADECIMAL)
+                 [from 000000 to ffffff]
     """
 
-    paint(help_string, out=True)
+    paint(help_string, print=True)
 
-    if Color.true_color():
-        paint(extra_string, out=True)
+    if Color._true_color_active:
+        paint(extra_string, print=True)
 
 
 def change_defaults(fn, **kwargs):
+    """change_defaults(fn, key=value, ...)
+    change_defaults(fn, **kwargs)
+
+    Used to set default values permanently for the rest of the program.
+
+    """
+
     if callable(fn):
         fn = fn.__name__
 
@@ -372,9 +406,24 @@ def change_defaults(fn, **kwargs):
         getattr(_Defaults, fn)[k] = v
 
 
-def arg_parser():
+def true_color(value=None):
+    """true_color(value=None)
+
+    If set to True, the color set will change to rgb ANSI color escape
+    sequences, which may not work on some terminals. If no value is given,
+    then returns the current state of true color (if it's set to True or not).
+
+    """
+
+    if value is None:
+        return Color._true_color_active
+    
+    Color.true_color(value)
+
+
+def _arg_parser():
     # initiate argument parser
-    parser = argparse.ArgumentParser(prog='color (color.py)')
+    parser = argparse.ArgumentParser(prog='colorparse')
 
     # arguments
     parser.add_argument('string', 
@@ -396,7 +445,7 @@ def arg_parser():
                               be appended to the end of said file.',
                         nargs='?',
                         type=argparse.FileType('a'),
-                        default=sys.stdout)
+                        default=_Defaults.paint['file'])
 
     parser.add_argument('-o', '--overflow',
                         help='make color codes overflow to other strings if\
@@ -406,12 +455,12 @@ def arg_parser():
     parser.add_argument('-s', '--sep',
                         help='specify what to use to separate string\
                               arguments.',
-                        default=' ')
+                        default=_Defaults.paint['sep'])
 
     parser.add_argument('-e', '--end',
                         help='specify what to use at the end of the resulting\
                               formatted string',
-                        default='\n')
+                        default=_Defaults.paint['end'])
 
     parser.add_argument('-c', '--codes',
                         help='show the available color codes and exit.',
@@ -427,16 +476,14 @@ def arg_parser():
 
 
 Color()
-if sys.platform[:3] == 'win':
-        os.system('color')
 
 
 def _main():
     # get the arguments
-    args = arg_parser()
+    args = _arg_parser()
     
     # set true color to the argument's value
-    Color.true_color(args.true_color)
+    true_color(args.true_color)
 
     # if used '-c' or '--codes', the call 'codes' and exit
     if args.codes:
@@ -444,9 +491,13 @@ def _main():
         sys.exit(0)
 
     # print the result string
-    paint(args.string, overflow=args.overflow,
+    paint(args.string, print=True, overflow=args.overflow,
         sep=args.sep, end=args.end, file=args.file)
 
 
 if __name__ == '__main__':
     _main()
+
+else:
+    if sys.platform[:3] == 'win':
+        os.system('color')
