@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '0.0.1'
+__version__ = '1.0.0'
 
 
 class _Defaults:
@@ -59,10 +59,10 @@ class Color:
 
         cls.foreground = _Foreground(False)
         cls.background = _Background()
-        cls.true_color(False)
+        cls._true_color(False)
 
     @classmethod
-    def true_color(cls, value):        
+    def _true_color(cls, value):        
         # set global value for true color
         cls._true_color_active = value
         cls.foreground = _Foreground(value)
@@ -246,11 +246,9 @@ def _color_format(string):
     # set regex to use (with true color, use custom color codes)
     if Color._true_color_active:
         regex = f'{start}{prefix}{color}{rgb}{hex_rgb}{suffix}'
-        endc_regex = f'{start}(?<!\\)(?:(;)|(:)){color}{rgb}{hex_rgb}{suffix}'
 
     else:
         regex = f'{start}{prefix}{color}{suffix}'
-        endc_regex = f'{start}(?<!\\)(?:(;)|(:)){color}|;|:{suffix}'
     
     # search for ';;'|'::' and replace them with end color + prev color
     all_matches = list(re.finditer(regex, string))
@@ -279,6 +277,28 @@ def _color_format(string):
     return re.sub(regex, _color_repl, string)
 
 
+def _fix_special(matchobj):
+    special = {'n': '\n', 'a': '\a', 'b': '\b', 
+               'f': '\f', 'r': '\r', 'v': '\v',
+               't': '\t',}
+
+    string = matchobj[0]
+    
+    # Windows does not escape characters before user input
+    if sys.platform[:3] == 'win':
+        is_not_escaped = len(string) % 2 != 0
+
+    # Linux, or at least urxvt terminal, does
+    else:
+        is_not_escaped = len(string) % 2 == 0
+
+
+    if is_not_escaped:
+        return string[:-2] + special[string[-1]]
+
+    return string[1:]
+
+
 def paint(*strings, **options):
     """paint(strings, ..., print=True, ret=True, overflow=False, sep=' ',
              end='\n', file=sys.stdout, flush=false) -> string
@@ -304,10 +324,6 @@ def paint(*strings, **options):
     _end = options.get('end', _Defaults.paint['end'])
     _file = options.get('file', _Defaults.paint['file'])
     _flush = options.get('flush', _Defaults.paint['flush'])
-    
-    # if the input strings is a tuple of tuples ((strings, ...), )
-    if len(strings) > 0 and type(strings[0]) != str:
-        strings = strings[0]
 
     # if overflow is true, then color the strings as one
     if _overflow:
@@ -418,28 +434,28 @@ def true_color(value=None):
     if value is None:
         return Color._true_color_active
     
-    Color.true_color(value)
+    Color._true_color(value)
 
 
 def _arg_parser():
     # initiate argument parser
     parser = argparse.ArgumentParser(prog='colorparse')
 
-    # arguments
+    # arguments 
     parser.add_argument('string', 
                         help='a string that may contain color codes',
                         nargs='*',
                         default='')
 
-    parser.add_argument('-t', '--true-color',
-                        help='use of rgb values for the color escape\
-                              sequences, allowing customized foreground color\
-                              codes and having the color set be more accurate\
-                              (warning: having this option won\'t work on all\
-                              terminals as they do not all have true color).',
-                        action='store_true')
+    parser.add_argument('-i', '--input-file',
+                        help='specify an input file or files to recieve the\
+                              color coded strings from. If the file doesn\'t\
+                              exist an error will be raised.',
+                        nargs='*',
+                        type=argparse.FileType('r'),
+                        default=[])
 
-    parser.add_argument('-f', '--file',
+    parser.add_argument('-o', '--output-file',
                         help='specify an output file to send the resulting\
                               formatted string. If the file exists, it will\
                               be appended to the end of said file.',
@@ -447,7 +463,7 @@ def _arg_parser():
                         type=argparse.FileType('a'),
                         default=_Defaults.paint['file'])
 
-    parser.add_argument('-o', '--overflow',
+    parser.add_argument('-O', '--overflow',
                         help='make color codes overflow to other strings if\
                               the previous one has not ended the color code.',
                         action='store_true')
@@ -462,17 +478,34 @@ def _arg_parser():
                               formatted string',
                         default=_Defaults.paint['end'])
 
-    parser.add_argument('-c', '--codes',
+    parser.add_argument('-t', '--true-color',
+                        help='use of rgb values for the color escape\
+                              sequences, allowing customized foreground color\
+                              codes and having the color set be more accurate\
+                              (warning: having this option won\'t work on all\
+                              terminals as they do not all have true color).',
+                        action='store_true')
+
+    parser.add_argument('-r', '--read-special',
+                        help='tell the parser to read special characters read\
+                              from the terminal. This doesn\'t apply to input\
+                              files, as the parser will always read special\
+                              characters from those.',
+                        action='store_true')
+
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('-c', '--codes',
                         help='show the available color codes and exit.',
                         action='store_true')
 
-    parser.add_argument('-v', '--version',
+    group.add_argument('-v', '--version',
                         help='show the current version of this module and\
                               exit.',
-                        action='version', version=f'%(prog)s v{__version__}')
+                        action='version', version=f'%(prog)s {__version__}')
 
     # return the arguments to "_main"
-    return parser.parse_args()
+    return parser, parser.parse_args()
 
 
 Color()
@@ -480,7 +513,7 @@ Color()
 
 def _main():
     # get the arguments
-    args = _arg_parser()
+    parser, args = _arg_parser()
     
     # set true color to the argument's value
     true_color(args.true_color)
@@ -488,11 +521,40 @@ def _main():
     # if used '-c' or '--codes', the call 'codes' and exit
     if args.codes:
         codes()
-        sys.exit(0)
+        parser.exit()
+    
+    # if no arguments are given, print usage and exit
+    if args.string == '' and len(args.input_file) == 0:
+        parser.print_usage()
+        parser.exit()        
+    
+    # use partial to add each string as argument, instead of the whole tuple 
+    from functools import partial
+
+    #fix escaped and non-escaped special characters in "sep" and "end"
+    if args.read_special and args.sep != _Defaults.paint['sep']:
+        args.sep = re.sub(r'\\+[nrtvabf]', _fix_special, args.sep)
+
+    if args.read_special and args.end != _Defaults.paint['end']:
+        args.end = re.sub(r'\\+[nrtvabf]', _fix_special, args.end)
+
+    _paint = partial(paint, print=True, overflow=args.overflow,
+                     sep=args.sep, end=args.end, file=args.output_file)
+    
+    # fix escaped and non-escaped special characters in "string"
+    strings = list(args.string)
+    for string in strings:
+        if args.read_special:
+            string = re.sub(r'\\+[nrtvabf]', _fix_special, string)
+
+        _paint = partial(_paint, string)
+
+    # read values from input file if there is one
+    for f in args.input_file:
+        _paint = partial(_paint, f.read())        
 
     # print the result string
-    paint(args.string, print=True, overflow=args.overflow,
-        sep=args.sep, end=args.end, file=args.file)
+    _paint()
 
 
 if __name__ == '__main__':
