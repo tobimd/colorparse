@@ -213,7 +213,7 @@ By the time, the full documentation on how the functions work when importing the
 Examples
 --------
 
-Sadly, there is no better way to show this examples without images. Go `here <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_ for some see how it works (including the ones shown here, this time with actual color).
+Sadly, there is no better way to show this examples without images, so `here <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_ are some (including the ones shown before, this time with actual color).
 
 Conventions
 -----------
