@@ -106,7 +106,7 @@ To change colors, all is needed is to initiate a new color like before::
    $ colorparse ";r/red box ;b/blue box"
    red box blue box
 
-This can be mixed with background colors as well, swapping the ``;`` for a ``:``.
+This can be mixed with background colors as well, swapping the ``;`` for a ``:`` (it's worth mentioning that setting a new foreground color when only a background color is initiated won't finish the latter, only the ones of the same ``type`` will affect the other).
 
 Resetting to normal, can be done in three major ways, where one of those has two forms (it is used to stop both background and foreground colors, and every string will have one at the end added by the program). The following strings get the same result, therefore ``;:`` and ``:;`` are interchangeable::
 
