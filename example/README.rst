@@ -228,6 +228,7 @@ This shall be considered as recomendations, as they allow for a better and faste
 - Avoid using the ``Color`` class directly, unless it's used to redefine color values.
 - If the ``change_defaults`` function is used (preferably at the beggining of the program), do not use the function again later in the code. 
 - Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
+- Even though spaces are allowed in bracket closing (i'ts not the case with ``/``), use as few as possible.
 
 Known Issues
 ------------
