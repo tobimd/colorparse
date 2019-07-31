@@ -220,11 +220,11 @@ Conventions
 
 This shall be considered as recomendations, as they allow for a better and faster way of working arround with ``color codes``.
 
-- Use closing options consistently throughout the string(s)
-- Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings
+- Use closing options consistently throughout the string(s).
+- Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings.
 - Avoid using ``;;`` or ``::`` for large strings.
 - For custom color codes (RGB and HEX), do not ommit "0" values.
-- If using the terminal, and there are many special characters (new line, tab, etc), prefer accessing the values from a file rather than directly using terminal input (this can be done using the ``-i`` or ``--input-file`` option).
+- If using the terminal, and there are many special characters (new lines, tabs, etc), prefer storing the string(s) in a file rather than directly using terminal input (this file can be accessed using the ``-i`` or ``--input-file`` option).
 - Avoid using the ``Color`` class directly, unless it's used to redefine color values.
 - If the ``change_defaults`` function is used (preferably at the beggining of the program), do not use the function again later in the code. 
 - Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
