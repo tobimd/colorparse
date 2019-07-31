@@ -246,7 +246,7 @@ Change Log
    # version 1.0.0   (2019 - 07 - 30)
    + [t] The use of ``colorparse`` without arguments, results in the usage help being displayed.
    + [t] Grouped the option arguments ``-v`` and ``-c`` as mutually exclusive arguments.
-   + [t] Added new optional argument for reading strings from input file(s) with ``-i`` or ``--input-file``
+   + [t] Added new optional argument for reading strings from input file(s) with ``-i`` or ``--input-file``.
    + [t] Replaced the optional argument ``-f`` for ``-o`` (``--output-file``).
    + [t] Changed the optional argument for ``overflow`` to ``-O`` (uppercase o) or ``--overflow``.
    + [t] Added support for special characters to be read from the terminal input ``-r`` or ``--read-special``.
@@ -255,6 +255,4 @@ Change Log
    + Fixed Windows script file
 
 
-   # version 0.0.1
-   * The first released version
-   
+   # release version 0.0.1   (2019 - 07 - 29)
