@@ -99,7 +99,7 @@ Note that, the variations for closing a color shown before, cannot be mixed with
 Finishing a color
 -----------------
 
-To finish a color, can mean two things: a change to another color, or resetting colors to normal (to the color the terminal uses, which is normally not white). 
+To finish a color, can mean two things: changing to another color, or resetting colors to normal (to the color the terminal uses, which is normally not white). 
 
 To change colors, all is needed is to initiate a new color like before::
    
