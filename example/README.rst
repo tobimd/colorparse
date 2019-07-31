@@ -32,6 +32,8 @@ Contents
    - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
+   - `Complete Documentation <https://github.com/tubi-carrillo/colorparse#complete-documentation>`_
+   - `Examples <https://github.com/tubi-carrillo/colorparse#examples>`_
    - `Conventions <https://github.com/tubi-carrillo/colorparse#conventions>`_
    - `Known Issues <https://github.com/tubi-carrillo/colorparse#known-issues>`_
    - `Change Log <https://github.com/tubi-carrillo/colorparse#change-log>`_
@@ -199,3 +201,50 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
 ``*`` cannot be accessed directly through the class ``Color``. They can only be used as a ``color code`` in a string.
 
 ``+`` only available if the terminal supports `true color <https://en.wikipedia.org/wiki/Color_depth#True_color_(24-bit)>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
+
+Further Reading
+===============
+
+Complete Documentation
+----------------------
+
+By the time, the full documentation on how the functions work when importing the module, or how to use it in the terminal are being written. There is an ugly version that covers that `here <https://github.com/tubi-carrillo/colorparse/tree/master/tmp>`_.
+
+Examples
+--------
+
+Sadly, there is no better way to show this examples without images. Go `here <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_ for some see how it works (including the ones shown here, this time with actual color).
+
+Conventions
+-----------
+
+This shall be considered as recomendations, as they allow for a better and faster way of working arround with ``color codes``
+
+- Use closing options consistently throughout the string(s)
+- Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings
+- Avoid using ``;;`` or ``::`` for large strings.
+- For custom color codes (RGB and HEX), do not ommit "0" values.
+- If using the terminal, and there are many special characters (new line, tab, etc), prefer accessing the values from a file rather than directly using terminal input (this can be done using the ``-i`` or ``--input-file`` option).
+- Avoid using the ``Color`` class directly, unless it's used to redefine color values.
+- If the ``change_defaults`` function is used (preferably at the beggining of the program), do not use the function again later in the code. 
+- Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
+
+Known Issues
+------------
+
+*nothing to show for now*
+
+Change Log
+----------
+
+.. code:: diff
+
+   ! version 1.0.0
+   
+
+   ! 0.0.2
+   + fixed Windows script file
+
+   ! 0.0.1
+   # the first released version
+   
