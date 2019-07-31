@@ -218,7 +218,7 @@ Sadly, there is no better way to show this examples without images, so `here <ht
 Conventions
 -----------
 
-This shall be considered as recomendations, as they allow for a better and faster way of working arround with ``color codes``
+This shall be considered as recomendations, as they allow for a better and faster way of working arround with ``color codes``.
 
 - Use closing options consistently throughout the string(s)
 - Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings
@@ -234,7 +234,7 @@ This shall be considered as recomendations, as they allow for a better and faste
 Known Issues
 ------------
 
-*nothing to show for now*
+*nothing to show for now.*
 
 Change Log
 ----------
