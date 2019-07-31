@@ -124,7 +124,7 @@ Escaping a color
 To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``type`` character (the one that determines if it is a background or a foreground color)::
 
    $ colorparse "[\;r] this text is not red"
-   [\;r] this text is not red
+   [;r] this text is not red
 
 List of Color Codes
 ===================
