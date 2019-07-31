@@ -247,18 +247,9 @@ Change Log
    + [t] The use of ``colorparse`` without arguments, results in the usage help being displayed.
    + [t] Grouped the option arguments ``-v`` and ``-c`` as mutually exclusive arguments.
    + [t] Added new optional argument for reading strings from input file(s) with ``-i`` or ``--input-file``
-   + [t] Replaced the optional argument ``-f`` to ``-o`` (``--output-file``), which was used before by the 
-         ``overflow`` argument.
+   + [t] Replaced the optional argument ``-f`` for ``-o`` (``--output-file``).
    + [t] Changed the optional argument for ``overflow`` to ``-O`` (uppercase o) or ``--overflow``.
-   + [t] Added support for special characters to be read from the terminal input using the optional argument
-         ``-r`` or ``--read-special``. The supported characters are: ``\n`` (new line), ``\r`` (carriage 
-         return), ``\t`` (horizontal tab), ``\v`` (vertical tab), ``\a`` (bell), ``\b`` (backspace) and ``\f``
-         (formfeed).
-         
-   ! Note, escaping the special characters (with ``\``) may not work the same on all terminals. Some terminals
-   escape even before sending the string to the program, so for Linux it's neccessary to use two ``\`` to 
-   escape a special character and for Windows only one.
-
+   + [t] Added support for special characters to be read from the terminal input ``-r`` or ``--read-special``.
 
    # version 0.0.2 (2019 - 07 - 29)
    + Fixed Windows script file
