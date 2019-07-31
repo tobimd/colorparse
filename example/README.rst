@@ -239,7 +239,7 @@ Known Issues
 Change Log
 ----------
 
-\* *the prefixes [t] and [m] refer to terminal only and module only changes, respectively.* *
+\* *the prefixes [t] and [m] refer to terminal and module only changes, respectively.* *
 
 .. code:: diff
 
