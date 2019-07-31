@@ -124,7 +124,7 @@ To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``ty
 List of Color Codes
 ===================
 
-* the ones marked with a start (the last four), cannot be accessed directly through the class ``Color``. They can only be used as a ``color code`` in a string.
+To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, ``green``, ``cyan``, ``blue``, ``purple`` and ``magenta``. They all have three variations for the first letter. If it's alone, then it's a normal color; if it's repeated two times, means that it's a dark color; if it's uppercase, then it's a strong color.
 
 .. table::
     :widths: 10 24 50
@@ -184,11 +184,15 @@ List of Color Codes
     +-------------+------------------------+
     | ``:;``      | ENDC                   |
     +-------------+------------------------+
-    | ``;;``      | ENDFC*                 |
+    | ``;;``      | ENDFC ``*``            |
     +-------------+------------------------+
-    | ``::``      | ENDBC*                 |
+    | ``::``      | ENDBC ``*``            |
     +-------------+------------------------+
-    | ``;=``      | RGB*                   |
+    | ``;=``      | RGB ``*`` ``+``        |
     +-------------+------------------------+
-    | ``;#``      | HEX*                   |
+    | ``;#``      | HEX ``*`` ``+``        |
     +-------------+------------------------+
+
+``*`` cannot be accessed directly through the class ``Color``. They can only be used as a ``color code`` in a string.
+
+``+`` only available if the terminal supports `true color <https://en.wikipedia.org/wiki/Color_depth#True_color_(24-bit)>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
