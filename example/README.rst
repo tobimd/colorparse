@@ -51,7 +51,7 @@ Usage
 
 A ``color code`` is defined in two parts. The first, is the ``type`` which can be either *foreground* or *background* using a ``;`` (semicolon) or a ``:`` (colon) respectively. Second, comes the ``value`` representing the color that will be displayed.
 
-The ``value`` can be defined letters, another ``type`` character and, if the terminal supports `true color <https://github.com/tubi-carrillo/colorparse#about-true-color>`_, the option to use custom color codes is avaliable (detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below).
+The ``value`` can be: defined letters, another ``:`` or ``;`` character or for custom colors (if the terminal supports `true color <https://github.com/tubi-carrillo/colorparse#about-true-color>`_, then this option is available) an ``=`` or ``#``. Detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below.
 
 This guide will use the terminal form of this package, but this also applies to the function ``paint``, when the module is imported.
 
