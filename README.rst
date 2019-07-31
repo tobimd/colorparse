@@ -234,7 +234,7 @@ This shall be considered as recomendations, as they allow for a better and faste
 Known Issues
 ------------
 
-*nothing to show for now.*
+- Special characters do not work as intended for Windows. For now use input files for their correct usage.
 
 Change Log
 ----------
