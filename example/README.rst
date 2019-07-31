@@ -99,16 +99,16 @@ Note that, the variations for closing a color shown before, cannot be mixed with
 Finishing a color
 -----------------
 
-To finish a color, can mean two things: to change to another color, or reset to normal (to the color the terminal uses, which is normally not white). 
+To finish a color, can mean two things: a change to another color, or resetting colors to normal (to the color the terminal uses, which is normally not white). 
 
-To change colors, all is needed is to initiate like before::
+To change colors, all is needed is to initiate a new color like before::
    
    $ colorparse ";r/red box ;b/blue box"
    red box blue box
 
-This can be mixed with background colors as well, changing the ``;`` to ``:``.
+This can be mixed with background colors as well, swapping the ``;`` for a ``:``.
 
-Resetting to normal, can be done in 3 major ways, where 1 of those can be used in two forms (it is used to stop both background and foreground colors). The following two strings have the exact meaning::
+Resetting to normal, can be done in three major ways, where one of those has two forms (it is used to stop both background and foreground colors, and every string will have one at the end added by the program). The following strings get the same result, therefore ``;:`` and ``:;`` are interchangeable::
 
    $ colorparse ":b/;r/both foreground and background colors stop ;:/here"
    $ colorparse ":b/;r/both foreground and background colors stop :;/here"
@@ -229,6 +229,7 @@ This shall be considered as recomendations, as they allow for a better and faste
 - If the ``change_defaults`` function is used (preferably at the beggining of the program), do not use the function again later in the code. 
 - Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
 - Even though spaces are allowed in bracket closing (i'ts not the case with ``/``), use as few as possible.
+- Use either ``;:`` or ``:;`` consistently (prefer the first one).
 
 Known Issues
 ------------
