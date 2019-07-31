@@ -9,7 +9,7 @@ Colorparse will simplify the work by reading it's self-defined "*color codes*" i
 Beware that the words "color code(s)" will be used extensively.
 
 # Index
-- [Installation](https://github.com/tubi-carrillo/colorparse#installation)
+- [Installation](https://github.com/tubi-carrillo/colorparse/tree/master/example#installation)
 - [How to use](https://github.com/tubi-carrillo/colorparse#how-to-use)
 - [Usage as imported module](https://github.com/tubi-carrillo/colorparse#usage-as-imported-module)
 - [Usage in terminal](https://github.com/tubi-carrillo/colorparse#usage-in-terminal)
