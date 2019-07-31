@@ -256,3 +256,8 @@ Change Log
 
 
    # release version 0.0.1   (2019 - 07 - 29)
+
+License
+-------
+
+`MIT License <https://github.com/tubi-carrillo/colorparse/blob/master/package_files/LICENSE>`_
