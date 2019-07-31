@@ -12,7 +12,7 @@ colorparse
    :target: https://pypi.org/project/colorparse/
    :alt: Wheel Status
   
-.. |docs| image:: https://img.shields.io/badge/docs-in%20process-orange?style=flat-square
+.. |docs| image:: https://img.shields.io/badge/docs-not%20done-red?style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse
    :alt: Documentation
 ----
