@@ -108,7 +108,7 @@ Resetting to normal, can be done in 3 major ways, where 1 of those can be used i
    $ colorparse ":b/;r/both foreground and background colors stop ;:/here"
    $ colorparse ":b/;r/both foreground and background colors stop :;/here"
    
-The other two ways, is using ``;;`` to stop only the current foreground color and ``::`` to stop only the current background color::
+The other two ways are: using ``;;`` to stop only the current foreground color and ``::`` to stop only the current background color::
 
    $ colorparse ":b/;r/both colors ;;/only the blue background"
    $ colorparse ":b/;r/both colors ::/only the red foreground"
@@ -123,3 +123,55 @@ To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``ty
 
 List of Color Codes
 ===================
+
+======== ====================
+ values          name
+======== ====================
+   rr       DARK_RED
+-------- --------------------
+   oo       DARK_ORANGE
+-------- --------------------
+   yy       DARK_YELLOW
+-------- --------------------
+   gg       DARK_GREEN
+-------- --------------------
+   cc       DARK_CYAN
+-------- --------------------
+   bb       DARK_BLUE
+-------- --------------------
+   pp       DARK_PURPLE
+-------- --------------------
+   mm       DARK_MAGENTA
+-------- --------------------
+   r        RED
+-------- --------------------
+   o        ORANGE
+-------- --------------------
+   y        YELLOW
+-------- --------------------
+   g        GREEN
+-------- --------------------
+   c        CYAN
+-------- --------------------
+   b        BLUE
+-------- --------------------
+   p        PURPLE
+-------- --------------------
+   m        MAGENTA
+-------- --------------------
+   R        STRONG_RED
+-------- --------------------
+   O        STRONG_ORANGE
+-------- --------------------
+   Y        STRONG_YELLOW
+-------- --------------------
+   G        STRONG_GREEN
+-------- --------------------
+   C        STRONG_CYAN
+-------- --------------------
+   B        STRONG_BLUE
+-------- --------------------
+   P        STRONG_PURPLE
+-------- --------------------
+   M        STRONG_MAGENTA
+======== ====================
