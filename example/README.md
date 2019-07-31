@@ -10,11 +10,11 @@ Beware that the words "color code(s)" will be used extensively.
 
 # Index
 - [Installation](https://github.com/tubi-carrillo/colorparse/tree/master/example#installation)
-- [How to use](https://github.com/tubi-carrillo/colorparse#how-to-use)
-- [Usage as imported module](https://github.com/tubi-carrillo/colorparse#usage-as-imported-module)
-- [Usage in terminal](https://github.com/tubi-carrillo/colorparse#usage-in-terminal)
-- [Color codes](https://github.com/tubi-carrillo/colorparse#color-codes)
-- [Further reading](https://github.com/tubi-carrillo/colorparse#further-reading)
+- [How to use](https://github.com/tubi-carrillo/colorparse/tree/master/example#how-to-use)
+- [Usage as imported module](https://github.com/tubi-carrillo/colorparse/tree/master/example#usage-as-imported-module)
+- [Usage in terminal](https://github.com/tubi-carrillo/colorparse/tree/master/example#usage-in-terminal)
+- [Color codes](https://github.com/tubi-carrillo/colorparse/tree/master/example#color-codes)
+- [Further reading](https://github.com/tubi-carrillo/colorparse/tree/master/example#further-reading)
 
 # Installation
 
@@ -25,7 +25,7 @@ Beware that the words "color code(s)" will be used extensively.
 This will be a general approach to how the strings are parsed and how to use the color codes.
 
 ### List of color codes
-To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse#color-codes) below.
+To read the list of all available color codes, go to [color codes](https://github.com/tubi-carrillo/colorparse/tree/master/example#color-codes) below.
 
 ### How color codes work
 The parser will look for color codes that always start with a semicolon or a colon (foreground and background respectively), and replace that value with it's ANSI color escape sequence. These sequences have a structure similar to this: `ESC[<n>;<n>;...;<n>m` where they start with a specific `ESC` string (which in this case, we use `\033`) and always end with the letter `m`. When accessing each color in the `Color` class, the returned value will be these color escape sequences.
