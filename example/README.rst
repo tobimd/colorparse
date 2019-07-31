@@ -228,8 +228,8 @@ This shall be considered as recomendations, as they allow for a better and faste
 - Avoid using the ``Color`` class directly, unless it's used to redefine color values.
 - If the ``change_defaults`` function is used (preferably at the beggining of the program), do not use the function again later in the code. 
 - Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
-- Even though spaces are allowed in bracket closing (i'ts not the case with ``/``), use as few as possible.
-- Use either ``;:`` or ``:;`` consistently (prefer the first one).
+- Even though spaces are allowed in bracket closing (which is not the case for the ``/``), use as few as possible.
+- Use either ``;:`` or ``:;`` consistently (prefer the first one, because the program automatically adds that one, to the end of the strings).
 
 Known Issues
 ------------
@@ -239,14 +239,22 @@ Known Issues
 Change Log
 ----------
 
+* the prefixes [t] and [m] refer to terminal only and module only changes, respectively. *
+
 .. code:: diff
 
-   ! version 1.0.0
-   
+   ! version 1.0.0 (2019 - 07 - 30)
+   + [t] The use of ``colorparse`` without arguments, results in the usage help being displayed.
+   + [t] Grouped the option arguments ``-v`` and ``-c`` as mutually exclusive arguments.
+   + [t] Added new optional argument for reading strings from input file(s) with ``-i`` or ``--input-file``
+   + [t] Replaced the optional argument ``-f`` to ``-o`` (``--output-file``), which was used before by the ``overflow`` argument.
+   + [t] Changed the optional argument for ``overflow`` to ``-O`` (uppercase o) or ``--overflow``.
+   + [t] Added support for special characters to be read from the terminal input using the optional argument ``-r`` or ``--read-special``. The supported characters are: ``\n`` (new line), ``\r`` (carriage return), ``\t`` (horizontal tab), ``\v`` (vertical tab), ``\a`` (bell), ``\b`` (backspace) and ``\f`` (formfeed).
+   * Note, escaping the special characters (with ``\``) may not work the same on all terminals. Some terminals escape even before sending the string to the program, so for Linux it's neccessary to use two ``\`` to escape a special character and for Windows only one.
 
-   ! 0.0.2
-   + fixed Windows script file
+   ! version 0.0.2 (2019 - 07 - 29)
+   + Fixed Windows script file
 
-   ! 0.0.1
-   # the first released version
+   ! version 0.0.1
+   # The first released version
    
