@@ -265,4 +265,4 @@ Sadly, there is no better way to show this examples without images, so `here <ht
 License
 -------
 
-`MIT License <https://github.com/tubi-carrillo/colorparse/blob/master/package_files/LICENSE>`_
+`MIT License <https://github.com/tubi-carrillo/colorparse/blob/master/LICENSE>`_
