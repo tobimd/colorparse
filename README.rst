@@ -238,7 +238,7 @@ Known Issues
 Change Log
 ----------
 
-\* *the prefixes [t] and [m] refer to terminal and module only changes, respectively.* *
+\* *the prefixes [t] refer to terminal, [m] for module and [d] for docs only changes, respectively.* *
 
 .. code:: diff
 
@@ -249,6 +249,7 @@ Change Log
    + [t] Replaced the optional argument ``-f`` for ``-o`` (``--output-file``).
    + [t] Changed the optional argument for ``overflow`` to ``-O`` (uppercase o) or ``--overflow``.
    + [t] Added support for special characters to be read from the terminal input ``-r`` or ``--read-special``.
+
 
    # version 0.0.2   (2019 - 07 - 29)
    + Fixed Windows script file
