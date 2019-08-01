@@ -31,7 +31,7 @@ Contents
    - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
-   - `Complete Documentation <https://github.com/tubi-carrillo/colorparse#complete-documentation>`_
+   - `Documentation <https://github.com/tubi-carrillo/colorparse#complete-documentation>`_
    - `Examples <https://github.com/tubi-carrillo/colorparse#examples>`_
    - `Conventions <https://github.com/tubi-carrillo/colorparse#conventions>`_
    - `Known Issues <https://github.com/tubi-carrillo/colorparse#known-issues>`_
