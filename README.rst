@@ -30,12 +30,13 @@ Contents
    - `Finishing a color <https://github.com/tubi-carrillo/colorparse#finishing-a-color>`_
    - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
+* `Documentation <https://github.com/tubi-carrillo/colorparse#documentation>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
-   - `Documentation <https://github.com/tubi-carrillo/colorparse#complete-documentation>`_
-   - `Examples <https://github.com/tubi-carrillo/colorparse#examples>`_
    - `Conventions <https://github.com/tubi-carrillo/colorparse#conventions>`_
    - `Known Issues <https://github.com/tubi-carrillo/colorparse#known-issues>`_
    - `Change Log <https://github.com/tubi-carrillo/colorparse#change-log>`_
+   - `Examples <https://github.com/tubi-carrillo/colorparse#examples>`_
+   - `License <https://github.com/tubi-carrillo/colorparse#license>`_
 
 Installation
 ============
@@ -201,18 +202,13 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
 
 ``+`` only available if the terminal supports `true color <https://en.wikipedia.org/wiki/Color_depth#True_color_(24-bit)>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
 
+Documentation
+=============
+
+For the time being, the full documentation on how the functions work when importing the module, or how to use it in the terminal are being written. There is an ugly version that covers that `here <https://github.com/tubi-carrillo/colorparse/tree/master/tmp>`_.
+
 Further Reading
 ===============
-
-Complete Documentation
-----------------------
-
-By the time, the full documentation on how the functions work when importing the module, or how to use it in the terminal are being written. There is an ugly version that covers that `here <https://github.com/tubi-carrillo/colorparse/tree/master/tmp>`_.
-
-Examples
---------
-
-Sadly, there is no better way to show this examples without images, so `here <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_ are some (this time with actual color). I will add more examples in a more organized way with future updates.
 
 Conventions
 -----------
@@ -255,6 +251,11 @@ Change Log
 
 
    # release version 0.0.1   (2019 - 07 - 29)
+
+Examples
+--------
+
+Sadly, there is no better way to show this examples without images, so `here <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_ are some (this time with actual color). I will add more examples in a more organized way with future updates.
 
 License
 -------
