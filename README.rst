@@ -12,7 +12,7 @@ colorparse
    :target: https://pypi.org/project/colorparse/
    :alt: Wheel Status
   
-.. |docs| image:: https://readthedocs.org/projects/pip/badge/&style=flat-square
+.. |docs| image:: https://readthedocs.org/projects/colorparse/badge/?version=latest&style=flat-square
    :target: https://colorparse.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
    
