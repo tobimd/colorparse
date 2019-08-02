@@ -9,7 +9,7 @@ theme:
                 - console
 
 nav:
-- Getting Started: 'index.md'
+- Getting Started: 'index.rst'
 - Module Content: 'module-content.md'
 - Terminal Usage: 'terminal.md'
 - Further Reading: 'further-reading.md'
