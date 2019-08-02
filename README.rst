@@ -20,7 +20,7 @@ colorparse
    :target: https://pypi.org/project/colorparse/
    :alt: Download Count
 
-.. |python| image:: https://img.shields.io/badge/python-3.7-blue
+.. |python| image:: https://img.shields.io/badge/python-3.7-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Python Version
 
