@@ -86,7 +86,6 @@ One way is by initiating another color, for example a foreground blue (`;b`), if
 
 The second way is by resetting the colors, which is done by using `;:` or `:;` (a semicolon followed by a colon, or viceversa). Both work the same, and they reset foreground and background colors at once. Because of that, there is also the code `;;`, which resets only the foreground colors and `::` that resets only the background colors:
 
-
 	$ colorparse ";r/red box ;b/blue box"
 	red box blue box
 	$
@@ -105,7 +104,6 @@ A colored version of these examples can be seen at the [example images](#example
 ### Escaping
 To escape a color code from being rendered, use a `\` (backslash), then:
 
-
 	$ colorparse "[\;r]red box"
 	[;r]red box
 
@@ -118,23 +116,22 @@ It's important to note, that because background colors do not allow RGB values, 
 - To use the RGB color code, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work:
 
 ```console
-$ colorparse -t ";=255,255,255/white"
-$ colorparse -t ";=255/red"
-$ colorparse -t ";=255,,/red"
-$ colorparse -t ";=255,0,0/red"
-$ colorparse -t ";=/black"
-$ colorparse -t ";=,,/black"
+	$ colorparse -t ";=255,255,255/white"
+	$ colorparse -t ";=255/red"
+	$ colorparse -t ";=255,,/red"
+	$ colorparse -t ";=255,0,0/red"
+	$ colorparse -t ";=/black"
+	$ colorparse -t ";=,,/black"
 ```
-
 - To use the HEX color code, there needs to be **at most** 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work:
 
 ```console
-$ colorparse -t ";#FFFFFF/white"
-$ colorparse -t ";#FF/red"
-$ colorparse -t ";#FF00/red"
-$ colorparse -t ";#FF0000/red"
-$ colorparse -t ";#000000/black"
-$ colorparse -t ";#/black"
+	$ colorparse -t ";#FFFFFF/white"
+	$ colorparse -t ";#FF/red"
+	$ colorparse -t ";#FF00/red"
+	$ colorparse -t ";#FF0000/red"
+	$ colorparse -t ";#000000/black"
+	$ colorparse -t ";#/black"
 ```
 # List of Color Codes
 To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, ``green``, ``cyan``, ``blue``, ``purple`` and ``magenta``. They all have three variations for the first letter. If it's alone, then it's a normal color; if it's repeated two times, it means that it's a dark color; if it's uppercase, then it's a strong color.
