@@ -6,7 +6,7 @@
 - [0.0.2](#version-002-2019-07-29)
 - [0.0.1](#release-version-001-2019-07-29)
 
-#### version 1.1.0   (2019 - 08 - 01)
+## version 1.1.0   (2019 - 08 - 01)
 + [t] Fixed problem with reading special characters on Windows.
 + [t] Improved (and fixed some grammatical errors) in the help menu.
 + [t] Replaced ``-r`` (``--read-special``) with ``-I`` (uppercase i) or ``--ignore-special`` (inverted roles).
@@ -15,7 +15,7 @@
 + [m] Added more documentation for the functions insde the module (use built-in ``help`` function).
 + [d] Created a documentation page.
 
-#### version 1.0.0   (2019 - 07 - 30)
+## version 1.0.0   (2019 - 07 - 30)
 + [t] The use of ``colorparse`` without arguments, results in the usage help being displayed.
 + [t] Grouped the option arguments ``-v`` and ``-c`` as mutually exclusive arguments.
 + [t] Added new optional argument for reading strings from input file(s) with ``-i`` or ``--input-file``.
@@ -24,8 +24,8 @@
 + [t] Added support for special characters to be read from the terminal input ``-r`` or ``--read-special``.
 
 
-#### version 0.0.2   (2019 - 07 - 29)
+## version 0.0.2   (2019 - 07 - 29)
 + Fixed Windows script file
 
 
-#### release version 0.0.1   (2019 - 07 - 29)
+## release version 0.0.1   (2019 - 07 - 29)
