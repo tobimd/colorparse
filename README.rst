@@ -272,7 +272,7 @@ Change Log
 
 \* *the prefixes [t], [m] and [d] refer to terminal-only, module-only and docs-only changes, respectively.* *
 
-Too see previous versions go to `change-log.md <https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md>`_.
+Too see previous versions go to the `change-log.md <https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md>`_ file.
 
 .. code:: diff
 
