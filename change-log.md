@@ -4,7 +4,7 @@
 - [1.1.0](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-110---2019---08---01)
 - [1.0.0](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-100---2019---07---30)
 - [0.0.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-002---2019---07---29)
-- [0.0.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-001---2019---07---29)
+- [0.0.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#release-version-001---2019---07---29)
 
 ## version 1.1.0   (2019 - 08 - 01)
 + [t] Fixed problem with reading special characters on Windows.
