@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.0.0'
+__version__ = '1.1.0'
 
 
 class _Defaults:
@@ -50,6 +50,8 @@ class _Defaults:
         'A':  'LIGHT_GRAY',
         'w':  'WHITE',
     }
+
+    _ignore_special = False
 
 
 class Color:
@@ -277,42 +279,71 @@ def _color_format(string):
     return re.sub(regex, _color_repl, string)
 
 
-def _fix_special(matchobj):
+def _repl_special(matchobj):
     special = {'n': '\n', 'a': '\a', 'b': '\b', 
                'f': '\f', 'r': '\r', 'v': '\v',
                't': '\t',}
 
-    string = matchobj[0]
-    
-    # Windows does not escape characters before user input
-    if sys.platform[:3] == 'win':
-        is_not_escaped = len(string) % 2 != 0
+    string = matchobj[0] 
 
-    # Linux, or at least urxvt terminal, does
-    else:
-        is_not_escaped = len(string) % 2 == 0
-
-
-    if is_not_escaped:
+    if len(string) % 2 == 0:
         return string[:-2] + special[string[-1]]
 
     return string[1:]
 
 
+def _fix(string):
+    if _Defaults._ignore_special or string is None:
+        return string
+    
+    return re.sub(r'\\+[nrtvabf]', _repl_special, string)
+
+
 def paint(*strings, **options):
-    """paint(strings, ..., print=True, ret=True, overflow=False, sep=' ',
-             end='\n', file=sys.stdout, flush=false) -> string
+    """Returns a string that will have color codes
+    converted to ANSI escape sequences.
 
-    Returns a string that will have color codes converted to real ANSI
-    color escape sequences (if 'print' is False, then the string won't be
-    printed and the arguments 'end', 'file' and 'flush' won't be considered
-    whatever their values may be. The returned and/or printed string will
-    always end all color codes.
+    Having print as False, makes the arguments end,
+    file and flush to not be considered whatever their
+    values may be, because those are only used when
+    printing.
 
-    The overflow argument will allow any unfinished color to pass through
-    to the other strings if it's value is True. By default it's False, which
-    means that all the color will be finished at the end of each string.
+    When there is more than one string and the
+    argument overflow is True, any unfinished color
+    will pass through to other strings. Otherwise,
+    colors will be finished at the end of each string.
 
+    It's worth noting that regardless of the value
+    this argument has, the function will always finish
+    all color codes at the end of the last string (the
+    same as adding a ;:).
+
+    Arguments            Descriptions
+    -----------------    -----------------------------
+    strings              One or more str objects to be
+                         parsed.
+
+    print=True           If true, the obtained string
+                         will be printed.
+
+    ret=True             If true, the obtained string
+                         will be returned.
+
+    overflow=False       If true, allow unfinished
+                         colors to overflow onto other
+                         strings.
+
+    sep=' '	         Inserted between the given
+                         strings.
+
+    end='\\n'	         Appended after the last
+                         string (when it's printed)
+
+    file=sys.stdout	 A file-like object (stream).
+
+    flush=False 	 Whether to forcibly flush the
+                         stream (when the strings are
+                         printed).
     """
     endc = '\033[0m'
 
@@ -342,9 +373,9 @@ def paint(*strings, **options):
 
 
 def codes():
-    """Prints a list of all the color codes available. It shows the
-    background, foreground, code and the name of each code.
-
+    """Prints a list of all the color codes available.
+    It also displays what the colors look as
+    background type and foreground type.
     """
 
     help_string = """
@@ -408,11 +439,26 @@ def codes():
 
 
 def change_defaults(fn, **kwargs):
-    """change_defaults(fn, key=value, ...)
-    change_defaults(fn, **kwargs)
+    """This function is meant to be used at the
+    beggining of the program, to set permanent default
+    values. This way, it helps to avoid having to
+    constantly set the same arguments that would
+    otherwise be omitted. The kwargs argument recieves
+    one or more key/value pairs for the function fn.
 
-    Used to set default values permanently for the rest of the program.
+    It was designed to help both for future functions
+    that may be added and to make lines of code
+    shorter.
 
+    Arguments            Descriptions
+    -----------------    -----------------------------
+    fn                   Either the name or the
+                         function itself, from which
+                         the changes for default
+                         values will be applied.
+
+    kwargs               Key - value pairs for each
+                         default argument to set.
     """
 
     if callable(fn):
@@ -423,12 +469,24 @@ def change_defaults(fn, **kwargs):
 
 
 def true_color(value=None):
-    """true_color(value=None)
+    """Changes the global value for true color. When
+    set to True, it means that the set of foreground
+    colors will be using RGB values directly for each
+    ANSI escape sequence. This does not apply to the
+    background colors, as they do not allow RGB
+    values in their codes. Be aware that not all
+    terminals support true colors in ANSI escape
+    sequences, so by default it's set to false at the
+    start.
 
-    If set to True, the color set will change to rgb ANSI color escape
-    sequences, which may not work on some terminals. If no value is given,
-    then returns the current state of true color (if it's set to True or not).
+    When no argument is given, it returns the current
+    state for the global value.
 
+    Arguments            Descriptions
+    -----------------    -----------------------------
+    value=None           If true color should be
+                         activated or not, using
+                         boolean arguments.
     """
 
     if value is None:
@@ -443,66 +501,79 @@ def _arg_parser():
 
     # arguments 
     parser.add_argument('string', 
-                        help='a string that may contain color codes',
+                        help='one or more input strings.',
                         nargs='*',
+                        default=[])
+
+    parser.add_argument('-c', '--codes',
+                        help='show the available color codes and exit.',
+                        action='store_true')
+
+    parser.add_argument('-v', '--version',
+                        help='show the current version of this module and\
+                              exit.',
+                        action='version', version=f'%(prog)s {__version__}')
+
+    parser.add_argument('-t', '--true-color',
+                        help='use of RGB values for the ANSI escape sequences.\
+                              Allowes customized foreground color codes and a\
+                              more accurate color set (warning: having this\
+                              option won\'t work on all terminals as they do\
+                              not all support true color).',
+                        action='store_true')
+
+    parser.add_argument('-s', '--sep',
+                        help='specify what string to use, to separate string\
+                              arguments (default is \' \').',
+                        default=_Defaults.paint['sep'])
+
+    parser.add_argument('-e', '--end',
+                        help='specify what string to use at the end of the\
+                              printed string (default is \'\\n\')',
+                        default=_Defaults.paint['end'])
+
+    parser.add_argument('-O', '--overflow',
+                        help='make colors overflow to other strings if a color\
+                              code is not finished.',
+                        action='store_true')
+
+    parser.add_argument('-I', '--ignore-special',
+                        help='tell the parser to ignore special characters\
+                              like (new line, tab, etc.).',
+                        action='store_true')
+
+    parser.add_argument('-S', '--strip',
+                        help='specify which leading and trailing\
+                              characters to remove from input file(s)\
+                              (by default removes whitespace if the flag is\
+                              used).',
+                        nargs='?',
+                        const=None,
                         default='')
 
+    parser.add_argument('-p', '--position',
+                        help='place all strings after the nth input file.',
+                        nargs='?',
+                        const=0,
+                        default=0,
+                        type=int)
+
     parser.add_argument('-i', '--input-file',
-                        help='specify an input file or files to recieve the\
-                              color coded strings from. If the file doesn\'t\
-                              exist an error will be raised.',
+                        help='specify one or more files to read the color\
+                              coded strings from. If a file doesn\'t exist, an\
+                              error will be raised. It must be used after any \
+                              string argument.',
                         nargs='*',
                         type=argparse.FileType('r'),
                         default=[])
 
     parser.add_argument('-o', '--output-file',
-                        help='specify an output file to send the resulting\
-                              formatted string. If the file exists, it will\
-                              be appended to the end of said file.',
+                        help='specify an output file to append the resulting\
+                              string (default is sys.stdout).',
                         nargs='?',
                         type=argparse.FileType('a'),
+                        const=_Defaults.paint['file'],
                         default=_Defaults.paint['file'])
-
-    parser.add_argument('-O', '--overflow',
-                        help='make color codes overflow to other strings if\
-                              the previous one has not ended the color code.',
-                        action='store_true')
-
-    parser.add_argument('-s', '--sep',
-                        help='specify what to use to separate string\
-                              arguments.',
-                        default=_Defaults.paint['sep'])
-
-    parser.add_argument('-e', '--end',
-                        help='specify what to use at the end of the resulting\
-                              formatted string',
-                        default=_Defaults.paint['end'])
-
-    parser.add_argument('-t', '--true-color',
-                        help='use of rgb values for the color escape\
-                              sequences, allowing customized foreground color\
-                              codes and having the color set be more accurate\
-                              (warning: having this option won\'t work on all\
-                              terminals as they do not all have true color).',
-                        action='store_true')
-
-    parser.add_argument('-r', '--read-special',
-                        help='tell the parser to read special characters read\
-                              from the terminal. This doesn\'t apply to input\
-                              files, as the parser will always read special\
-                              characters from those.',
-                        action='store_true')
-
-
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument('-c', '--codes',
-                        help='show the available color codes and exit.',
-                        action='store_true')
-
-    group.add_argument('-v', '--version',
-                        help='show the current version of this module and\
-                              exit.',
-                        action='version', version=f'%(prog)s {__version__}')
 
     # return the arguments to "_main"
     return parser, parser.parse_args()
@@ -510,50 +581,54 @@ def _arg_parser():
 
 Color()
 
-
 def _main():
-    # get the arguments
+    # get arguments
     parser, args = _arg_parser()
     
-    # set true color to the argument's value
+    # set some base values
     true_color(args.true_color)
+    all_strings = []
+    _Defaults._ignore_special = args.ignore_special
+    str_len = len(args.string)
+    file_len = len(args.input_file)
 
-    # if used '-c' or '--codes', the call 'codes' and exit
+    # exit in these cases
     if args.codes:
         codes()
-        parser.exit()
-    
-    # if no arguments are given, print usage and exit
-    if args.string == '' and len(args.input_file) == 0:
+        sys.exit(0)
+
+    if str_len == 0  and file_len == 0:
         parser.print_usage()
-        parser.exit()        
+        sys.exit(0)
+
+    # fix index value
+    index = args.position
+    if index < 0:
+        index = file_len + index - 1 + (file_len % 2)
     
-    # use partial to add each string as argument, instead of the whole tuple 
+    index = 0 if index < 0 else index
+    index = file_len if index > file_len else index
+
+    # fix special characters
+    args.sep = _fix(args.sep)
+    args.end = _fix(args.end)
+
+    # add these strings to all_strings
+    for f in args.input_file:
+        all_strings.append(_fix(f.read().strip(_fix(args.strip))))
+
+    for s in args.string[::-1]:
+        all_strings.insert(index, _fix(s))
+
+    # add arguments
     from functools import partial
-
-    #fix escaped and non-escaped special characters in "sep" and "end"
-    if args.read_special and args.sep != _Defaults.paint['sep']:
-        args.sep = re.sub(r'\\+[nrtvabf]', _fix_special, args.sep)
-
-    if args.read_special and args.end != _Defaults.paint['end']:
-        args.end = re.sub(r'\\+[nrtvabf]', _fix_special, args.end)
-
     _paint = partial(paint, print=True, overflow=args.overflow,
                      sep=args.sep, end=args.end, file=args.output_file)
-    
-    # fix escaped and non-escaped special characters in "string"
-    strings = list(args.string)
-    for string in strings:
-        if args.read_special:
-            string = re.sub(r'\\+[nrtvabf]', _fix_special, string)
 
-        _paint = partial(_paint, string)
+    for s in all_strings:
+        _paint = partial(_paint, s)
 
-    # read values from input file if there is one
-    for f in args.input_file:
-        _paint = partial(_paint, f.read())        
-
-    # print the result string
+    # print
     _paint()
 
 
