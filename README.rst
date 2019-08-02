@@ -217,45 +217,42 @@ Further Reading
 Conventions
 -----------
 
-This shall be considered as recomendations, as they allow for a better and faster way of working arround with ``color codes``.
+The following shall be considered as recommendations only. These are for a better and faster way of working arround with color codes.
 
 - Use closing options consistently throughout the string(s).
 - Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings.
+- When two or more color codes are side by side, prefer adding a `/` (slash) on both ends of the group, instead of each one.
 - Avoid using ``;;`` or ``::`` for large strings.
 - For custom color codes (RGB and HEX), do not ommit "0" values.
-- If using the terminal, and there are many special characters (new lines, tabs, etc), prefer storing the string(s) in a file rather than directly using terminal input (this file can be accessed using the ``-i`` or ``--input-file`` option).
+- If using the terminal, and there are many special characters (new lines, tabs, etc), prefer storing the string(s) in a file rather than directly using terminal input (these files can be accessed using the ``-i`` or ``--input-file`` option).
 - Avoid using the ``Color`` class directly, unless it's used to redefine color values.
 - If the ``change_defaults`` function is used (preferably at the beggining of the program), do not use the function again later in the code. 
 - Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
 - Even though spaces are allowed in bracket closing (which is not the case for the ``/``), use as few as possible.
-- Use either ``;:`` or ``:;`` consistently (prefer the first one, because the program automatically adds that one, to the end of the strings).
+- Use either ``;:`` or ``:;`` consistently.
 
 Known Issues
 ------------
 
-- Special characters do not work as intended for Windows. For now, use input files for their correct usage.
+\* *there's nothing to show yet* *
 
 Change Log
 ----------
 
-\* *the prefixes [t] refer to terminal, [m] for module and [d] for docs only changes, respectively.* *
+\* *the prefixes [t], [m] and [d] refer to terminal-only, module-only and docs-only changes, respectively.* *
+
+Too see previous versions go to [change-log.md](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md)
 
 .. code:: diff
 
-   # version 1.0.0   (2019 - 07 - 30)
-   + [t] The use of ``colorparse`` without arguments, results in the usage help being displayed.
-   + [t] Grouped the option arguments ``-v`` and ``-c`` as mutually exclusive arguments.
-   + [t] Added new optional argument for reading strings from input file(s) with ``-i`` or ``--input-file``.
-   + [t] Replaced the optional argument ``-f`` for ``-o`` (``--output-file``).
-   + [t] Changed the optional argument for ``overflow`` to ``-O`` (uppercase o) or ``--overflow``.
-   + [t] Added support for special characters to be read from the terminal input ``-r`` or ``--read-special``.
-
-
-   # version 0.0.2   (2019 - 07 - 29)
-   + Fixed Windows script file
-
-
-   # release version 0.0.1   (2019 - 07 - 29)
+   # version 1.1.0   (2019 - 08 - 01)
+   + [t] Fixed problem with reading special characters on Windows.
+   + [t] Improved (and fixed some grammatical errors) in the help menu.
+   + [t] Replaced ``-r`` (``--read-special``) with ``-I`` (uppercase i) or ``--ignore-special`` (inverted roles).
+   + [t] Added new optional argument ``-p`` or ``--position``.
+   + [t] Added new optional argument ``-S`` (uppercase s) or ``--strip``.
+   + [m] Added more documentation for the functions insde the module (use built-in ``help`` function).
+   + [d] Created a documentation page.
 
 Examples
 --------
