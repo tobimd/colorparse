@@ -61,9 +61,9 @@ Syntax
 ------
 A ``color code`` consists mainly of two parts. The first is the ``type``, which can be either *foreground* or *background*. Secondly there is the ``value``, which represents the color to display.
 
-As an example, we will use (a lot) the foreground color red. This color is represented with: ``;r``, where the ``;`` (semicolon) is the foreground type, and the letter ``r`` is the value for the color red. Then, using the string "``;r``hello" will return "hello" in red.
+As an example, we will use (a lot) the foreground color red. This color is represented with: ``;r``, where the ``;`` (semicolon) is the foreground type, and the letter ``r`` is the value for the color red. Then, using the string "``;r`` hello" will return "hello" in red.
 
-We can use background colors as well, with a ``:`` (colon) instead of the foreground type ``;``. That way, "``:r``hello" would return "hello" with its background in red.
+We can use background colors as well, with a ``:`` (colon) instead of the foreground type ``;``. That way, "``:r`` hello" would return "hello" with its background in red.
 
 To see the all the available codes, go to the `color code's list <#list-of-color-codes>`_ below.
 
@@ -239,7 +239,7 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
 Examples
 ========
 
-The following examples cover the ones show before, with images. Note that the exact color shown, may look different depending on which terminal is being used.
+The following examples cover the ones show before, with images. Follow `this link to see more examples <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md>`_. Note that the exact color shown, may look different depending on which terminal is being used.
 
 .. image:: https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/example-getting-started.png
     :target: https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md
