@@ -1,4 +1,10 @@
-# About colorparse
+# About colorparsw
+
+![Package Version](https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square)
+![Wheel Status](https://img.shields.io/pypi/wheel/colorparse?style=flat-square)
+![Documentation Status](https://readthedocs.org/projects/colorparse/badge/?version=latest&style=flat-square)
+![Download Count](https://img.shields.io/pypi/dd/colorparse?color=yellow&style=flat-square)
+![Python Version](https://img.shields.io/badge/python-3.7-blue?style=flat-square)
 
 `colorparse` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily colored, simplifying the work for the user. 
 
@@ -23,7 +29,7 @@ This documentation is separated in three parts:
 
 # Installation
 
-To install the package, upgrade and uninstall, do the following commands:
+For the time being, this package has been tested only for python 3.7. To install the package, upgrade and uninstall, do the following commands:
 
 	$ pip install colorparse
 	$ pip install --upgrade colorparse
