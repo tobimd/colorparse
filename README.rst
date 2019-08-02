@@ -138,7 +138,7 @@ To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``ty
 Custom colors
 -------------
 
-To use custom colors with the color codes: ``;=`` for RGB and ``;#`` for HEX, means that `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, and that the method ``true_color`` was given the value ``True`` (if you are `importing the module <user-guide/module-content/#true95color>`_) or by using ``-t`` or ``--true-color`` flags `from the terminal <user-guide/terminal/#options>`_.
+To use custom colors with the color codes: ``;=`` for RGB and ``;#`` for HEX, means that `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, and that the method ``true_color`` was given the value ``True`` (if you are `importing the module <https://colorparse.readthedocs.io/en/latest/module-content/#true95color>`_) or by using ``-t`` or ``--true-color`` flags `from the terminal <https://colorparse.readthedocs.io/en/latest/terminal/#options>`_.
 
 It's important to note, that because background colors do not allow RGB values, we do not have a ``:=`` or ``:#`` version of custom color codes.
 
