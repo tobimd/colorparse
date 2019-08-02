@@ -12,9 +12,9 @@ colorparse
    :target: https://pypi.org/project/colorparse/
    :alt: Wheel Status
   
-.. |docs| image:: https://img.shields.io/badge/docs-not%20done-red?style=flat-square
-   :target: https://github.com/tubi-carrillo/colorparse
-   :alt: Documentation
+.. |docs| image:: https://readthedocs.org/projects/colorparse/badge/?version=latest
+   :target: https://colorparse.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
    
 .. |downloads| image:: https://img.shields.io/pypi/dd/colorparse?color=yellow&style=flat-square
    :target: https://pypi.org/project/colorparse/
@@ -209,7 +209,7 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
 Documentation
 =============
 
-For the time being, the full documentation on how the functions work when importing the module, or how to use it in the terminal are being written. There is an ugly version that covers that `here <https://github.com/tubi-carrillo/colorparse/tree/master/tmp>`_.
+Here is the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ documentation.
 
 Further Reading
 ===============
