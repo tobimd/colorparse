@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 
 
 class _Defaults:
@@ -299,28 +299,29 @@ def _fix(string):
     return re.sub(r'\\+[nrtvabf]', _repl_special, string)
 
 
-def paint(*strings, **options):
+def paint(*value, **options):
     """Returns a string that will have color codes
     converted to ANSI escape sequences.
 
-    Having print as False, makes the arguments end,
-    file and flush to not be considered whatever their
-    values may be, because those are only used when
-    printing.
+    Having 'print' as 'False', makes the arguments
+    'end', 'file' and 'flush' to not be considered
+    whatever their values may be, because those are
+    only used when printing.
 
     When there is more than one string and the
-    argument overflow is True, any unfinished color
-    will pass through to other strings. Otherwise,
-    colors will be finished at the end of each string.
+    argument 'overflow' is 'True', any unfinished
+    color will pass through to other strings.
+    Otherwise, colors will be finished at the end of
+    each string.
 
     It's worth noting that regardless of the value
     this argument has, the function will always finish
     all color codes at the end of the last string (the
-    same as adding a ;:).
+    same as adding a ';:').
 
     Arguments            Descriptions
     -----------------    -----------------------------
-    strings              One or more str objects to be
+    value                One or more values to be
                          parsed.
 
     print=True           If true, the obtained string
@@ -358,11 +359,11 @@ def paint(*strings, **options):
 
     # if overflow is true, then color the strings as one
     if _overflow:
-        result = _color_format(_sep.join(strings)) + endc
+        result = _color_format(_sep.join(map(str, value))) + endc
     
     # else, colors one by one and the join them
     else:        
-        result = (endc + _sep).join(map(_color_format, strings)) + endc
+        result = (endc + _sep).join(map(_color_format, map(str, value))) + endc
 
     # if out is True, then print
     if _print:
@@ -443,8 +444,9 @@ def change_defaults(fn, **kwargs):
     beggining of the program, to set permanent default
     values. This way, it helps to avoid having to
     constantly set the same arguments that would
-    otherwise be omitted. The kwargs argument recieves
-    one or more key/value pairs for the function fn.
+    otherwise be omitted. The 'kwargs' argument
+    recieves one or more key/value pairs for the
+    function 'fn'.
 
     It was designed to help both for future functions
     that may be added and to make lines of code
@@ -470,14 +472,13 @@ def change_defaults(fn, **kwargs):
 
 def true_color(value=None):
     """Changes the global value for true color. When
-    set to True, it means that the set of foreground
+    set to 'True', it means that the set of foreground
     colors will be using RGB values directly for each
     ANSI escape sequence. This does not apply to the
-    background colors, as they do not allow RGB
-    values in their codes. Be aware that not all
-    terminals support true colors in ANSI escape
-    sequences, so by default it's set to false at the
-    start.
+    background colors, as they do not allow RGB values
+    in their codes. Be aware that not all terminal
+    support true colors in ANSI escape sequences, so by
+    default it's set to 'False' at the start.
 
     When no argument is given, it returns the current
     state for the global value.
