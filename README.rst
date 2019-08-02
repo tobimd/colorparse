@@ -138,7 +138,7 @@ To use custom colors with the color codes: ``;=`` for RGB and ``;#`` for HEX, me
 
 It's important to note, that because background colors do not allow RGB values, we do not have a ``:=`` or ``:#`` version of custom color codes.
 
-To use the RGB color code, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work::
+- To use the RGB color code, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work::
 
    $ colorparse -t ";=255,255,255/white"
    $ colorparse -t ";=255/red"
