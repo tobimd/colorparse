@@ -1,4 +1,4 @@
-# About colorparsw
+# About colorparse
 
 ![Package Version](https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square)
 ![Wheel Status](https://img.shields.io/pypi/wheel/colorparse?style=flat-square)
