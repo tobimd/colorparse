@@ -33,6 +33,7 @@ Contents
    - `Closing a color <https://github.com/tubi-carrillo/colorparse#closing-a-color>`_
    - `Finishing a color <https://github.com/tubi-carrillo/colorparse#finishing-a-color>`_
    - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
+   - `Custom colors <https://github.com/tubi-carrillo/colorparse#custom-colors>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
 * `Documentation <https://github.com/tubi-carrillo/colorparse#documentation>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
@@ -129,6 +130,32 @@ To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``ty
 
    $ colorparse "[\;r] this text is not red"
    [;r] this text is not red
+   
+Custom colors
+-------------
+
+To use custom colors with the color codes: ``;=`` for RGB and ``;#`` for HEX, means that `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, and that the method ``true_color`` was given the value ``True`` (if you are [importing the module](user-guide/module-content/#true95color)) or by using ``-t`` or ``--true-color`` flags `from the terminal <user-guide/terminal/#options>`_.
+
+It's important to note, that because background colors do not allow RGB values, we do not have a ``:=`` or ``:#`` version of custom color codes.
+
+To use the RGB color code, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work::
+
+   $ colorparse -t ";=255,255,255/white"
+   $ colorparse -t ";=255/red"
+   $ colorparse -t ";=255,,/red"
+   $ colorparse -t ";=255,0,0/red"
+   $ colorparse -t ";=/black"
+   $ colorparse -t ";=,,/black"
+
+
+- To use the HEX color code, there needs to be **at most** 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work::
+
+   $ colorparse -t ";#FFFFFF/white"
+   $ colorparse -t ";#FF/red"
+   $ colorparse -t ";#FF00/red"
+   $ colorparse -t ";#FF0000/red"
+   $ colorparse -t ";#000000/black"
+   $ colorparse -t ";#/black"
 
 List of Color Codes
 ===================
@@ -202,9 +229,9 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
     | ``;#``      | HEX ``*`` ``+``        |
     +-------------+------------------------+
 
-``*`` cannot be accessed directly through the class ``Color``. They can only be used as a ``color code`` in a string.
+``*`` cannot be accessed directly through the class ``Color``. They can only be used as a color code in a string (see `Color Class <user-guide/module-content#color-class>`_).
 
-``+`` only available if the terminal supports `true color <https://en.wikipedia.org/wiki/Color_depth#True_color_(24-bit)>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
+``+`` only available if `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
 
 Documentation
 =============
