@@ -14,3 +14,7 @@ clean:
 	@colorparse -p 1 "cleaning ;c/build//;:/, ;c/dist//;:/, \
 	;c/__pycache__//;:/ and ;c/*.egg-info" -S -i "make-color"
 	@rm -rf build/ dist/ *.egg-info __pycache__/
+
+copy:
+	@colorparse -p 1 "symlinking ;c/colorparse.py;: here" -S -i "make-color"
+	@ln ~/.local/lib/python3.7/site-packages/colorparse.py colorparse.py

@@ -21,7 +21,7 @@ setuptools.setup(
     name='colorparse',
     version=version,
     author='Esteban Carrillo',
-    author_email='estebancn0324@hotmail.com',
+    author_email='esteban.ac.naranjo@gmail.com',
     description='A string-coloring package for terminals',
     long_description=long_description,
     long_description_content_type='text/markdown',
