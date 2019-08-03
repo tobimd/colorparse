@@ -7,7 +7,7 @@ with open('log.txt', 'r') as logf:
 
 with open('README.md', 'r') as fh:
     long_description = fh.read().replace('<log>',
-                                         log.replace('`', '"'))
+                                         log.replace('``', '"'))
 
 
 with open('colorparse.py', 'r') as f:
