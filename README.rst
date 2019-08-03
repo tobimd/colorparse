@@ -86,9 +86,9 @@ This gets clored in red, because the ``type``, is a semicolon which represents f
    
 Note that, the variations for closing a color shown before, cannot be mixed with eachother. This might help to avoid absorbing the brackets when trying to use them for something else. The parser **will not replace brackets if they have at least one ``/`` (slash) either at the start or the end** of the ``color code`` (with no spaces in between).
    
-- To finish a color, can mean two things: initiating another color, or resetting colors to normal (to the color the terminal uses, which is normally not white). 
+- To finish a color, can mean two things: initiating another color, or resetting them to normal (to what the terminal uses, which is normally not white). 
 
-Note tha background colors can be used as well, swapping the ``;`` for a ``:`` (it's worth mentioning that setting a new foreground color when only a background color is initiated won't finish the latter, only the ones of the same ``type`` will affect each other).
+Note that background colors can be used as well, swapping the ``;`` for a ``:`` (it's worth mentioning that setting a new foreground color when only a background one is initiated won't *finish* the latter, only the ones of the same ``type`` will affect each other).
 
 Resetting to normal, can be done in three major ways, where one of those has two forms (it is used to stop both background and foreground colors, and every string will have one at the end added by the program). The following strings get the same result, therefore ``;:`` and ``:;`` are interchangeable::
 
