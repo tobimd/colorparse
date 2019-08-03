@@ -209,7 +209,7 @@ The following shall be considered as recommendations only. These are for a bette
 Known Issues
 ------------
 
-\* *there's nothing to show yet* *
+- It's planned to allow color codes to work in the arguments ``sep`` (``-s``) and ``end`` (``-e``), as well as be affected by the ``overflow`` argument.
 
 Change Log
 ----------
