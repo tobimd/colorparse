@@ -283,7 +283,7 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 Examples
 --------
 
-Sadly, there is no better way to show this examples without images, so `here are some <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_ (this time with actual color). I will add more examples in a more organized way with future updates.
+Sadly, there is no better way to show this examples without images, so `here are some <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md>`_ (this time with actual color). I will add more examples in a more organized way with future updates.
 
 License
 -------
