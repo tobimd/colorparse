@@ -33,12 +33,9 @@ Contents
 
 * `Installation <https://github.com/tubi-carrillo/colorparse#installation>`_
 * `Documentation <https://github.com/tubi-carrillo/colorparse#documentation>`_
-* `Usage <https://github.com/tubi-carrillo/colorparse#usage>`_
-   - `Initiating a color <https://github.com/tubi-carrillo/colorparse#initiating-a-color>`_
-   - `Closing a color <https://github.com/tubi-carrillo/colorparse#closing-a-color>`_
-   - `Finishing a color <https://github.com/tubi-carrillo/colorparse#finishing-a-color>`_
-   - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
-   - `Custom colors <https://github.com/tubi-carrillo/colorparse#custom-colors>`_
+   - `About Color Codes <https://github.com/tubi-carrillo/colorparse#about-color-codes>`_
+   - `Using as an import <https://github.com/tubi-carrillo/colorparse#using-as-an-import>`_
+   - `Using from the terminal <https://github.com/tubi-carrillo/colorparse#using-from-the-terminal>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
    - `Conventions <https://github.com/tubi-carrillo/colorparse#conventions>`_
@@ -64,65 +61,34 @@ After this, the package should be ready to use. To upgrade or uninstall, use the
 Documentation
 =============
 
-For the full documentation, visit the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ page.
+Here will be described the most important parts of this package, for the full documentation, visit the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ page.
 
-   
-Usage
-=====
+About color codes
+-----------------
 
 A ``color code`` is defined in two parts. The first, is the ``type`` which can be either *foreground* or *background* using a ``;`` (semicolon) or a ``:`` (colon) respectively. Second, comes the ``value`` representing the color that will be displayed.
 
-The ``value`` can be: defined letters, another ``:`` or ``;`` character or for custom colors (if the terminal supports `true color <https://github.com/tubi-carrillo/colorparse#about-true-color>`_, then this option is available) an ``=`` or ``#``. Detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below.
+The ``value`` can be: defined letters, another ``:`` or ``;`` character or for custom colors ``=`` and ``#``. Detailed information about all possible values is in the `color code list <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_ below.
 
-This guide will use the terminal form of this package, but this also applies to the function ``paint``, when the module is imported.
-
-Initiating a color
-------------------
-
-The following command, will return the string " red box" in the color red (notice the space character at the start of the string)::
+- A color is initiated when we use a color code. The following command, will return the string " red box" in red (notice the space character at the start of the string)::
 
    $ colorparse ";r red box"
     red box
 
-This happens because the ``type`` is a semicolon representing foreground colors and the ``value`` is the letter *r*. When the parser reads that, it understands that from there, the color red will be initiated and removes the ``color code``, which didn't include the space after it.
+This gets clored in red, because the ``type``, is a semicolon which represents foreground colors, and the ``value`` is the letter *r*. When the parser reads that, it understands that from there, the color red will be initiated and removes the ``color code``, which didn't include the space after it.
 
-Closing a color
----------------
-
-If we were to remove the space character when using the command, then only "ed box" in dark red would be returned, because the parser thinks that ``;rr`` is the code for dark red. To avoid this and having to use unwanted spaces, you can "*close*" a ``color code``.
-
-The following commands will return the same string ("red box") colored in normal red::
+- Closing a color code (optional), means that it has surrounding characters which separate it from the rest of the string. The following commands will return the same string ("red box") colored in normal red::
 
    $ colorparse ";r/red box"   
    $ colorparse "/;r/red box"
    $ colorparse "[;r]red box"
    $ colorparse "(;r)red box"
    
-Note that, the variations for closing a color shown before, cannot be mixed with eachother. This might help to avoid absorbing the brackets when trying to use them for something else. The parser will not replace brackets if they have at least one ``/`` (slash) either at the start or the end of the ``color code`` (with no spaces in between). Some examples are::
+Note that, the variations for closing a color shown before, cannot be mixed with eachother. This might help to avoid absorbing the brackets when trying to use them for something else. The parser **will not replace brackets if they have at least one ``/`` (slash) either at the start or the end** of the ``color code`` (with no spaces in between).
    
-   $ colorparse "[ ;r/ ]red box"
-   [  ]red box
-   
-   $ colorparse "[ /;r ]red box"
-   [  ]red box
-   
-   $ colorparse "[;r red box]"
-    red box]                    # bad!
-    
-   $ colorparse "[/;r/ red box ]"
-   [ red box ]
-   
-Finishing a color
------------------
+- To finish a color, can mean two things: initiating another color, or resetting colors to normal (to the color the terminal uses, which is normally not white). 
 
-To finish a color, can mean two things: changing to another color, or resetting colors to normal (to the color the terminal uses, which is normally not white). 
-
-To change colors, all is needed is to initiate a new color like before::
-   
-   $ colorparse ";r/red box ;b/blue box"
-   red box blue box
-
-This can be mixed with background colors as well, swapping the ``;`` for a ``:`` (it's worth mentioning that setting a new foreground color when only a background color is initiated won't finish the latter, only the ones of the same ``type`` will affect each other).
+Note tha background colors can be used as well, swapping the ``;`` for a ``:`` (it's worth mentioning that setting a new foreground color when only a background color is initiated won't finish the latter, only the ones of the same ``type`` will affect each other).
 
 Resetting to normal, can be done in three major ways, where one of those has two forms (it is used to stop both background and foreground colors, and every string will have one at the end added by the program). The following strings get the same result, therefore ``;:`` and ``:;`` are interchangeable::
 
@@ -134,39 +100,95 @@ The other two ways are: using ``;;`` to stop only the current foreground color a
    $ colorparse ":b/;r/both colors ;;/only the blue background"
    $ colorparse ":b/;r/both colors ::/only the red foreground"
    
-Escaping a color
-----------------
-
-To escape ``color codes``, add a ``\`` (backslash) to the beggining of it's ``type`` character (the one that determines if it is a background or a foreground color)::
+- To escape ``color codes``, add a ``\`` (backslash) immediately before the ``type`` (the one that determines if it is a background or a foreground color)::
 
    $ colorparse "[\;r] this text is not red"
    [;r] this text is not red
+
+* To use custom colors with: ``;=`` for RGB and ``;#`` for HEX, means that `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, and that the method ``true_color`` was given the value ``True`` (if you are `importing the module <https://colorparse.readthedocs.io/en/latest/source/module-content.html#true-color>`_) or by using ``-t`` or ``--true-color`` flags `from the terminal <https://colorparse.readthedocs.io/en/latest/source/terminal.html#options>`_. All of the following examples work::
+
+    $ colorparse -t "[;=255,255,255]white"
+    $ colorparse -t "[;=255]red"
+    $ colorparse -t "[;=255,,]red"
+    $ colorparse -t "[;=255,0,0]red"
+    $ colorparse -t "[;=]black"
+    $ colorparse -t "[;=,,]black"
+
+    $ colorparse -t "[;#FFFFFF]white"
+    $ colorparse -t "[;#FF]red"
+    $ colorparse -t "[;#FF00]red"
+    $ colorparse -t "[;#FF0000]red"
+    $ colorparse -t "[;#000000]black"
+    $ colorparse -t "[;#]black"
    
-Custom colors
--------------
+Using as an import
+------------------
 
-To use custom colors with the color codes: ``;=`` for RGB and ``;#`` for HEX, means that `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, and that the method ``true_color`` was given the value ``True`` (if you are `importing the module <https://colorparse.readthedocs.io/en/latest/source/module-content.html#true-color>`_) or by using ``-t`` or ``--true-color`` flags `from the terminal <https://colorparse.readthedocs.io/en/latest/source/terminal.html#options>`_.
+The most important function is ``paint``, which is defined as follows::
 
-It's important to note, that because background colors do not allow RGB values, we do not have a ``:=`` or ``:#`` version of custom color codes.
+   paint(*value, **options)
+   paint(value, ..., print=True, ret=True, overflow=False, sep=' ', end='n', file=sys.stdout, flush=False)
+   
+This function returns a single string which will have all the color codes converted to ANSI escape sequences. **It will always finish color codes at the end**.
 
-- To use the RGB color code, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work::
++-------------+------------------------------------------------------------------------+
+| **ARGUMENT**| **DESCRIPTION**                                                        |
++=============+========================================================================+
+| ``value``   | One or more strings to be parsed.                                      |
++-------------+------------------------------------------------------------------------+
+| ``print``   | If True, the obtained string will be printed.                          |
++-------------+------------------------------------------------------------------------+ 
+| ``ret``     | If True, the obtained string will be returned.                         |
++-------------+------------------------------------------------------------------------+
+| ``overflow``| If true, allow unfinished colors to overflow onto other stirngs.       |
++-------------+------------------------------------------------------------------------+ 
+| ``sep``     | Inserted between the given values.                                     |
++-------------+------------------------------------------------------------------------+
+| ``end``     | Appended after the last value (when it’s printed).                     |
++-------------+------------------------------------------------------------------------+
+| ``file``    | A file-like object (stream).                                           |
++-------------+------------------------------------------------------------------------+
+| ``flush``   | Whether to forcibly flush the stream (when the strings are printed).   |
++-------------+------------------------------------------------------------------------+
 
-   $ colorparse -t ";=255,255,255/white"
-   $ colorparse -t ";=255/red"
-   $ colorparse -t ";=255,,/red"
-   $ colorparse -t ";=255,0,0/red"
-   $ colorparse -t ";=/black"
-   $ colorparse -t ";=,,/black"
+Using from the terminal
+-----------------------
 
+The usage is as follows::
 
-- To use the HEX color code, there needs to be **at most** 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work::
+   usage: colorparse [options] [string ...] [input files ...]
 
-   $ colorparse -t ";#FFFFFF/white"
-   $ colorparse -t ";#FF/red"
-   $ colorparse -t ";#FF00/red"
-   $ colorparse -t ";#FF0000/red"
-   $ colorparse -t ";#000000/black"
-   $ colorparse -t ";#/black"
+- The options are
+
++------------------------------+------------------------------------------------------------------------+----------------+
+| **ARGUMENT**                 | **DESCRIPTION**                                                        | **DEFAULT**    |
++==============================+========================================================================+================+
+| ``-t``, ``--true-color``     | Use of RGB values for the color escape sequences.                      | ``False``      |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-s``, ``--sep``            | Specify what to use to separate string arguments.                      | ``' '``        |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-e``, ``--end``            | Specify what to use at the end of the printed string.                  | ``'\n'``       |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-o``, ``--output-file``    | Append obtained string to a file (stream).                             | ``sys.stdout`` |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-O``, ``--overflow``       | Make colors overflow to other strings.                                 | ``False``      |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-I``, ``--ignore-special`` | Ignore special characters (new line, tab, etc).                        | ``False``      |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-S``, ``--strip``          | Remove leading and trailing characters from input files.               | ``None``       |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-p``, ``--position``       | Place all strings after the nth input file.                            | ``0``          |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-h``, ``--help``           | Show a help menu and exit.                                             |                |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-c``, ``--codes``          | Show the list of color codes and exit.                                 |                |
++------------------------------+------------------------------------------------------------------------+----------------+
+| ``-v``, ``--version``        | Show the current version of the module and exit.                       |                |
++------------------------------+------------------------------------------------------------------------+----------------+
+
+- The ``string`` arguments can be 0 or more.
+
+- For the ``input files``, even though these are optional as well, any proceeding arguments after using the ``-i`` or ``--input-file`` flags will be considered as files to open. For that reason, it's recommended to use after any ``string``, to avoid getting an error for missing files.
 
 List of Color Codes
 ===================
@@ -176,69 +198,70 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
 .. table::
     :widths: 10 24 50
     
-    +-------------+------------------------+
-    | **VALUES**  | **NAMES**              |
-    +-------------+------------------------+
-    | ``rr``      | DARK_RED               |
-    +-------------+------------------------+
-    | ``oo``      | DARK_ORANGE            |
-    +-------------+------------------------+
-    | ``yy``      | DARK_YELLOW            |
-    +-------------+------------------------+
-    | ``gg``      | DARK_GREEN             |
-    +-------------+------------------------+
-    | ``cc``      | DARK_CYAN              |
-    +-------------+------------------------+
-    | ``bb``      | DARK_BLUE              |
-    +-------------+------------------------+
-    | ``pp``      | DARK_PURPLE            |
-    +-------------+------------------------+
-    | ``mm``      | DARK_MAGENTA           |
-    +-------------+------------------------+
-    | ``r``       | RED                    |
-    +-------------+------------------------+
-    | ``o``       | ORANGE                 |
-    +-------------+------------------------+
-    | ``y``       | YELLOW                 |
-    +-------------+------------------------+
-    | ``g``       | GREEN                  |
-    +-------------+------------------------+
-    | ``c``       | CYAN                   |
-    +-------------+------------------------+
-    | ``b``       | BLUE                   |
-    +-------------+------------------------+
-    | ``p``       | PURPLE                 |
-    +-------------+------------------------+
-    | ``m``       | MAGENTA                |
-    +-------------+------------------------+
-    | ``R``       | STRONG_RED             |
-    +-------------+------------------------+
-    | ``O``       | STRONG_ORANGE          |
-    +-------------+------------------------+
-    | ``Y``       | STRONG_YELLOW          |
-    +-------------+------------------------+
-    | ``G``       | STRONG_GREEN           |
-    +-------------+------------------------+
-    | ``C``       | STRONG_CYAN            |
-    +-------------+------------------------+
-    | ``B``       | STRONG_BLUE            |
-    +-------------+------------------------+
-    | ``P``       | STRONG_PURPLE          |
-    +-------------+------------------------+
-    | ``M``       | STRONG_MAGENTA         |
-    +-------------+------------------------+
-    | ``;:``      | ENDC                   |
-    +-------------+------------------------+
-    | ``:;``      | ENDC                   |
-    +-------------+------------------------+
-    | ``;;``      | ENDFC ``*``            |
-    +-------------+------------------------+
-    | ``::``      | ENDBC ``*``            |
-    +-------------+------------------------+
-    | ``;=``      | RGB ``*`` ``+``        |
-    +-------------+------------------------+
-    | ``;#``      | HEX ``*`` ``+``        |
-    +-------------+------------------------+
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | **VALUES**  | **NAMES**              | **DESCRIPTION**                                                            |
+    +=============+========================+============================================================================+
+    | ``rr``      | DARK_RED               |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``oo``      | DARK_ORANGE            |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``yy``      | DARK_YELLOW            |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``gg``      | DARK_GREEN             |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``cc``      | DARK_CYAN              |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``bb``      | DARK_BLUE              |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``pp``      | DARK_PURPLE            |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``mm``      | DARK_MAGENTA           |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``r``       | RED                    |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``o``       | ORANGE                 |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``y``       | YELLOW                 |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``g``       | GREEN                  | Colors that can be preceeded either                                        |
+    +-------------+------------------------+                                                                            +
+    | ``c``       | CYAN                   | by a ``;`` (semicolon) or a ``:`` (colon)                                  |
+    +-------------+------------------------+                                                                            +
+    | ``b``       | BLUE                   |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``p``       | PURPLE                 |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``m``       | MAGENTA                |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``R``       | STRONG_RED             |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``O``       | STRONG_ORANGE          |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``Y``       | STRONG_YELLOW          |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``G``       | STRONG_GREEN           |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``C``       | STRONG_CYAN            |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``B``       | STRONG_BLUE            |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``P``       | STRONG_PURPLE          |                                                                            |
+    +-------------+------------------------+                                                                            +
+    | ``M``       | STRONG_MAGENTA         |                                                                            |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | ``;:``      | ENDC                   | Ends both foreground and background colors                                 |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | ``:;``      | ENDC                   | Ends both foreground and background colors                                 |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | ``;;``      | ENDFC ``*``            | Ends only foreground colors                                                |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | ``::``      | ENDBC ``*``            | Ends only background colors                                                |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | ``;=``      | RGB ``*`` ``+``        | Reads RGB values separated with a ``,`` (comma)                            |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+    | ``;*``      | HEX ``*`` ``+``        | Reads hexadecimal values for RGB                                           |
+    +-------------+------------------------+----------------------------------------------------------------------------+
+
 
 ``*`` cannot be accessed directly through the class ``Color``. They can only be used as a color code in a string (see `Color Class <https://colorparse.readthedocs.io/en/latest/source/module-content.html#color-class>`_ in the documentation).
 
