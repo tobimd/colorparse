@@ -32,6 +32,7 @@ Contents
 ========
 
 * `Installation <https://github.com/tubi-carrillo/colorparse#installation>`_
+* `Documentation <https://github.com/tubi-carrillo/colorparse#documentation>`_
 * `Usage <https://github.com/tubi-carrillo/colorparse#usage>`_
    - `Initiating a color <https://github.com/tubi-carrillo/colorparse#initiating-a-color>`_
    - `Closing a color <https://github.com/tubi-carrillo/colorparse#closing-a-color>`_
@@ -39,7 +40,6 @@ Contents
    - `Escaping a color <https://github.com/tubi-carrillo/colorparse#escaping-a-color>`_
    - `Custom colors <https://github.com/tubi-carrillo/colorparse#custom-colors>`_
 * `List of Color Codes <https://github.com/tubi-carrillo/colorparse#list-of-color-codes>`_
-* `Documentation <https://github.com/tubi-carrillo/colorparse#documentation>`_
 * `Further Reading <https://github.com/tubi-carrillo/colorparse#further-reading>`_
    - `Conventions <https://github.com/tubi-carrillo/colorparse#conventions>`_
    - `Known Issues <https://github.com/tubi-carrillo/colorparse#known-issues>`_
@@ -59,6 +59,13 @@ After this, the package should be ready to use. To upgrade or uninstall, use the
 
    $ pip install --upgrade colorparse
    $ pip uninstall colorparse
+   
+   
+Documentation
+=============
+
+For the full documentation, visit the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ page.
+
    
 Usage
 =====
@@ -236,11 +243,6 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
 ``*`` cannot be accessed directly through the class ``Color``. They can only be used as a color code in a string (see `Color Class <https://colorparse.readthedocs.io/en/latest/module-content/#color-class>`_ in the documentation).
 
 ``+`` only available if `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
-
-Documentation
-=============
-
-Here is the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ documentation.
 
 Further Reading
 ===============
