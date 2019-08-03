@@ -1,5 +1,6 @@
 import sys, re
 
+
 def links(matchobj):
     string = matchobj[0]
 
@@ -34,6 +35,8 @@ def code_blocks(matchobj):
 
 def main():
     md_file = sys.argv[1]
+    rst_file = f'{md_file[:-2]}rst' if len(sys.argv) < 3 else sys.argv
+
     with open(md_file, 'r') as f:
         data = f.read()
 
@@ -43,8 +46,9 @@ def main():
     data = re.sub(r'(?<=.):(?=\n+\t)', '::', data)               # code blocks (implicit)
     data = re.sub(r'(?<=\n)#{1,4} .+\n?', titles, data)          # titles  
 
-    with open(md_file, 'w') as f:
+    with open(rst_file, 'w') as f:
         f.write(data)
+
 
 if __name__ == '__main__':
     main()

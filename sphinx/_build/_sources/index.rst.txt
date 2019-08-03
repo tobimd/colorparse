@@ -31,7 +31,7 @@ For the time being, this package has been tested only for python 3.6 and 3.7 (if
 .. toctree::
         :caption: Table of Contents
 
-        source/getting-started
-        source/module-content
-        source/terminal
-        source/further-reading
+        getting-started
+        module-content
+        terminal
+        further-reading
