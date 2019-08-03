@@ -100,7 +100,7 @@ The other two ways are: using ``;;`` to stop only the current foreground color a
    $ colorparse ":b/;r/both colors ;;/only the blue background"
    $ colorparse ":b/;r/both colors ::/only the red foreground"
    
-- To escape ``color codes``, add a ``\`` (backslash) immediately before the ``type`` (the one that determines if it is a background or a foreground color)::
+- To escape ``color codes``, add a ``\`` (backslash) immediately before the ``type``::
 
    $ colorparse "[\;r] this text is not red"
    [;r] this text is not red
