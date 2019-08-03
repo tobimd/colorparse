@@ -276,14 +276,9 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-   # version 1.1.0   (2019 - 08 - 01)
-   + [t] Fixed problem with reading special characters on Windows.
-   + [t] Improved (and fixed some grammatical errors) in the help menu.
-   + [t] Replaced "-r"` ("--read-special") with "-I" (uppercase i) or "--ignore-special" (inverted roles).
-   + [t] Added new optional argument "-p" or "--position".
-   + [t] Added new optional argument "-S" (uppercase s) or "--strip".
-   + [m] Added more documentation for the functions insde the module (use built-in "help" function).
-   + [d] Created a documentation page.
+   # version 1.1.1   (2019 - 08 - 03)
+   + [m] Objects that have a "__str__" method (e.g. iterables) can be used in "paint".
+   + [d] Changed documentation, now using rST (sphinx) instead of md (mkdocs).
 
 Examples
 --------
