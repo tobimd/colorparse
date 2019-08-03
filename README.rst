@@ -59,7 +59,7 @@ After this, the package should be ready to use. To upgrade or uninstall, use the
 Documentation
 =============
 
-Here will be described the most important parts of this package, for the full documentation, visit the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ page.
+Here will be described how color codes work for both terminal and module uses, for the full documentation, visit the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ page.
 
 About color codes
 -----------------
