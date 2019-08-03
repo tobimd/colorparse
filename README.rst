@@ -240,7 +240,7 @@ To remember easily, the colors available are: ``red``, ``orange``, ``yellow``, `
     | ``;#``      | HEX ``*`` ``+``        |
     +-------------+------------------------+
 
-``*`` cannot be accessed directly through the class ``Color``. They can only be used as a color code in a string (see `Color Class <https://colorparse.readthedocs.io/en/latest/module-content/#color-class>`_ in the documentation).
+``*`` cannot be accessed directly through the class ``Color``. They can only be used as a color code in a string (see `Color Class <https://colorparse.readthedocs.io/en/latest/source/module-content.html#color-class>`_ in the documentation).
 
 ``+`` only available if `your terminal supports true color <https://gist.github.com/XVilka/8346728#terminals--true-color>`_, because their assigned values are transformed to RGB values, and not all terminals support having direct RGB colors in `ANSI escape sequences <https://en.wikipedia.org/wiki/ANSI_escape_code>`_.
 
