@@ -2,7 +2,7 @@
 colorparse
 ##########
 
-| |version| |wheel| |docs| |downloads| |python|
+| |version| |wheel| |docs| |python|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse#change-log
@@ -15,10 +15,6 @@ colorparse
 .. |docs| image:: https://readthedocs.org/projects/colorparse/badge/?version=latest&style=flat-square
    :target: https://colorparse.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
-   
-.. |downloads| image:: https://img.shields.io/pypi/dd/colorparse?color=yellow&style=flat-square
-   :target: https://pypi.org/project/colorparse/
-   :alt: Download Count
 
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
@@ -209,7 +205,7 @@ The following shall be considered as recommendations only. These are for a bette
 Known Issues
 ------------
 
-- It's planned to allow color codes to work in the arguments ``sep`` (``-s``) and ``end`` (``-e``), as well as be affected by the ``overflow`` argument.
+\* *there is nothing to show yet* \*
 
 Change Log
 ----------
@@ -220,9 +216,8 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-   # version 1.1.1   (2019 - 08 - 03)
-   + [m] Objects that have a "__str__" method (e.g. iterables) can be used in "paint".
-   + [d] Changed documentation, now using rST (sphinx) instead of md (mkdocs).
+   # version 1.1.2   (2019 - 08 - 03)
+   + color codes are parsed in ``sep`` and ``end`` arguments (``-s`` and ``-e`` arguments in the terminal, respectively)
 
 License
 -------
