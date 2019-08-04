@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.1.1'
+__version__ = '1.1.2'
 
 
 class _Defaults:
@@ -346,31 +346,36 @@ def paint(*value, **options):
                          stream (when the strings are
                          printed).
     """
-    endc = '\033[0m'
+    ec = '\033[0m'
+    value = list(value)
 
     # get the options' arguments
     _print = options.get('print', _Defaults.paint['print'])
     _ret = options.get('ret', _Defaults.paint['ret'])
     _overflow = options.get('overflow', _Defaults.paint['overflow'])
-    _sep = options.get('sep', _Defaults.paint['sep'])
-    _end = options.get('end', _Defaults.paint['end'])
+    _sep = _color_format(options.get('sep', _Defaults.paint['sep']))
+    _end = _color_format(options.get('end', _Defaults.paint['end']))
     _file = options.get('file', _Defaults.paint['file'])
     _flush = options.get('flush', _Defaults.paint['flush'])
 
+    # 'p_result' is for print and 'r_result' is for return
+
     # if overflow is true, then color the strings as one
     if _overflow:
-        result = _color_format(_sep.join(map(str, value))) + endc
+        p_result = _color_format(_sep.join(map(str, value + [_end]))) + ec
+        r_result = _color_format(_sep.join(map(str, value))) + ec
     
-    # else, colors one by one and the join them
-    else:        
-        result = (endc + _sep).join(map(_color_format, map(str, value))) + endc
+    # else, color one by one and the join them
+    else:
+        p_result = (ec + _sep).join(map(_color_format, map(str, value + [_end]))) + ec
+        r_result = (ec + _sep).join(map(_color_format, map(str, value))) + ec
 
     # if out is True, then print
     if _print:
-        print(result, end=_end, file=_file, flush=_flush)
+        print(p_result, file=_file, flush=_flush)
     
     if _ret:
-        return result
+        return r_result
 
 
 def codes():
