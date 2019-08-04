@@ -2,7 +2,7 @@ import setuptools
 
 
 with open('log.txt', 'r') as logf:
-    log = logf.read()[3:]
+    log = logf.read()[1:]
 
 
 with open('README.md', 'r') as fh:
@@ -10,11 +10,7 @@ with open('README.md', 'r') as fh:
                                          log.replace('``', '"'))
 
 
-with open('colorparse.py', 'r') as f:
-    for line in f:
-        if '__version__' in line:
-            version = eval(line.split(' = ')[-1])
-            break
+version = log[9:17].strip()
 
 
 setuptools.setup(

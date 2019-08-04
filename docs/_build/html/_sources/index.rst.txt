@@ -1,4 +1,4 @@
-| |version| |wheel| |docs| |downloads| |python|
+| |version| |wheel| |docs| |python|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse#change-log
@@ -11,10 +11,6 @@
 .. |docs| image:: https://readthedocs.org/projects/colorparse/badge/?version=latest&style=flat-square
    :target: https://colorparse.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
-   
-.. |downloads| image:: https://img.shields.io/pypi/dd/colorparse?color=yellow&style=flat-square
-   :target: https://pypi.org/project/colorparse/
-   :alt: Download Count
 
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
