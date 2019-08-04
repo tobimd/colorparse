@@ -1,11 +1,16 @@
 # Change Log
 \* *the prefixes [t], [m] and [d] refer to terminal-only, module-only and docs-only changes, respectively.* *
 
+- [1.1.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-112---2019---08---03)
 - [1.1.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-111---2019---08---03)
 - [1.1.0](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-110---2019---08---01)
 - [1.0.0](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-100---2019---07---30)
 - [0.0.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-002---2019---07---29)
 - [0.0.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#release-version-001---2019---07---29)
+
+## version 1.1.2   (2019 - 08 - 03)
++ color codes are parsed in ``sep`` and ``end`` arguments (``-s`` and ``-e`` arguments in the terminal, respectively)
+
 
 ## version 1.1.1   (2019 - 08 - 03)
 + [m] Objects that have a ``__str__`` method (e.g. iterables) can be used in ``paint``.
