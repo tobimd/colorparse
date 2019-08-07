@@ -219,7 +219,7 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 .. code:: diff
 
    ## version 1.1.3   (2019 - 08 - 06)
-   - [m] Fixed "end" argument for the "paint" function not working properly.
+   + [m] Fixed "end" argument for the "paint" function not working properly.
 
 
 License
