@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: colorparse
+Version: 1.1.3
+Summary: A string-coloring package for terminals
+Home-page: https://github.com/tubi-carrillo/colorparse
+Author: Esteban Carrillo
+Author-email: esteban.ac.naranjo@gmail.com
+License: UNKNOWN
+Description: # colorparse
+        
+        ``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily colored, simplifying the work for the user. For the complete documentation, change log and more, visit the [readthedocs page](https://colorparse.readthedocs.io/en/latest) and the [github page](https://github.com/tubi-carrillo/colorparse).
+        
+        
+        # Installation
+        
+        To install, use this command:
+        ```
+          $ pip install colorparse
+        ```
+        
+        After this, the package should be ready to use. To upgrade or uninstall, use the following:
+        ```
+           $ pip install --upgrade colorparse
+           $ pip uninstall colorparse
+        ```
+        # Recent Changes
+        
+        \* *the prefixes [t] refer to terminal-only, [m] for module-only and [d] for docs-only changes, respectively* *
+        
+        ```diff
+        # version 1.1.3   (2019 - 08 - 06)
+        - [m] Fixed "end" argument for the "paint" function not working properly.
+        
+        ```
+        
+Keywords: colorparse,terminal,color,ansi
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown

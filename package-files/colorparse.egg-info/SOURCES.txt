@@ -1,0 +1,8 @@
+README.md
+colorparse.py
+setup.py
+colorparse.egg-info/PKG-INFO
+colorparse.egg-info/SOURCES.txt
+colorparse.egg-info/dependency_links.txt
+colorparse.egg-info/entry_points.txt
+colorparse.egg-info/top_level.txt
