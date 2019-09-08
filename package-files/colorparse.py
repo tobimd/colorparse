@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.1.3'
+__version__ = '1.1.4'
 
 
 class _Defaults:
@@ -522,6 +522,11 @@ def _arg_parser():
                               more accurate color set (warning: having this\
                               option won\'t work on all terminals as they do\
                               not all support true color).',
+                        action='store_true')
+
+    parser.add_argument('-u', '--uncolor',
+                        help='print strings with ansi escape sequences without\
+                              color.',
                         action='store_true')
 
     parser.add_argument('-s', '--sep',

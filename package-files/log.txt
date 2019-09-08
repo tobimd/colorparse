@@ -1,2 +1,2 @@
-## version 1.1.3   (2019 - 08 - 06)
-- [m] Fixed ``end`` argument for the ``paint`` function not working properly.
+## version 1.1.4   (2019 - 08 - 06)
+- [t] Optional argument ``-u`` or ``--uncolor`` added.
