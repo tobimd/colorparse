@@ -90,7 +90,7 @@ The ``value`` for that code was the letter ``r``. When the parser reads that, it
    $ colorparse "[\;r] this text is not red"
    [;r] this text is not red
 
-- For custom colors, use ``;=`` for RGB values and ``;#`` for HEX values (this color codes may not work on all terminals, see `the custom colors section in the docs <https://colorparse.readthedocs.io/en/latest/source/getting-started.html#custom-colors>`_ for more information). Note that empty values will be considered as ``0``::
+- For custom colors, use ``;=`` for RGB values and ``;#`` for HEX values (these color codes may not work on all terminals, see `the custom colors section in the docs <https://colorparse.readthedocs.io/en/latest/source/getting-started.html#custom-colors>`_ for more information). Note that empty values will be considered as ``0``::
 
     $ colorparse -t "[;=255]red"
     $ colorparse -t "[;=255,,]red"
