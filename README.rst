@@ -16,14 +16,14 @@ colorparse
    :target: https://colorparse.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-.. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7-blue?style=flat-square
+.. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Python Version
 
 
 ``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily colored, simplifying the work for the user.
 
-For the time being, this package has been tested only for python 3.6 and 3.7 (if it works fine for other versions, `let me know <https://github.com/tubi-carrillo/colorparse/issues>`_).
+For the time being, this package has been tested only for python 3.6, 3.7 and 3.8 (if it works fine for other versions, `let me know <https://github.com/tubi-carrillo/colorparse/issues>`_).
 
 
 Contents
@@ -218,8 +218,11 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-   ## version 1.1.3   (2019 - 08 - 06)
-   + [m] Fixed "end" argument for the "paint" function not working properly.
+   ## version 1.1.4   (2020 - 03 - 10)
+   + Re-did regular expression that obtained color codes, now works properly.
+   + Fixed "end" argument of "paint" function.
+   + Now, by default, "end" uses "Color.ENDC" before the new line character.
+   + Fixed the white color being the same as light gray (non-true color version).
 
 
 License
