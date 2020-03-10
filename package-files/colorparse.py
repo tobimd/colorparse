@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.1.5'
+__version__ = '1.1.4'
 
 
 class _Defaults:
