@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.1.4'
+__version__ = '1.1.5'
 
 
 class _Defaults:
@@ -14,7 +14,7 @@ class _Defaults:
         'ret': True,
         'overflow': False,
         'sep': ' ',
-        'end': '\n',
+        'end': '\033[0m\n',
         'file': sys.stdout,
         'flush': False,
     }
@@ -127,20 +127,20 @@ class _Foreground:
             self.PURPLE          = '\033[38;5;57m'   # ;p
             self.MAGENTA         = '\033[38;5;127m'  # ;m
 
-            self.STRONG_RED      = '\033[38;5;196m'    # ;rr
+            self.STRONG_RED      = '\033[38;5;196m'  # ;rr
             self.STRONG_ORANGE   = '\033[38;5;202m'  # ;oo
-            self.STRONG_YELLOW   = '\033[38;5;226m'   # ;yy
+            self.STRONG_YELLOW   = '\033[38;5;226m'  # ;yy
             self.STRONG_GREEN    = '\033[38;5;82m'   # ;gg                
             self.STRONG_CYAN     = '\033[38;5;45m'   # ;cc
             self.STRONG_BLUE     = '\033[38;5;21m'   # ;bb
             self.STRONG_PURPLE   = '\033[38;5;93m'   # ;pp
-            self.STRONG_MAGENTA  = '\033[38;5;200m'   # ;mm
+            self.STRONG_MAGENTA  = '\033[38;5;200m'  # ;mm
 
-            self.BLACK           = '\033[38;5;232m'    # ;k
+            self.BLACK           = '\033[38;5;232m'  # ;k
             self.DARK_GRAY       = '\033[38;5;238m'  # ;A
             self.GRAY            = '\033[38;5;244m'  # ;a
             self.LIGHT_GRAY      = '\033[38;5;250m'  # ;aa
-            self.WHITE           = '\033[38;5;256m'   # ;w
+            self.WHITE           = '\033[1;37m'      # ;w
 
 
 class _Background:
@@ -150,7 +150,7 @@ class _Background:
         self.DARK_YELLOW     = '\033[48;5;142m'  # :Y
         self.DARK_GREEN      = '\033[48;5;22m'   # :G
         self.DARK_CYAN       = '\033[48;5;31m'   # :C
-        self.DARK_BLUE       = '\033[48;5;19m'    # :B
+        self.DARK_BLUE       = '\033[48;5;19m'   # :B
         self.DARK_PURPLE     = '\033[48;5;54m'   # :P
         self.DARK_MAGENTA    = '\033[48;5;127m'  # :M
 
@@ -163,20 +163,38 @@ class _Background:
         self.PURPLE          = '\033[48;5;93m'   # :p
         self.MAGENTA         = '\033[48;5;165m'  # :m
 
-        self.STRONG_RED      = '\033[48;5;196m'    # :rr
+        self.STRONG_RED      = '\033[48;5;196m'  # :rr
         self.STRONG_ORANGE   = '\033[48;5;202m'  # :oo
-        self.STRONG_YELLOW   = '\033[48;5;226m'   # :yy
+        self.STRONG_YELLOW   = '\033[48;5;226m'  # :yy
         self.STRONG_GREEN    = '\033[48;5;82m'   # :gg
         self.STRONG_CYAN     = '\033[48;5;45m'   # :cc
         self.STRONG_BLUE     = '\033[48;5;21m'   # :bb
-        self.STRONG_PURPLE   = '\033[48;5;128m'   # :pp
-        self.STRONG_MAGENTA  = '\033[48;5;200m'   # :mm
+        self.STRONG_PURPLE   = '\033[48;5;128m'  # :pp
+        self.STRONG_MAGENTA  = '\033[48;5;200m'  # :mm
 
-        self.BLACK           = '\033[48;5;232m'    # :k
+        self.BLACK           = '\033[48;5;232m'  # :k
         self.DARK_GRAY       = '\033[48;5;238m'  # :A
         self.GRAY            = '\033[48;5;244m'  # :a
         self.LIGHT_GRAY      = '\033[48;5;250m'  # :aa
-        self.WHITE           = '\033[48;5;255m'   # :w
+        self.WHITE           = '\033[48;5;255m'  # :w
+
+
+# a failed attempt to make this a less convoluted regex
+_open_sq_brackets = (r'(?:(\[)\s*(?![^/\)]+?\\\])(?=((?:(;)|:)(;|:|'
+                     + r'[ROYGCBPMkAw]|([roygcbpma])\7?|(?(5)'
+                     + r'(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?'
+                     + r'|# ?[0-9A-Fa-f]{0,6})|\5)))\s*\]))')
+_open_rd_brackets = (r'(?:(\()\s*(?![^/\]]+?\\\))(?=((?:(;)|:)(;|:|'
+                     + r'[ROYGCBPMkAw]|([roygcbpma])\13?|(?(11)(= ?\d{0,3}'
+                     + r'(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?'
+                     + r'|# ?[0-9A-Fa-f]{0,6})|\11)))\s*\)))')
+_prefix = rf'(({_open_sq_brackets}|{_open_rd_brackets}|/)?(\\?(?:(;)|:)'
+_basic_colors = r'(;|:|[ROYGCBPMkAw]|([roygcbpma])\18?|'
+_rgb_color = r'(?(16)(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?|'
+_hex_color = r'# ?[0-9A-Fa-f]{0,6})|\16)))'
+_suffix = r'(?:/?(?(3)\s*\])(?(9)\s*\))))'
+
+regex = f'{_prefix}{_basic_colors}{_rgb_color}{_hex_color}{_suffix}'
 
 
 def _clamp(number):
@@ -209,17 +227,16 @@ def _color_repl(matchobj):
         return matchobj[0].replace('\\', '')
 
     # get the string of the matched color code and remove unwanted characters
-    string = re.sub(r'\[|\]|\(|\)|/| ', '', matchobj[0])
+    code = matchobj.group(15)
+    code_type, code_val = code[0], code[1:]
 
     # if matched string is ':;' or ';:', then return ENDC (end color)
-    if string == ':;' or string == ';:':
+    if code in [';:', ':;', ';;', '::']:
         return Color.ENDC
 
-    col_type, col_val = string[0], string[1:]
-
     # custom color code
-    if '#' in col_val or '=' in col_val:
-        mode, val = col_val[0], col_val[1:]
+    if ('#' in code_val or '=' in code_val) and true_color():
+        mode, val = code_val[0], code_val[1:]
 
         fix = ((val + ',' * (2 - val.count(','))).split(',') if mode == '='
                 else _hex_to_rgb(val + '0' * (6 - len(val))))
@@ -228,54 +245,40 @@ def _color_repl(matchobj):
         return f'\033[38;2;{r};{g};{b}m'
 
     # foreground color code
-    elif col_type == ';':
-        return getattr(Color.foreground, _Defaults._color_list[col_val])
+    elif code_type == ';':
+        return getattr(Color.foreground, _Defaults._color_list[code_val])
 
     # background color code
     else:
-        return getattr(Color.background, _Defaults._color_list[col_val])
+        return getattr(Color.background, _Defaults._color_list[code_val])
 
 
 def _color_format(string):
-    # a failed attempt to make this a less convoluted regex
-    start = r'((\[(?=[^/\)]+\]))\s*|(\((?=[^/\]]+\)))\s*|/)?('
-    prefix = r'\\?(?:(;)|(:))'
-    color = r'(;|:|[ROYGCBPMkAw]|([roygcbpma])\8?'
-    rgb = r'|(?(5)(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?'
-    hex_rgb = r'|# ?[0-9A-Fa-f]{0,6})|\5)'
-    suffix = r'))(/|(?(2)\s*\]|(?(3)\s*\))))?'
+    global regex # get regex constant
 
-    # set regex to use (with true color, use custom color codes)
-    if Color._true_color_active:
-        regex = f'{start}{prefix}{color}{rgb}{hex_rgb}{suffix}'
+    # get all matches except those escaped with "\" (backslash)
+    all_matches = [s[0] for s in re.findall(regex, string) if '\\' not in s[0]] 
 
-    else:
-        regex = f'{start}{prefix}{color}{suffix}'
+    # iterate through all matches
+    for index, code in enumerate(all_matches):
+
+        # search for ';;' or '::' and replace with end color + prev color codes
+        if (';;' in code or '::' in code) and '\\' not in code:
+            color_type = ';' if '::' in code else ':'
+
+            # iterate backwards from current code
+            for prev_code in all_matches[index - 1::-1]: 
+                if (color_type in prev_code and 
+                    ';:' not in prev_code and
+                    ':;' not in prev_code):
+                    
+                    # replace current code with '[;:]' and the one found
+                    string = string.replace(code, f'[;:]{prev_code}', 1)
+                    all_matches[index] = '[;:]' 
+                    all_matches.insert(index + 1, prev_code)
+                    break
     
-    # search for ';;'|'::' and replace them with end color + prev color
-    all_matches = list(re.finditer(regex, string))
-    for i, mo in enumerate(all_matches):
-        if (';;' in mo[0] or '::' in mo[0]) and '\\' not in mo[0]:
-            code = mo[0]
-            inv = ':' if ';;' in code else ';'
-            found = False
-
-            for _mo in all_matches[i - 1::-1]:
-                if ';:' in _mo[0] or ':;' in _mo[0]:
-                    continue
-
-                is_color = (re.search(r'(?<!\\)' + inv + r'(\w|#|=)', _mo[0]) 
-                            is not None)
-                if is_color:
-                    string = string.replace(code, '[;:]' + _mo[0], 1)
-                    found = True
-                    all_matches.insert(i + 1, _mo)
-
-            if not found:
-                string = string.replace(code, '[;:]', 1)
-
-            all_matches[i] = ['[;:]']
-
+    # replace color codes with their respective ansi escape sequences
     return re.sub(regex, _color_repl, string)
 
 
@@ -358,18 +361,20 @@ def paint(*value, **options):
     _file = options.get('file', _Defaults.paint['file'])
     _flush = options.get('flush', _Defaults.paint['flush'])
 
-    # if overflow is true, then color the strings as one
-    if _overflow:
+    if _overflow: # if overflow is true, then color the strings as one
         result = _color_format(_sep.join(map(str, value)))
     
-    # else, color one by one and the join them
-    else:
+    else: # else, color one by one and the join them
         result = (ec + _sep).join(map(_color_format, map(str, value)))
 
     # if out is True, then print
-    if _print:
+    if _print and _overflow: # with overflow
         print(result, end=(_end + ec), file=_file, flush=_flush)
     
+    if _print and not _overflow: # without overflow
+        print(result, end=(ec + _end + ec), file=_file, flush=_flush)
+    
+    # return
     if _ret:
         return result + ec
 
