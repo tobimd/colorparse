@@ -20,7 +20,7 @@
 About colorparse
 ################
 
-``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily colored, simplifying the work for the user. 
+``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors on the terminal when using it as an imported module or as a command. This way, a string can be easily colored, simplifying the work for the user. 
 
 For the time being, this package has been tested only for python 3.6, 3.7 and 3.8 (if it works fine for other versions, `let me know <https://github.com/tubi-carrillo/colorparse/issues>`_).
 

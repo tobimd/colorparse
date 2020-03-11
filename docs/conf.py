@@ -1,4 +1,5 @@
 import sphinx_rtd_theme
+from colorparse import __version__
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -20,11 +21,17 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = 'colorparse'
-copyright = '2019, tubi-carrillo'
+copyright = '2020, tubi-carrillo'
 author = 'tubi-carrillo'
 
+# The version info for the project you're documenting, acts as replacement for
+# |version| and |release|, also used in various other places throughout the
+# built documents.
+#
+# The short X.Y version.
+version = __version__
 # The full version, including alpha/beta/rc tags
-release = '0.0.3'
+release = __version__
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -33,6 +40,9 @@ templates_path = ['_templates']
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
+
+# The name of the Pygments (syntax highlighting) style to use.
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------

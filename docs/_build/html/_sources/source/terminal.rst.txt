@@ -27,15 +27,23 @@ Most of these optional arguments work exactly the same as the functions seen bef
 
 - ``-I``, ``--ignore-special``
 
-This option will ignore special characters and return the strings as if those characters were escaped.
-
+  This option will ignore special characters and return the strings as if those characters were escaped.
+  
+  |
 - ``-S``, ``--strip``
 
-Just like the built-in ``strip`` method for strings, having the strip flag will remove specified leading and trailing characters from all input files. If no character is given, then the default value ``None`` means that whitespaces will be removed. To specify which characters to strip, the string should only have them without spaces or separators. For example, having "abc" will remove all combinations of those 3 characters. Note that, if possible, this argument will try to use the proceeding value, so to use this flag without arguments, it must be either before another flag, after a flag's argument (with the exception of ``--input-file`` as we will discuss it later) or at the end.
+  Just like the built-in ``strip`` method for strings, having the strip flag will remove specified leading and trailing characters from all input files. If no character is given, then the default value ``None`` means that whitespaces will be removed. 
+  
+  To specify which characters to strip, the string should only have them without spaces or separators. For example, having "abc" will remove all combinations of those 3 characters.
 
+  .. important:: If possible, this argument will try to use the proceeding value, so to use this flag without arguments, it must be either before another flag, after a flag's argument (with the exception of ``--input-file`` as we will discuss it later) or at the end of the terminal command.
+  
+  |
 - ``-p``, ``--position``
 
-By default, any strings given will be added before input files. With this option, you can choose in which position those strings should be in relation to the input files. Works like the built-in ``insert`` method for lists, including the option to have negative indexes.
+  By default, any strings given will be added before input files. With this option, you can choose in which position those strings should be in relation to the input files. Works like the built-in ``insert`` method for lists, including the option to have negative indexes.
+  
+  |
 
 ******
 string

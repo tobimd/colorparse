@@ -1,5 +1,5 @@
 "ARGUMENT", "DESCRIPTION"
-"``value``", "One or more strings to be parsed."
+"``value``", "One or more objects to be parsed."
 "``print``", "If True, the obtained string will be printed."
 "``ret``", "If true, the obtained string will be returned."
 "``overflow``", "If true, allow unfinished colors to overflow onto other stirngs."

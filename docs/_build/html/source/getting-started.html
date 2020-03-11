@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting Started &mdash; colorparse 0.0.3 documentation</title>
+  <title>Getting Started &mdash; colorparse 1.1.4 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                1.1.4
+              </div>
             
           
 
@@ -178,9 +182,9 @@ $ pip uninstall colorparse
 <h2>Color Codes<a class="headerlink" href="#color-codes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="syntax">
 <h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
-<p>A <code class="docutils literal notranslate"><span class="pre">color</span> <span class="pre">code</span></code> consists mainly of two parts. The first is the <code class="docutils literal notranslate"><span class="pre">type</span></code>, which can be either <em>foreground</em> or <em>background</em>. Secondly there is the <code class="docutils literal notranslate"><span class="pre">value</span></code>, which represents the color to display.</p>
-<p>As an example, we will use (a lot) the foreground color red. This color is represented with: <code class="docutils literal notranslate"><span class="pre">;r</span></code>, where the <code class="docutils literal notranslate"><span class="pre">;</span></code> (semicolon) is the foreground type, and the letter <code class="docutils literal notranslate"><span class="pre">r</span></code> is the value for the color red. Then, using the string “<code class="docutils literal notranslate"><span class="pre">;r</span></code> hello” will return “hello” in red.</p>
-<p>We can use background colors as well, with a <code class="docutils literal notranslate"><span class="pre">:</span></code> (colon) instead of the foreground type <code class="docutils literal notranslate"><span class="pre">;</span></code>. That way, “<code class="docutils literal notranslate"><span class="pre">:r</span></code> hello” would return “hello” with its background in red.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">color</span> <span class="pre">code</span></code> consists mainly of two parts. The first is the <code class="docutils literal notranslate"><span class="pre">type</span></code>, which can be either <em>foreground</em> or <em>background</em>, and secondly, there is the <code class="docutils literal notranslate"><span class="pre">value</span></code>, which represents the color to display.</p>
+<p>As an example, we will use (a lot) the foreground color red. This color is represented with: <code class="docutils literal notranslate"><span class="pre">;r</span></code>, where the <code class="docutils literal notranslate"><span class="pre">;</span></code> (semicolon) is the foreground type, and the letter <code class="docutils literal notranslate"><span class="pre">r</span></code> is the value for the color red. Then, using the string “<code class="docutils literal notranslate"><span class="pre">;r</span></code> hello” would return “<span class="raw-html"><font color="#d62020"> hello</font></span>” in red (notice the space at the beggining of the string).</p>
+<p>We can use background colors as well, with a <code class="docutils literal notranslate"><span class="pre">:</span></code> (colon) instead of the foreground type <code class="docutils literal notranslate"><span class="pre">;</span></code>. That way, “<code class="docutils literal notranslate"><span class="pre">:r</span></code> hello” would return “<span class="raw-html"><span style="background-color:#d62020;"> hello</span></span>” with its background in red.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To see the all the available codes, go to the <a class="reference internal" href="#list-of-color-codes"><span class="std std-ref">List of Color Codes</span></a> section below.</p>
@@ -188,31 +192,33 @@ $ pip uninstall colorparse
 </div>
 <div class="section" id="closing">
 <h3>Closing<a class="headerlink" href="#closing" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having <code class="docutils literal notranslate"><span class="pre">;rred</span> <span class="pre">box</span></code> will return <code class="docutils literal notranslate"><span class="pre">ed</span> <span class="pre">box</span></code> in dark red, because the parser thinks that <code class="docutils literal notranslate"><span class="pre">;rr</span></code> is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don’t want one, there is the option to “<em>close</em>” a color code.</p>
-<p>Closing can be done with three items (characters, really). Using normal brackets: <code class="docutils literal notranslate"><span class="pre">(</span></code> and <code class="docutils literal notranslate"><span class="pre">)</span></code>, square brackets: <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>, or slashes: <code class="docutils literal notranslate"><span class="pre">/</span></code>, will make them be consumed by the color code. Both types of brackets must be on both sides of the color code, without any <code class="docutils literal notranslate"><span class="pre">/</span></code> inside. The <code class="docutils literal notranslate"><span class="pre">/</span></code> can be on either side or both if needed. The next examples will show how the use of closure works using the terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ colorparse &quot;;rred box&quot;
-ed box             # &quot;ed box&quot; in dark red
-$
-$ colorparse &quot;;r red box&quot;
- red box           # &quot; red box&quot; with a space at the start
-$
-$ colorparse &quot;;r/red box&quot;
-red box
-$
-$ colorparse &quot;/;rred box&quot;
-ed box             # &quot;ed box&quot; again
-$
-$ colorparse &quot;/;r/red box&quot;
-red box
-$
-$ colorparse &quot;[;r]red box&quot;
-red box
-$
-$ colorparse &quot;(  ;r  )red box&quot;
-red box
-$
-$ colorparse &quot;[ ;r/ ]redbox&quot;
-[  ]red box        # using / inside, won&#39;t make the brackets be absorbed
+<p>Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having <code class="docutils literal notranslate"><span class="pre">;rred</span> <span class="pre">color</span></code> will return “<span class="raw-html"><font color="#871212">ed color</font></span>” in dark red, because the parser thinks that <code class="docutils literal notranslate"><span class="pre">;rr</span></code> is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don’t want one, there is the option to “<em>close</em>” a color code.</p>
+<p>Closing can be done with three elements by using normal brackets: <code class="docutils literal notranslate"><span class="pre">(</span></code> and <code class="docutils literal notranslate"><span class="pre">)</span></code>, square brackets: <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>, or slashes: <code class="docutils literal notranslate"><span class="pre">/</span></code> (they will be consumed by the color code).</p>
+<p>When using brackets to close a color code, any type of space is accepted (tabs, new lines, normal spaces, etc). This is not true for the <code class="docutils literal notranslate"><span class="pre">/</span></code> as it can only be directly to the side of the color code.</p>
+<p>The next examples will show how the use of closure works using the terminal.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;;rred color&quot;</span>
+<span class="go">ed color        # &quot;ed color&quot; in dark red (&quot;;rr&quot; is the color code)</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r red color&quot;</span>
+<span class="go"> red color      # &quot; red color&quot; with a space at the start</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r/red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;rred color&quot;</span>
+<span class="go">ed color        # &quot;ed color&quot; again</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;r/red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;[;r]red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;(  ;r  )red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;[ ;r/ ]redcolor&quot;</span>
+<span class="go">[  ]red color   # using / inside, won&#39;t make the brackets be absorbed</span>
 </pre></div>
 </div>
 <div class="admonition important">
@@ -223,20 +229,24 @@ $ colorparse &quot;[ ;r/ ]redbox&quot;
 <div class="section" id="finishing">
 <h3>Finishing<a class="headerlink" href="#finishing" title="Permalink to this headline">¶</a></h3>
 <p>If we want a color to stop being shown, there are two ways of finishing (or ending).</p>
-<p>One way is by initiating another color, for example a foreground blue (<code class="docutils literal notranslate"><span class="pre">;b</span></code>), if there was another foreground color before. Initiating a new color to end a previous one, won’t work if both are different types.</p>
-<p>The second way is by resetting the colors, which is done by using <code class="docutils literal notranslate"><span class="pre">;:</span></code> or <code class="docutils literal notranslate"><span class="pre">:;</span></code> (a semicolon followed by a colon, or viceversa). Both work the same, and they reset foreground and background colors at once. Because of that, there is also the code <code class="docutils literal notranslate"><span class="pre">;;</span></code>, which resets only the foreground colors and <code class="docutils literal notranslate"><span class="pre">::</span></code> that resets only the background colors:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ colorparse &quot;;r/red box ;b/blue box&quot;
-red box blue box
-$
-$ colorparse &quot;;r:b/foreground red and background blue&quot;
-foreground red and background blue    # both colors appear
-$
-$ colorparse &quot;;r:b/foreground and background stop ;:/here&quot;
-foreground and background stop here   # &quot;here&quot; is not in red nor blue
-$
-$ colorparse &quot;;r:b/only stop ;;/the red color&quot;
-only stop the red color               # &quot;the red color&quot; has blue background
+<p>One way is by initiating another color, for example a foreground blue (<code class="docutils literal notranslate"><span class="pre">;b</span></code>), if there was a foreground red (<code class="docutils literal notranslate"><span class="pre">;r</span></code>) before. Initiating a new color to end a previous one, won’t work if both are different types.</p>
+<p>The second way is by resetting the colors, which is done by using <code class="docutils literal notranslate"><span class="pre">;:</span></code> or <code class="docutils literal notranslate"><span class="pre">:;</span></code> (a semicolon followed by a colon, or viceversa). Both work the same, and they reset foreground and background colors at once. Because of that, there is also the code <code class="docutils literal notranslate"><span class="pre">;;</span></code>, which resets only the foreground colors and <code class="docutils literal notranslate"><span class="pre">::</span></code> that resets only the background colors.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;;r/red color ;b/blue color&quot;</span>
+<span class="go">red color blue color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r:b/foreground red and background blue&quot;</span>
+<span class="go">foreground red and background blue    # both colors appear</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r:b/foreground and background stop ;:/here&quot;</span>
+<span class="go">foreground and background stop here   # &quot;here&quot; is not in red nor blue</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r:b/only stop ;;/the red color&quot;</span>
+<span class="go">only stop the red color               # &quot;the red color&quot; has blue background</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>“<code class="docutils literal notranslate"><span class="pre">;r:b/</span></code>” are the two color codes: <code class="docutils literal notranslate"><span class="pre">;r</span></code> (red foreground) and <code class="docutils literal notranslate"><span class="pre">:b/</span></code> (blue background).</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -245,9 +255,9 @@ only stop the red color               # &quot;the red color&quot; has blue backg
 </div>
 <div class="section" id="escaping">
 <h3>Escaping<a class="headerlink" href="#escaping" title="Permalink to this headline">¶</a></h3>
-<p>To escape a color code from being rendered, use a <code class="docutils literal notranslate"><span class="pre">\</span></code> (backslash), then:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ colorparse &quot;[\;r]red box&quot;
-[;r]red box
+<p>To escape a color code from being rendered, use a <code class="docutils literal notranslate"><span class="pre">\</span></code> (backslash), then.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;[\;r]red color&quot;</span>
+<span class="go">[;r]red color</span>
 </pre></div>
 </div>
 </div>
@@ -263,25 +273,29 @@ only stop the red color               # &quot;the red color&quot; has blue backg
 <p>It’s important to note, that because background colors do not allow RGB values, the codes <code class="docutils literal notranslate"><span class="pre">:=</span></code> and <code class="docutils literal notranslate"><span class="pre">:#</span></code> don’t exist.</p>
 </div>
 <ul>
-<li><p>For RGB, you need to give it <strong>at most</strong> the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ colorparse -t &quot;[;=255,255,255]white&quot;
-$ colorparse -t &quot;[;=255]red&quot;
-$ colorparse -t &quot;[;=255,,]red&quot;
-$ colorparse -t &quot;[;=255,0,0]red&quot;
-$ colorparse -t &quot;[;=]black&quot;
-$ colorparse -t &quot;[;=,,]black&quot;
+<li><p>For RGB, you need to give it <strong>at most</strong> the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255,255,255]white&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255,,]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255,0,0]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=]black&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=,,]black&quot;</span>
 </pre></div>
 </div>
+</div></blockquote>
 </li>
-<li><p>For HEX, there needs to be <strong>at most</strong> 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ colorparse -t &quot;[;#FFFFFF]white&quot;
-$ colorparse -t &quot;[;#FF]red&quot;
-$ colorparse -t &quot;[;#FF00]red&quot;
-$ colorparse -t &quot;[;#FF0000]red&quot;
-$ colorparse -t &quot;[;#000000]black&quot;
-$ colorparse -t &quot;[;#]black&quot;
+<li><p>For HEX, there needs to be <strong>at most</strong> 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FFFFFF]white&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FF]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FF00]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FF0000]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#000000]black&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#]black&quot;</span>
 </pre></div>
 </div>
+</div></blockquote>
 </li>
 </ul>
 </div>
@@ -415,7 +429,7 @@ $ colorparse -t &quot;[;#]black&quot;
 </div>
 <div class="section" id="examples">
 <span id="id4"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
-<p>The following examples cover the ones show before, with images. Follow <a class="reference external" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md">this link to see more examples</a>. Note that the exact color shown, may look different depending on which terminal is being used.</p>
+<p>The following examples cover the ones shown before, with images. Follow <a class="reference external" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md">this link to see more examples</a>. Note that the exact color shown, may look different depending on which terminal is being used.</p>
 <a class="reference external image-reference" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md"><img alt="colored terminal example" src="https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/example-getting-started.png" /></a>
 </div>
 </div>
@@ -440,7 +454,7 @@ $ colorparse -t &quot;[;#]black&quot;
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, tubi-carrillo
+        &copy; Copyright 2020, tubi-carrillo
 
     </p>
   </div>

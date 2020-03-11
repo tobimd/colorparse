@@ -6,7 +6,7 @@ Further Reading
 Conventions
 ***********
 
-The following shall be considered as recommendations only. These are for a better and faster way of working arround with color codes.
+The following shall be considered as recommendations only. These are for a better and faster way of working arround with color codes according to me.
 
 - Use closing options consistently throughout the string(s).
 - Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings.

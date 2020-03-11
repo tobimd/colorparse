@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Terminal Usage &mdash; colorparse 0.0.3 documentation</title>
+  <title>Terminal Usage &mdash; colorparse 1.1.4 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -58,6 +58,10 @@
 
           
             
+            
+              <div class="version">
+                1.1.4
+              </div>
             
           
 
@@ -229,18 +233,31 @@
 <p>Special characters are: <code class="docutils literal notranslate"><span class="pre">\n</span></code> (new line), <code class="docutils literal notranslate"><span class="pre">\r</span></code> (carriage return), <code class="docutils literal notranslate"><span class="pre">\t</span></code> (horizontal tab), <code class="docutils literal notranslate"><span class="pre">\v</span></code> (vertical tab), <code class="docutils literal notranslate"><span class="pre">\a</span></code> (bell), <code class="docutils literal notranslate"><span class="pre">\b</span></code> (backspace) and <code class="docutils literal notranslate"><span class="pre">\f</span></code> (formfeed).</p>
 </div>
 <p>Most of these optional arguments work exactly the same as the functions seen before. Here are a few that need some explanation:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-I</span></code>, <code class="docutils literal notranslate"><span class="pre">--ignore-special</span></code></p></li>
-</ul>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">-I</span></code>, <code class="docutils literal notranslate"><span class="pre">--ignore-special</span></code></p>
 <p>This option will ignore special characters and return the strings as if those characters were escaped.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-S</span></code>, <code class="docutils literal notranslate"><span class="pre">--strip</span></code></p></li>
-</ul>
-<p>Just like the built-in <code class="docutils literal notranslate"><span class="pre">strip</span></code> method for strings, having the strip flag will remove specified leading and trailing characters from all input files. If no character is given, then the default value <code class="docutils literal notranslate"><span class="pre">None</span></code> means that whitespaces will be removed. To specify which characters to strip, the string should only have them without spaces or separators. For example, having “abc” will remove all combinations of those 3 characters. Note that, if possible, this argument will try to use the proceeding value, so to use this flag without arguments, it must be either before another flag, after a flag’s argument (with the exception of <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> as we will discuss it later) or at the end.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code>, <code class="docutils literal notranslate"><span class="pre">--position</span></code></p></li>
-</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-S</span></code>, <code class="docutils literal notranslate"><span class="pre">--strip</span></code></p>
+<p>Just like the built-in <code class="docutils literal notranslate"><span class="pre">strip</span></code> method for strings, having the strip flag will remove specified leading and trailing characters from all input files. If no character is given, then the default value <code class="docutils literal notranslate"><span class="pre">None</span></code> means that whitespaces will be removed.</p>
+<p>To specify which characters to strip, the string should only have them without spaces or separators. For example, having “abc” will remove all combinations of those 3 characters.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If possible, this argument will try to use the proceeding value, so to use this flag without arguments, it must be either before another flag, after a flag’s argument (with the exception of <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> as we will discuss it later) or at the end of the terminal command.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span></code>, <code class="docutils literal notranslate"><span class="pre">--position</span></code></p>
 <p>By default, any strings given will be added before input files. With this option, you can choose in which position those strings should be in relation to the input files. Works like the built-in <code class="docutils literal notranslate"><span class="pre">insert</span></code> method for lists, including the option to have negative indexes.</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</li>
+</ul>
 </div>
 <div class="section" id="string">
 <h2>string<a class="headerlink" href="#string" title="Permalink to this headline">¶</a></h2>
@@ -321,7 +338,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, tubi-carrillo
+        &copy; Copyright 2020, tubi-carrillo
 
     </p>
   </div>

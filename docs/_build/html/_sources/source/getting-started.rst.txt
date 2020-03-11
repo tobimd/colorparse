@@ -1,4 +1,6 @@
 .. _getting-started:
+.. role:: raw-html(raw)
+   :format: html
 
 ###############
 Getting Started
@@ -14,49 +16,56 @@ To install the package, upgrade and uninstall, do the following commands::
 	$ pip install --upgrade colorparse
 	$ pip uninstall colorparse
 
+
 ***********
 Color Codes
 ***********
 Syntax
 ------
-A ``color code`` consists mainly of two parts. The first is the ``type``, which can be either *foreground* or *background*. Secondly there is the ``value``, which represents the color to display.
+A ``color code`` consists mainly of two parts. The first is the ``type``, which can be either *foreground* or *background*, and secondly, there is the ``value``, which represents the color to display.
 
-As an example, we will use (a lot) the foreground color red. This color is represented with: ``;r``, where the ``;`` (semicolon) is the foreground type, and the letter ``r`` is the value for the color red. Then, using the string "``;r`` hello" will return "hello" in red.
+As an example, we will use (a lot) the foreground color red. This color is represented with: ``;r``, where the ``;`` (semicolon) is the foreground type, and the letter ``r`` is the value for the color red. Then, using the string "``;r`` hello" would return ":raw-html:`<font color="#d62020"> hello</font>`" in red (notice the space at the beggining of the string).
 
-We can use background colors as well, with a ``:`` (colon) instead of the foreground type ``;``. That way, "``:r`` hello" would return "hello" with its background in red.
+We can use background colors as well, with a ``:`` (colon) instead of the foreground type ``;``. That way, "``:r`` hello" would return ":raw-html:`<span style="background-color:#d62020;"> hello</span>`" with its background in red.
 
 .. tip:: To see the all the available codes, go to the :ref:`list-of-color-codes` section below.
 
+
 Closing
 -------
-Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having ``;rred box`` will return ``ed box`` in dark red, because the parser thinks that ``;rr`` is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don't want one, there is the option to "*close*" a color code.
+Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having ``;rred color`` will return ":raw-html:`<font color="#871212">ed color</font>`" in dark red, because the parser thinks that ``;rr`` is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don't want one, there is the option to "*close*" a color code.
 
-Closing can be done with three items (characters, really). Using normal brackets: ``(`` and ``)``, square brackets: ``[`` and ``]``, or slashes: ``/``, will make them be consumed by the color code. Both types of brackets must be on both sides of the color code, without any ``/`` inside. The ``/`` can be on either side or both if needed. The next examples will show how the use of closure works using the terminal::
+Closing can be done with three elements by using normal brackets: ``(`` and ``)``, square brackets: ``[`` and ``]``, or slashes: ``/`` (they will be consumed by the color code). 
 
+When using brackets to close a color code, any type of space is accepted (tabs, new lines, normal spaces, etc). This is not true for the ``/`` as it can only be directly to the side of the color code.
 
-	$ colorparse ";rred box"
-	ed box             # "ed box" in dark red
- 	$
-	$ colorparse ";r red box"
-	 red box           # " red box" with a space at the start
-	$
-	$ colorparse ";r/red box"
-	red box
-	$
-	$ colorparse "/;rred box"
-	ed box             # "ed box" again
-	$
-	$ colorparse "/;r/red box"
-	red box
-	$
-	$ colorparse "[;r]red box"
-	red box
-	$
-	$ colorparse "(  ;r  )red box"
-	red box
-	$
-	$ colorparse "[ ;r/ ]redbox"
-	[  ]red box        # using / inside, won't make the brackets be absorbed
+The next examples will show how the use of closure works using the terminal.
+
+.. code-block:: console
+
+	$ colorparse ";rred color"
+	ed color        # "ed color" in dark red (";rr" is the color code)
+ 	
+	$ colorparse ";r red color"
+	 red color      # " red color" with a space at the start
+	
+	$ colorparse ";r/red color"
+	red color
+	
+	$ colorparse "/;rred color"
+	ed color        # "ed color" again
+	
+	$ colorparse "/;r/red color"
+	red color
+	
+	$ colorparse "[;r]red color"
+	red color
+	
+	$ colorparse "(  ;r  )red color"
+	red color
+	
+	$ colorparse "[ ;r/ ]redcolor"
+	[  ]red color   # using / inside, won't make the brackets be absorbed
 
 
 .. important:: A colored version of these examples can be seen at: :ref:`examples` below.
@@ -67,31 +76,37 @@ Finishing
 
 If we want a color to stop being shown, there are two ways of finishing (or ending). 
 
-One way is by initiating another color, for example a foreground blue (``;b``), if there was another foreground color before. Initiating a new color to end a previous one, won't work if both are different types.
+One way is by initiating another color, for example a foreground blue (``;b``), if there was a foreground red (``;r``) before. Initiating a new color to end a previous one, won't work if both are different types.
 
-The second way is by resetting the colors, which is done by using ``;:`` or ``:;`` (a semicolon followed by a colon, or viceversa). Both work the same, and they reset foreground and background colors at once. Because of that, there is also the code ``;;``, which resets only the foreground colors and ``::`` that resets only the background colors::
+The second way is by resetting the colors, which is done by using ``;:`` or ``:;`` (a semicolon followed by a colon, or viceversa). Both work the same, and they reset foreground and background colors at once. Because of that, there is also the code ``;;``, which resets only the foreground colors and ``::`` that resets only the background colors.
 
-	$ colorparse ";r/red box ;b/blue box"
-	red box blue box
-	$
+.. code-block:: console
+
+	$ colorparse ";r/red color ;b/blue color"
+	red color blue color
+	
 	$ colorparse ";r:b/foreground red and background blue"
 	foreground red and background blue    # both colors appear
-	$
+	
 	$ colorparse ";r:b/foreground and background stop ;:/here"
 	foreground and background stop here   # "here" is not in red nor blue
-	$
+	
 	$ colorparse ";r:b/only stop ;;/the red color"
 	only stop the red color               # "the red color" has blue background
+
+.. note:: "``;r:b/``" are the two color codes: ``;r`` (red foreground) and ``:b/`` (blue background).
 
 .. important:: A colored version of these examples can be seen at :ref:`examples` below.
 
 
 Escaping
 --------
-To escape a color code from being rendered, use a ``\`` (backslash), then::
+To escape a color code from being rendered, use a ``\`` (backslash), then.
 
-	$ colorparse "[\;r]red box"
-	[;r]red box
+.. code-block:: console
+
+	$ colorparse "[\;r]red color"
+	[;r]red color
 
 
 Custom Colors
@@ -103,7 +118,9 @@ Both of these codes won't show or work, unless the method ``true_color`` was giv
 
 .. note:: It's important to note, that because background colors do not allow RGB values, the codes ``:=`` and ``:#`` don't exist.
 
-- For RGB, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work::
+- For RGB, you need to give it **at most** the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work.
+
+    .. code-block:: console
 
 	$ colorparse -t "[;=255,255,255]white"
 	$ colorparse -t "[;=255]red"
@@ -113,7 +130,9 @@ Both of these codes won't show or work, unless the method ``true_color`` was giv
 	$ colorparse -t "[;=,,]black"
 	
 
-- For HEX, there needs to be **at most** 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work::
+- For HEX, there needs to be **at most** 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work.
+
+    .. code-block:: console
 
 	$ colorparse -t "[;#FFFFFF]white"
 	$ colorparse -t "[;#FF]red"
@@ -207,7 +226,7 @@ List of Color Codes
 Examples
 ********
 
-The following examples cover the ones show before, with images. Follow `this link to see more examples <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md>`_. Note that the exact color shown, may look different depending on which terminal is being used.
+The following examples cover the ones shown before, with images. Follow `this link to see more examples <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md>`_. Note that the exact color shown, may look different depending on which terminal is being used.
 
 .. image:: https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/example-getting-started.png
     :target: https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md
