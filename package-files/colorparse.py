@@ -5,7 +5,7 @@ import re
 import argparse
 
 
-__version__ = '1.1.4'
+__version__ = '1.1.5'
 
 
 class _Defaults:
@@ -235,14 +235,19 @@ def _color_repl(matchobj):
         return Color.ENDC
 
     # custom color code
-    if ('#' in code_val or '=' in code_val) and true_color():
-        mode, val = code_val[0], code_val[1:]
+    if '#' in code_val or '=' in code_val:
+        if true_color():
+            mode, val = code_val[0], code_val[1:]
+    
+            fix = ((val + ',' * (2 - val.count(','))).split(',') 
+                    if mode == '='
+                    else _hex_to_rgb(val + '0' * (6 - len(val))))
+            r, g, b = map(_clamp, fix)
+    
+            return f'\033[38;2;{r};{g};{b}m'
 
-        fix = ((val + ',' * (2 - val.count(','))).split(',') if mode == '='
-                else _hex_to_rgb(val + '0' * (6 - len(val))))
-        r, g, b = map(_clamp, fix)
-
-        return f'\033[38;2;{r};{g};{b}m'
+        else:
+            return matchobj[0]
 
     # foreground color code
     elif code_type == ';':
