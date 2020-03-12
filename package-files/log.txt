@@ -1,2 +1,2 @@
-## version 1.1.6   (2020 - 03 - 12)
-- Fixed color code overflow when ending specific color types consecutively (e.g. "/;g:w/ green text/;; with white background/:: would make this text green", returns the part of the string "would make this text green" with the former color green).
+## version 1.1.7   (2020 - 03 - XX)
+- X
