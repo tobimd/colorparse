@@ -245,7 +245,7 @@
 <p>To specify which characters to strip, the string should only have them without spaces or separators. For example, having “abc” will remove all combinations of those 3 characters.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>If possible, this argument will try to use the proceeding value, so to use this flag without arguments, it must be either before another flag, after a flag’s argument (with the exception of <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> as we will discuss it later) or at the end of the terminal command.</p>
+<p>If possible, this argument will try to use the proceeding value. To use this flag without arguments, it must be either before another flag (e.g. “-I -t”), after another flag’s argument (with the exception of <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> as we will discuss it later) or at the end of the terminal command.</p>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -269,8 +269,8 @@
 </div>
 <div class="section" id="input-files">
 <h2>input files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h2>
-<p>There is the option to read formatted strings (which means that it has color codes) from files. Using either <code class="docutils literal notranslate"><span class="pre">-i</span></code> or <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> flags, the proceeding arguments will be considered as the files to open.</p>
-<p>Even though this flag can be used before the <code class="docutils literal notranslate"><span class="pre">string</span></code> arguments (as it is an optional argument, it can be used practically anywhere), doing so will make the program think that anything that follows said flag, are files to look for, which may not be true if some of those values are actually <code class="docutils literal notranslate"><span class="pre">string</span></code> arguments. If a file doesn’t exist, it will raise an error, so for this reason, it’s recommended to add this flag at the end or after adding any <code class="docutils literal notranslate"><span class="pre">string</span></code> arguments.</p>
+<p>There is the option to read and parse color codes from external files. Using either <code class="docutils literal notranslate"><span class="pre">-i</span></code> or <code class="docutils literal notranslate"><span class="pre">--input-file</span></code> flags, the proceeding arguments will be considered as the files to open.</p>
+<p>Even though this flag can be used before the <code class="docutils literal notranslate"><span class="pre">string</span></code> arguments (because it’s an optional argument, it can be technically used anywhere), doing so will make the program think that anything that follows said flag, are files to look for, which may not be true if some of those values are actually <code class="docutils literal notranslate"><span class="pre">string</span></code> arguments. If a file doesn’t exist, it will raise an error, so for this reason, it’s recommended to add this flag at the end or after adding all <code class="docutils literal notranslate"><span class="pre">string</span></code> arguments.</p>
 </div>
 <div class="section" id="help-message">
 <span id="id2"></span><h2>help message<a class="headerlink" href="#help-message" title="Permalink to this headline">¶</a></h2>

@@ -36,7 +36,7 @@ Most of these optional arguments work exactly the same as the functions seen bef
   
   To specify which characters to strip, the string should only have them without spaces or separators. For example, having "abc" will remove all combinations of those 3 characters.
 
-  .. important:: If possible, this argument will try to use the proceeding value, so to use this flag without arguments, it must be either before another flag, after a flag's argument (with the exception of ``--input-file`` as we will discuss it later) or at the end of the terminal command.
+  .. important:: If possible, this argument will try to use the proceeding value. To use this flag without arguments, it must be either before another flag (e.g. "-I -t"), after another flag's argument (with the exception of ``--input-file`` as we will discuss it later) or at the end of the terminal command.
   
   |
 - ``-p``, ``--position``
@@ -57,9 +57,9 @@ The input strings (0 or more).
 input files
 ***********
 
-There is the option to read formatted strings (which means that it has color codes) from files. Using either ``-i`` or ``--input-file`` flags, the proceeding arguments will be considered as the files to open.
+There is the option to read and parse color codes from external files. Using either ``-i`` or ``--input-file`` flags, the proceeding arguments will be considered as the files to open.
 
-Even though this flag can be used before the ``string`` arguments (as it is an optional argument, it can be used practically anywhere), doing so will make the program think that anything that follows said flag, are files to look for, which may not be true if some of those values are actually ``string`` arguments. If a file doesn't exist, it will raise an error, so for this reason, it's recommended to add this flag at the end or after adding any ``string`` arguments.
+Even though this flag can be used before the ``string`` arguments (because it's an optional argument, it can be technically used anywhere), doing so will make the program think that anything that follows said flag, are files to look for, which may not be true if some of those values are actually ``string`` arguments. If a file doesn't exist, it will raise an error, so for this reason, it's recommended to add this flag at the end or after adding all ``string`` arguments.
 
 .. _help-message:
 

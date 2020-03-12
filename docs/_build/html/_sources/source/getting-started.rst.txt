@@ -37,9 +37,9 @@ Sometimes, using the same color as an example, the words that we want to color w
 
 Closing can be done with three elements by using normal brackets: ``(`` and ``)``, square brackets: ``[`` and ``]``, or slashes: ``/`` (they will be consumed by the color code). 
 
-When using brackets to close a color code, any type of space is accepted (tabs, new lines, normal spaces, etc). This is not true for the ``/`` as it can only be directly to the side of the color code.
+When using brackets to close a color code, any type of space is accepted (tabs, new lines, normal spaces, etc). This is not true for the ``/``, as it can only be directly to the side of the color code.
 
-The next examples will show how the use of closure works using the terminal.
+The next examples will show how closing color codes work, using the terminal.
 
 .. code-block:: console
 
@@ -78,7 +78,7 @@ If we want a color to stop being shown, there are two ways of finishing (or endi
 
 One way is by initiating another color, for example a foreground blue (``;b``), if there was a foreground red (``;r``) before. Initiating a new color to end a previous one, won't work if both are different types.
 
-The second way is by resetting the colors, which is done by using ``;:`` or ``:;`` (a semicolon followed by a colon, or viceversa). Both work the same, and they reset foreground and background colors at once. Because of that, there is also the code ``;;``, which resets only the foreground colors and ``::`` that resets only the background colors.
+The second way is by resetting the colors, which is done by using ``;:`` or ``:;`` (a semicolon followed by a colon, or viceversa). Both work the same, and they resetboth foreground and background colors at once. Because of that, there is also the code ``;;``, which resets only the foreground colors and ``::`` that resets only the background colors.
 
 .. code-block:: console
 
