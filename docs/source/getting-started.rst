@@ -226,9 +226,9 @@ List of Color Codes
 Examples
 ********
 
-The following examples cover the ones shown before, with images. Follow `this link to see more examples <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md>`_. Note that the exact color shown, may look different depending on which terminal is being used.
+The following examples cover the ones shown before, with images. Follow `this link to see more examples <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md#more-examples>`_. Note that the exact color shown, may look different depending on which terminal is being used.
 
 .. image:: https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/new-example-getting-started.png
-    :target: https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md
+    :target: https://github.com/tubi-carrillo/colorparse/blob/master/example/new-example-getting-started.png
     :alt: colored terminal example
 
