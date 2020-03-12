@@ -1,6 +1,7 @@
 # Change Log
 \* *the prefixes [t], [m] and [d] refer to terminal-only, module-only and docs-only changes, respectively.* *
 
+- [1.1.5](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-115---2020---03---12)
 - [1.1.4](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-114---2020---03---10)
 - [1.1.3](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-113---2019---08---06)
 - [1.1.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-112---2019---08---03)
@@ -9,6 +10,10 @@
 - [1.0.0](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-100---2019---07---30)
 - [0.0.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-002---2019---07---29)
 - [0.0.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#release-version-001---2019---07---29)
+
+
+## version 1.1.5   (2020 - 03 - 12)
+- Fixed raised error when using RGB or HEX color codes without true color active (now just ignores the color code).
 
 
 ## version 1.1.4   (2020 - 03 - 10)
