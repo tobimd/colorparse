@@ -76,10 +76,10 @@ A ``color code`` has two parts: the ``type`` (``;`` for *foreground* and ``:`` f
    
 - To finish a color, can mean two things: initiating another color, or resetting them to normal (to what the terminal uses, which is normally not white). Resetting to normal, can be done in three major ways, using: ``;:`` to stop both background and foreground colors (or ``:;``, interchangable), ``;;`` to stop only the foreground colors and ``::`` to stop only the background colors::
 
-   $ colorparse ":b/;r/both foreground and background colors stop ;:/here"
-   $ colorparse ":b/;r/both foreground and background colors stop :;/here"
-   $ colorparse ":b/;r/both colors ;;/only the blue background"
-   $ colorparse ":b/;r/both colors ::/only the red foreground"
+   $ colorparse "/:b;r/both foreground and background colors stop/;: here"
+   $ colorparse "/:b;r/both foreground and background colors stop/:; here"
+   $ colorparse "/:b;r/both colors/;; only the blue background"
+   $ colorparse "/:b;r/both colors/:: only the red foreground"
    
 - To escape ``color codes``, add a ``\`` (backslash) immediately before the ``type``::
 
