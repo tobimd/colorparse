@@ -5,7 +5,7 @@ colorparse
 | |version| |wheel| |docs| |python|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
-   :target: https://github.com/tubi-carrillo/colorparse#change-log
+   :target: https://pypi.org/project/colorparse
    :alt: Package Version
   
 .. |wheel| image:: https://img.shields.io/pypi/wheel/colorparse?style=flat-square
@@ -217,13 +217,8 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-   ## version 1.1.4   (2020 - 03 - 10)
-   + Re-did regular expression that obtained color codes, now works properly.
-   + Fixed "end" argument of "paint" function.
-   + Now, by default, "end" uses "Color.ENDC" before the new line character.
-   + Fixed the white color being the same as light gray (non-true color version).
-   + [d] Changed some examples and other descriptions.
-
+   ## version 1.1.5   (2020 - 03 - 12)
+   + Fixed raised error when using RGB or HEX color codes without true color active (now jus ignores the color code).
 
 License
 -------
