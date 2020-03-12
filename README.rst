@@ -2,7 +2,7 @@
 colorparse
 ##########
 
-| |version| |wheel| |docs| |python|
+| |version| |wheel| |docs| |python| |change log|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
    :target: https://pypi.org/project/colorparse
@@ -19,6 +19,10 @@ colorparse
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Python Version
+   
+.. |change log| image:: https://img.shields.io/badge/change%20log-v1.1.5-lightgrey?style=flat-square
+   :target: https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest
+   :alt: Project's Change Log
 
 
 ``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily colored, simplifying the work for the user.
