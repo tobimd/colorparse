@@ -53,7 +53,7 @@ To install the package, upgrade and uninstall, do the following commands::
 Documentation
 =============
 
-Here will be described how color codes work for both terminal and module uses, for the full documentation, please `visit the readthedocs page<https://colorparse.readthedocs.io/en/latest/>`_.
+Here will be described how color codes work for both terminal and module uses, for the full documentation, please `visit the readthedocs page <https://colorparse.readthedocs.io/en/latest/>`_.
 
 About color codes
 -----------------
