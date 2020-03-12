@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Module Content &mdash; colorparse 1.1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Terminal Usage" href="terminal.html" />
+    <link rel="prev" title="Getting Started" href="getting-started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> colorparse
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#color-class">Color class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#methods">Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#paint">paint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#codes">codes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#true-color">true_color</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-defaults">change_defaults</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="terminal.html">Terminal Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="further-reading.html">Further Reading</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">colorparse</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Module Content</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/module-content.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-content">
+<span id="id1"></span><h1>Module Content<a class="headerlink" href="#module-content" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="color-class">
+<span id="id2"></span><h2>Color class<a class="headerlink" href="#color-class" title="Permalink to this headline">¶</a></h2>
+<p>When this module is imported, you will have access to individual colors with the <code class="docutils literal notranslate"><span class="pre">Color</span></code> class.</p>
+<p>To get the value of a color, one must use the following structure: <code class="docutils literal notranslate"><span class="pre">Color.&lt;type&gt;.&lt;color</span> <span class="pre">name&gt;</span></code> such as <code class="docutils literal notranslate"><span class="pre">Color.foreground.DARK_RED</span></code>. The only exception to that structure, is the <code class="docutils literal notranslate"><span class="pre">ENDC</span></code> color code, which is accessed with <code class="docutils literal notranslate"><span class="pre">Color.ENDC</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code> can be either “foreground” or “background” and <code class="docutils literal notranslate"><span class="pre">&lt;color</span> <span class="pre">name&gt;</span></code> can be any of the color codes (that don’t have a <code class="docutils literal notranslate"><span class="pre">*</span></code>) in the <a class="reference internal" href="getting-started.html#list-of-color-codes"><span class="std std-ref">List of Color Codes</span></a> section, in <a class="reference internal" href="getting-started.html#getting-started"><span class="std std-ref">Getting Started</span></a>.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Generally, you needn’t use this class unless it is to change the ANSI escape sequences used or any other value.</p>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="paint">
+<h3>paint<a class="headerlink" href="#paint" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param">*value</em>, <em class="sig-param">**options</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-name descname">paint</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">...</em>, <em class="sig-param">print=True</em>, <em class="sig-param">ret=True</em>, <em class="sig-param">overflow=False</em>, <em class="sig-param">sep=' '</em>, <em class="sig-param">end='n'</em>, <em class="sig-param">file=sys.stdout</em>, <em class="sig-param">flush=False</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>Returns a string that will have color codes converted to ANSI escape sequences. This is meant to work similar to the built-in <code class="docutils literal notranslate"><span class="pre">print</span></code> function.</p>
+<p>Having <code class="docutils literal notranslate"><span class="pre">print</span></code> as <code class="docutils literal notranslate"><span class="pre">False</span></code>, makes the arguments <code class="docutils literal notranslate"><span class="pre">end</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code> and <code class="docutils literal notranslate"><span class="pre">flush</span></code> to not be considered whatever their values may be, because those are only used when printing.</p>
+<p>When there is more than one <code class="docutils literal notranslate"><span class="pre">value</span></code> argument, and <code class="docutils literal notranslate"><span class="pre">overflow</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, any unfinished color will pass through to other strings. Otherwise, colors will be finished at the end of each object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Regardless of any argument, this function will <strong>always</strong> finish all color codes at the end of the last string (the same as adding a <code class="docutils literal notranslate"><span class="pre">;:</span></code>).</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ARGUMENT</p></th>
+<th class="head"><p>DESCRIPTION</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>One or more objects to be parsed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">print</span></code></p></td>
+<td><p>If True, the obtained string will be printed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ret</span></code></p></td>
+<td><p>If true, the obtained string will be returned.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overflow</span></code></p></td>
+<td><p>If true, allow unfinished colors to overflow onto other stirngs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sep</span></code></p></td>
+<td><p>Inserted between the given values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">end</span></code></p></td>
+<td><p>Appended after the last value (when it’s printed).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+<td><p>A file-like object (stream).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">flush</span></code></p></td>
+<td><p>Whether to forcibly flush the stream (when the strings are printed).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="codes">
+<h3>codes<a class="headerlink" href="#codes" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<code class="sig-name descname">codes</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>Prints a list of all the color codes available. It also displays what the colors look as background type and foreground type.</p>
+</div>
+<div class="section" id="true-color">
+<h3>true_color<a class="headerlink" href="#true-color" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="true_color">
+<code class="sig-name descname">true_color</code><span class="sig-paren">(</span><em class="sig-param">value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#true_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>If no argument is given, it returns the current state of the global value for true color. Otherwise, it changes it to whatever boolean argument is given.</p>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, it means that the set of <strong>foreground colors</strong> will be using RGB values directly for each ANSI escape sequence. This does not apply to the background colors, as they do not allow RGB values in their codes. Be aware that not all terminals support true colors in ANSI escape sequences, so by default it’s set to false at the start.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ARGUMENT</p></th>
+<th class="head"><p>DESCRIPTION</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p>If true color should be activated or not, using boolean arguments.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="change-defaults">
+<h3>change_defaults<a class="headerlink" href="#change-defaults" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="change_defaults">
+<code class="sig-name descname">change_defaults</code><span class="sig-paren">(</span><em class="sig-param">fn</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#change_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>This function is meant to be used at the beggining of the program, to set permanent default values. This way, it helps to avoid having to constantly set the same arguments that would otherwise be omitted. The <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> argument recieves one or more <code class="docutils literal notranslate"><span class="pre">key</span></code>/<code class="docutils literal notranslate"><span class="pre">value</span></code> pairs for the function <code class="docutils literal notranslate"><span class="pre">fn</span></code>.</p>
+<p>It was designed to help both for future functions that may be added and to make lines of code shorter.</p>
+<p>The following example sets the default argument for printing as <code class="docutils literal notranslate"><span class="pre">False</span></code> in the function <code class="docutils literal notranslate"><span class="pre">paint</span></code> (originally <code class="docutils literal notranslate"><span class="pre">True</span></code>):</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">colorparse</span> <span class="kn">import</span> <span class="n">paint</span><span class="p">,</span> <span class="n">change_defaults</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">change_defaults</span><span class="p">(</span><span class="n">paint</span><span class="p">,</span> <span class="k">print</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># same as:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">change_defaults</span><span class="p">(</span><span class="s2">&quot;paint&quot;</span><span class="p">,</span> <span class="k">print</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 74%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>ARGUMENT</p></th>
+<th class="head"><p>DESCRIPTION</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fn</span></code></p></td>
+<td><p>The name or the function itself to set the default values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**kwargs</span></code></p></td>
+<td><p>Key/value pairs for each default argument to set.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="terminal.html" class="btn btn-neutral float-right" title="Terminal Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting-started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Esteban Carrillo
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

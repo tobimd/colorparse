@@ -1,0 +1,486 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; colorparse 1.1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Module Content" href="module-content.html" />
+    <link rel="prev" title="About colorparse" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> colorparse
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#color-codes">Color Codes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#syntax">Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#closing">Closing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#finishing">Finishing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#escaping">Escaping</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-colors">Custom Colors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#list-of-color-codes">List of Color Codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module-content.html">Module Content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminal.html">Terminal Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="further-reading.html">Further Reading</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">colorparse</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/getting-started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install the package, upgrade and uninstall, do the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install colorparse
+$ pip install --upgrade colorparse
+$ pip uninstall colorparse
+</pre></div>
+</div>
+</div>
+<div class="section" id="color-codes">
+<h2>Color Codes<a class="headerlink" href="#color-codes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="syntax">
+<h3>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">color</span> <span class="pre">code</span></code> consists mainly of two parts. The first is the <code class="docutils literal notranslate"><span class="pre">type</span></code>, which can be either <em>foreground</em> or <em>background</em>, and secondly, there is the <code class="docutils literal notranslate"><span class="pre">value</span></code>, which represents the color to display.</p>
+<p>As an example, we will use (a lot) the foreground color red. This color is represented with: <code class="docutils literal notranslate"><span class="pre">;r</span></code>, where the <code class="docutils literal notranslate"><span class="pre">;</span></code> (semicolon) is the foreground type, and the letter <code class="docutils literal notranslate"><span class="pre">r</span></code> is the value for the color red. Then, using the string “<code class="docutils literal notranslate"><span class="pre">;r</span></code> hello” would return “<span class="raw-html"><font color="#d62020"> hello</font></span>” in red (notice the space at the beggining of the string).</p>
+<p>We can use background colors as well, with a <code class="docutils literal notranslate"><span class="pre">:</span></code> (colon) instead of the foreground type <code class="docutils literal notranslate"><span class="pre">;</span></code>. That way, “<code class="docutils literal notranslate"><span class="pre">:r</span></code> hello” would return “<span class="raw-html"><span style="background-color:#d62020;"> hello</span></span>” with its background in red.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To see the all the available codes, go to the <a class="reference internal" href="#list-of-color-codes"><span class="std std-ref">List of Color Codes</span></a> section below.</p>
+</div>
+</div>
+<div class="section" id="closing">
+<h3>Closing<a class="headerlink" href="#closing" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having <code class="docutils literal notranslate"><span class="pre">;rred</span> <span class="pre">color</span></code> will return “<span class="raw-html"><font color="#871212">ed color</font></span>” in dark red, because the parser thinks that <code class="docutils literal notranslate"><span class="pre">;rr</span></code> is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don’t want one, there is the option to “<em>close</em>” a color code.</p>
+<p>Closing can be done with three elements by using normal brackets: <code class="docutils literal notranslate"><span class="pre">(</span></code> and <code class="docutils literal notranslate"><span class="pre">)</span></code>, square brackets: <code class="docutils literal notranslate"><span class="pre">[</span></code> and <code class="docutils literal notranslate"><span class="pre">]</span></code>, or slashes: <code class="docutils literal notranslate"><span class="pre">/</span></code> (they will be consumed by the color code).</p>
+<p>When using brackets to close a color code, any type of space is accepted (tabs, new lines, normal spaces, etc). This is not true for the <code class="docutils literal notranslate"><span class="pre">/</span></code>, as it can only be directly to the side of the color code.</p>
+<p>The next examples will show how closing color codes work, using the terminal.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;;rred color&quot;</span>
+<span class="go">ed color        # &quot;ed color&quot; in dark red (&quot;;rr&quot; is the color code)</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r red color&quot;</span>
+<span class="go"> red color      # &quot; red color&quot; with a space at the start</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;;r/red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;rred color&quot;</span>
+<span class="go">ed color        # &quot;ed color&quot; again</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;r/red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;[;r]red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;(  ;r  )red color&quot;</span>
+<span class="go">red color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;[ ;r/ ]redcolor&quot;</span>
+<span class="go">[  ]red color   # using / inside, won&#39;t make the brackets be absorbed</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A colored version of these examples can be seen at: <a class="reference internal" href="#examples"><span class="std std-ref">Examples</span></a> below.</p>
+</div>
+</div>
+<div class="section" id="finishing">
+<h3>Finishing<a class="headerlink" href="#finishing" title="Permalink to this headline">¶</a></h3>
+<p>If we want a color to stop being shown, there are two ways of finishing (or ending).</p>
+<p>One way is by initiating another color, for example a foreground blue (<code class="docutils literal notranslate"><span class="pre">;b</span></code>), if there was a foreground red (<code class="docutils literal notranslate"><span class="pre">;r</span></code>) before. Initiating a new color to end a previous one, won’t work if both are different types.</p>
+<p>The second way is by resetting the colors, which is done by using <code class="docutils literal notranslate"><span class="pre">;:</span></code> or <code class="docutils literal notranslate"><span class="pre">:;</span></code> (a semicolon followed by a colon, or viceversa). Both work the same, and they resetboth foreground and background colors at once. Because of that, there is also the code <code class="docutils literal notranslate"><span class="pre">;;</span></code>, which resets only the foreground colors and <code class="docutils literal notranslate"><span class="pre">::</span></code> that resets only the background colors.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;;r/red color ;b/blue color&quot;</span>
+<span class="go">red color blue color</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;k:g/foreground black and background green&quot;</span>
+<span class="go">foreground black and background green  # both colors appear</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;k:g/foreground and background stop/;: here&quot;</span>
+<span class="go">foreground and background stop here    # &quot;here&quot; is not in black nor with green background</span>
+
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;k:g/only stop ;;/the foreground color&quot;</span>
+<span class="go">only stop the foreground color         # &quot;the foreground color&quot; has green background only</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>“<code class="docutils literal notranslate"><span class="pre">/;k:g/</span></code>” are the two color codes: <code class="docutils literal notranslate"><span class="pre">/;k</span></code> (black foreground) and <code class="docutils literal notranslate"><span class="pre">:g/</span></code> (green background).</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A colored version of these examples can be seen at <a class="reference internal" href="#examples"><span class="std std-ref">Examples</span></a> below.</p>
+</div>
+</div>
+<div class="section" id="escaping">
+<h3>Escaping<a class="headerlink" href="#escaping" title="Permalink to this headline">¶</a></h3>
+<p>To escape a color code from being rendered, use a <code class="docutils literal notranslate"><span class="pre">\</span></code> (backslash), then.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;[\;r]red color&quot;</span>
+<span class="go">[;r]red color</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-colors">
+<h3>Custom Colors<a class="headerlink" href="#custom-colors" title="Permalink to this headline">¶</a></h3>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>To use the custom colors: <code class="docutils literal notranslate"><span class="pre">;=</span></code> for RGB and <code class="docutils literal notranslate"><span class="pre">;#</span></code> for HEX, means that <a class="reference external" href="https://gist.github.com/XVilka/8346728#terminals--true-color">your terminal supports true color</a>.</p>
+</div>
+<p>Both of these codes won’t show or work, unless the method <code class="docutils literal notranslate"><span class="pre">true_color</span></code> was given the value <code class="docutils literal notranslate"><span class="pre">True</span></code> (if you are importing the module) or by using the <code class="docutils literal notranslate"><span class="pre">-t</span></code> or <code class="docutils literal notranslate"><span class="pre">--true-color</span></code> flags in the terminal. See <a class="reference internal" href="module-content.html#module-content"><span class="std std-ref">Module Content</span></a> and <a class="reference internal" href="terminal.html#options"><span class="std std-ref">options</span></a> for more information on these.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s important to note, that because background colors do not allow RGB values, the codes <code class="docutils literal notranslate"><span class="pre">:=</span></code> and <code class="docutils literal notranslate"><span class="pre">:#</span></code> don’t exist.</p>
+</div>
+<ul>
+<li><p>For RGB, you need to give it <strong>at most</strong> the three values corresponding to red, green and blue, which go from 0 to 255 each one (values that are 0 can be ommited). All of the following examples work.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255,255,255]white&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255,,]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=255,0,0]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=]black&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;=,,]black&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>For HEX, there needs to be <strong>at most</strong> 6 values. Like before, by pairs these represent red, green and blue, which go from 0 to F each one (zeros can be ommited, though missing ones will be considered to be at the right-most part). The following examples also work.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FFFFFF]white&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FF]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FF00]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#FF0000]red&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#000000]black&quot;</span>
+<span class="gp">$</span> colorparse -t <span class="s2">&quot;[;#]black&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="list-of-color-codes">
+<span id="id2"></span><h2>List of Color Codes<a class="headerlink" href="#list-of-color-codes" title="Permalink to this headline">¶</a></h2>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>To remember easily, the colors available are: <code class="docutils literal notranslate"><span class="pre">red</span></code>, <code class="docutils literal notranslate"><span class="pre">orange</span></code>, <code class="docutils literal notranslate"><span class="pre">yellow</span></code>, <code class="docutils literal notranslate"><span class="pre">green</span></code>, <code class="docutils literal notranslate"><span class="pre">cyan</span></code>, <code class="docutils literal notranslate"><span class="pre">blue</span></code>, <code class="docutils literal notranslate"><span class="pre">purple</span></code> and <code class="docutils literal notranslate"><span class="pre">magenta</span></code>. They all have three variations for the first letter. If it’s alone, then it’s a normal color; if it’s repeated two times, it means that it’s a dark color; if it’s uppercase, then it’s a strong color.</p>
+</div>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 29%" />
+<col style="width: 60%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>VALUES</strong></p></td>
+<td><p><strong>NAMES</strong></p></td>
+<td><p><strong>DESCRIPTION</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rr</span></code></p></td>
+<td><p>DARK_RED</p></td>
+<td rowspan="24"><p>Colors that can be preceeded either</p>
+<p>by a <code class="docutils literal notranslate"><span class="pre">;</span></code> (semicolon) or a <code class="docutils literal notranslate"><span class="pre">:</span></code> (colon)</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">oo</span></code></p></td>
+<td><p>DARK_ORANGE</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yy</span></code></p></td>
+<td><p>DARK_YELLOW</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gg</span></code></p></td>
+<td><p>DARK_GREEN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cc</span></code></p></td>
+<td><p>DARK_CYAN</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bb</span></code></p></td>
+<td><p>DARK_BLUE</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pp</span></code></p></td>
+<td><p>DARK_PURPLE</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mm</span></code></p></td>
+<td><p>DARK_MAGENTA</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<td><p>RED</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">o</span></code></p></td>
+<td><p>ORANGE</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<td><p>YELLOW</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">g</span></code></p></td>
+<td><p>GREEN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<td><p>CYAN</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">b</span></code></p></td>
+<td><p>BLUE</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">p</span></code></p></td>
+<td><p>PURPLE</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">m</span></code></p></td>
+<td><p>MAGENTA</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">R</span></code></p></td>
+<td><p>STRONG_RED</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">O</span></code></p></td>
+<td><p>STRONG_ORANGE</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
+<td><p>STRONG_YELLOW</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">G</span></code></p></td>
+<td><p>STRONG_GREEN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<td><p>STRONG_CYAN</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">B</span></code></p></td>
+<td><p>STRONG_BLUE</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">P</span></code></p></td>
+<td><p>STRONG_PURPLE</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">M</span></code></p></td>
+<td><p>STRONG_MAGENTA</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">;:</span></code></p></td>
+<td><p>ENDC</p></td>
+<td><p>Ends both foreground and background colors</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:;</span></code></p></td>
+<td><p>ENDC</p></td>
+<td><p>Ends both foreground and background colors</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">;;</span></code></p></td>
+<td><p>ENDFC <code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>Ends only foreground colors</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">::</span></code></p></td>
+<td><p>ENDBC <code class="docutils literal notranslate"><span class="pre">*</span></code></p></td>
+<td><p>Ends only background colors</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">;=</span></code></p></td>
+<td><p>RGB <code class="docutils literal notranslate"><span class="pre">*</span></code> <code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p>Reads RGB values separated with a <code class="docutils literal notranslate"><span class="pre">,</span></code> (comma)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">;#</span></code></p></td>
+<td><p>HEX <code class="docutils literal notranslate"><span class="pre">*</span></code> <code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+<td><p>Reads hexadecimal values for RGB</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Color names with <code class="docutils literal notranslate"><span class="pre">*</span></code>, cannot be accessed directly through the class <code class="docutils literal notranslate"><span class="pre">Color</span></code>. They can only be used as a color code in a string (see <a class="reference internal" href="module-content.html#color-class"><span class="std std-ref">Color class</span></a>).</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Color names with <code class="docutils literal notranslate"><span class="pre">+</span></code>, are only available if <a class="reference external" href="https://gist.github.com/XVilka/8346728#terminals--true-color">your terminal supports true color</a>, because their assigned values are transformed to RGB values, and not all terminals support that in <a class="reference external" href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape sequences</a>.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<span id="id4"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>The following examples cover the ones shown before, with images. Follow <a class="reference external" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md">this link to see more examples</a>. Note that the exact color shown, may look different depending on which terminal is being used.</p>
+<a class="reference external image-reference" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md"><img alt="colored terminal example" src="https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/new-example-getting-started.png" /></a>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="module-content.html" class="btn btn-neutral float-right" title="Module Content" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="About colorparse" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Esteban Carrillo
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
