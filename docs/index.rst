@@ -1,7 +1,7 @@
-| |version| |wheel| |docs| |python|
+| |python| |version| |wheel| |docs| |github| |change log|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
-   :target: https://github.com/tubi-carrillo/colorparse#change-log
+   :target: https://pypi.org/project/colorparse/
    :alt: Package Version
   
 .. |wheel| image:: https://img.shields.io/pypi/wheel/colorparse?style=flat-square
@@ -15,6 +15,14 @@
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Python Version
+
+.. |github| image:: https://img.shields.io/badge/github-grey?style=flat-square&logo=github
+   :target: https://github.com/tubi-carrillo/colorparse
+   :alt: GitHub Link
+
+.. |change log| image:: https://img.shields.io/badge/change%20log-all-lightgrey?style=flat-square
+   :target: https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest
+   :alt: Change Log
 
 ################
 About colorparse

@@ -1,11 +1,7 @@
-##########
-colorparse
-##########
-
-| |version| |wheel| |docs| |python| |change log|
+| |python| |version| |wheel| |docs| |github| |change log|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
-   :target: https://pypi.org/project/colorparse
+   :target: https://pypi.org/project/colorparse/
    :alt: Package Version
   
 .. |wheel| image:: https://img.shields.io/pypi/wheel/colorparse?style=flat-square
@@ -19,10 +15,14 @@ colorparse
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Python Version
-   
-.. |change log| image:: https://img.shields.io/badge/change%20log-v1.1.5-lightgrey?style=flat-square
+
+.. |github| image:: https://img.shields.io/badge/github-grey?style=flat-square&logo=github
+   :target: https://github.com/tubi-carrillo/colorparse
+   :alt: GitHub Link
+
+.. |change log| image:: https://img.shields.io/badge/change%20log-all-lightgrey?style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest
-   :alt: Project's Change Log
+   :alt: Change Log
 
 
 ``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors in the terminal. This way, a string can be easily colored, simplifying the work for the user.
@@ -221,9 +221,10 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-   ## version 1.1.5   (2020 - 03 - 12)
-   + Fixed raised error when using RGB or HEX color codes without true color active (now jus ignores the color code).
+        ## version 1.1.5   (2020 - 03 - 12)
+        + Fixed raised error when using RGB or HEX color codes without true color active (now jus ignores the color code).
 
+<a name="end"></a>
 License
 -------
 

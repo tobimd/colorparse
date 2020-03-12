@@ -5,16 +5,14 @@
 
 # Installation
 
-To install, use this command:
-```
-  $ pip install colorparse
-```
+To install, upgrade or uninstall, use the following:
 
-After this, the package should be ready to use. To upgrade or uninstall, use the following:
 ```
+   $ pip install colorparse
    $ pip install --upgrade colorparse
    $ pip uninstall colorparse
 ```
+
 # Recent Changes
 
 \* *the prefixes [t] refer to terminal-only, [m] for module-only and [d] for docs-only changes, respectively* *

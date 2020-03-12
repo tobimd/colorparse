@@ -1,6 +1,7 @@
 # Change Log
 \* *the prefixes [t], [m] and [d] refer to terminal-only, module-only and docs-only changes, respectively.* *
 
+<a name="list"></a>
 - [1.1.5](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-115---2020---03---12)
 - [1.1.4](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-114---2020---03---10)
 - [1.1.3](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-113---2019---08---06)

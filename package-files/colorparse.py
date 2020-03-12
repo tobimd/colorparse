@@ -273,6 +273,8 @@ def _color_format(string):
 
             # iterate backwards from current code
             for prev_code in all_matches[index - 1::-1]: 
+                
+                # if found a color
                 if (color_type in prev_code and 
                     ';:' not in prev_code and
                     ':;' not in prev_code):
@@ -282,6 +284,14 @@ def _color_format(string):
                     all_matches[index] = '[;:]' 
                     all_matches.insert(index + 1, prev_code)
                     break
+                
+                # if found an ending color code instead
+                elif ';:' in prev_code or ':;' in prev_code:
+                    # replace current code with '[;:]' only
+                    string = string.replace(code, f'[;:]', 1)
+                    all_matches[index] = '[;:]'
+                    break
+
     
     # replace color codes with their respective ansi escape sequences
     return re.sub(regex, _color_repl, string)
