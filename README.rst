@@ -221,8 +221,8 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-   ## version 1.1.5   (2020 - 03 - 12)
-   + Fixed raised error when using RGB or HEX color codes without true color active (now jus ignores the color code).
+	## version 1.1.5   (2020 - 03 - 12)
+	+ Fixed raised error when using RGB or HEX color codes without true color active (now jus ignores the color code).
 
 License
 -------
