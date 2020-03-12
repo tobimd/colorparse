@@ -11,7 +11,7 @@
 - [0.0.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-002---2019---07---29)
 - [0.0.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#release-version-001---2019---07---29)
 
-
+<a name="latest"></a>
 ## version 1.1.5   (2020 - 03 - 12)
 - Fixed raised error when using RGB or HEX color codes without true color active (now just ignores the color code).
 
