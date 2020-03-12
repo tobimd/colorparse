@@ -1,5 +1,6 @@
 import sphinx_rtd_theme
-from colorparse import __version__
+
+__version__ = "1.1.4"
 
 # Configuration file for the Sphinx documentation builder.
 #
