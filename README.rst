@@ -221,6 +221,7 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 	+ Fixed color code overflow when ending specific color types consecutively (e.g. "/;g:w/ green text/;; with white background/:: would make this text green", returns the part of the string "would make this text green" with the former color green).
 
 <a name="end"></a>
+
 License
 -------
 
