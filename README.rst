@@ -186,11 +186,13 @@ Further Reading
 Conventions
 -----------
 
-The following shall be considered as recommendations only. These are for a better and faster way of working arround with color codes.
+The following shall be considered as recommendations only. These are for a better and faster way of working arround with color codes according to me.
 
 - Use closing options consistently throughout the string(s).
-- Prefer the use of closing brackets for large strings and right-side only ``/`` (slash) for smaller strings.
-- When two or more color codes are side by side, prefer adding a `/` (slash) on both ends of the group, instead of each one.
+- Prefer the use of closing brackets for large strings and ``/`` (slash) for smaller strings.
+- Prefer placing a right-side only ``/`` when using regular color codes (e.g. ";r/red color"), and conversely, place a left-side only ``/`` when using ending color codes (e.g. ";r/red color/;:").
+- When two or more color codes are side by side, prefer adding a ``/`` (slash) on both ends of the group, instead of each one (e.g. "/;r:b/red and blue").
+- Prefer sticking the "slash-closed" color codes to other strings on the same side the ``/`` is on. For example, do not do "hello;r/ there" and instead do "hello ;r/there".
 - Avoid using ``;;`` or ``::`` for large strings.
 - For custom color codes (RGB and HEX), do not ommit "0" values.
 - If using the terminal, and there are many special characters (new lines, tabs, etc), prefer storing the string(s) in a file rather than directly using terminal input (these files can be accessed using the ``-i`` or ``--input-file`` option).
@@ -199,6 +201,7 @@ The following shall be considered as recommendations only. These are for a bette
 - Do not use the ``codes`` function as part of the program (unless it's explicitly intended to be shown).
 - Even though spaces are allowed in bracket closing (which is not the case for the ``/``), use as few as possible.
 - Use either ``;:`` or ``:;`` consistently.
+
 
 Known Issues
 ------------
@@ -219,6 +222,7 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
    + Fixed "end" argument of "paint" function.
    + Now, by default, "end" uses "Color.ENDC" before the new line character.
    + Fixed the white color being the same as light gray (non-true color version).
+   + [d] Changed some examples and other descriptions.
 
 
 License
