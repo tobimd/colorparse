@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -234,19 +234,19 @@ $ pip uninstall colorparse
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> colorparse <span class="s2">&quot;;r/red color ;b/blue color&quot;</span>
 <span class="go">red color blue color</span>
 
-<span class="gp">$</span> colorparse <span class="s2">&quot;;r:b/foreground red and background blue&quot;</span>
-<span class="go">foreground red and background blue    # both colors appear</span>
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;k:g/foreground black and background green&quot;</span>
+<span class="go">foreground black and background green  # both colors appear</span>
 
-<span class="gp">$</span> colorparse <span class="s2">&quot;;r:b/foreground and background stop ;:/here&quot;</span>
-<span class="go">foreground and background stop here   # &quot;here&quot; is not in red nor blue</span>
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;k:g/foreground and background stop/;: here&quot;</span>
+<span class="go">foreground and background stop here    # &quot;here&quot; is not in black nor with green background</span>
 
-<span class="gp">$</span> colorparse <span class="s2">&quot;;r:b/only stop ;;/the red color&quot;</span>
-<span class="go">only stop the red color               # &quot;the red color&quot; has blue background</span>
+<span class="gp">$</span> colorparse <span class="s2">&quot;/;k:g/only stop ;;/the foreground color&quot;</span>
+<span class="go">only stop the foreground color         # &quot;the foreground color&quot; has green background only</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>“<code class="docutils literal notranslate"><span class="pre">;r:b/</span></code>” are the two color codes: <code class="docutils literal notranslate"><span class="pre">;r</span></code> (red foreground) and <code class="docutils literal notranslate"><span class="pre">:b/</span></code> (blue background).</p>
+<p>“<code class="docutils literal notranslate"><span class="pre">/;k:g/</span></code>” are the two color codes: <code class="docutils literal notranslate"><span class="pre">/;k</span></code> (black foreground) and <code class="docutils literal notranslate"><span class="pre">:g/</span></code> (green background).</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -430,7 +430,7 @@ $ pip uninstall colorparse
 <div class="section" id="examples">
 <span id="id4"></span><h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>The following examples cover the ones shown before, with images. Follow <a class="reference external" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md">this link to see more examples</a>. Note that the exact color shown, may look different depending on which terminal is being used.</p>
-<a class="reference external image-reference" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md"><img alt="colored terminal example" src="https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/example-getting-started.png" /></a>
+<a class="reference external image-reference" href="https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md"><img alt="colored terminal example" src="https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/new-example-getting-started.png" /></a>
 </div>
 </div>
 
@@ -454,7 +454,7 @@ $ pip uninstall colorparse
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, tubi-carrillo
+        &copy; Copyright 2019-2020, Esteban Carrillo
 
     </p>
   </div>

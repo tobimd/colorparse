@@ -1,2 +1,5 @@
-## version 1.1.4   (2019 - 08 - 06)
-- [t] Optional argument ``-u`` or ``--uncolor`` added.
+## version 1.1.4   (2020 - 03 - 10)
+- Re-did regular expression that obtained color codes, now works properly.
+- Fixed ``end`` argument of ``paint`` function.
+- Now, by default, ``end`` uses ``Color.ENDC`` before the new line character.
+- Fixed the white color being the same as light gray (non-true color version).

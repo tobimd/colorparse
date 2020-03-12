@@ -85,16 +85,16 @@ The second way is by resetting the colors, which is done by using ``;:`` or ``:;
 	$ colorparse ";r/red color ;b/blue color"
 	red color blue color
 	
-	$ colorparse ";r:b/foreground red and background blue"
-	foreground red and background blue    # both colors appear
+	$ colorparse "/;k:g/foreground black and background green"
+	foreground black and background green  # both colors appear
 	
-	$ colorparse ";r:b/foreground and background stop ;:/here"
-	foreground and background stop here   # "here" is not in red nor blue
+	$ colorparse "/;k:g/foreground and background stop/;: here"
+	foreground and background stop here    # "here" is not in black nor with green background
 	
-	$ colorparse ";r:b/only stop ;;/the red color"
-	only stop the red color               # "the red color" has blue background
+	$ colorparse "/;k:g/only stop ;;/the foreground color"
+	only stop the foreground color         # "the foreground color" has green background only
 
-.. note:: "``;r:b/``" are the two color codes: ``;r`` (red foreground) and ``:b/`` (blue background).
+.. note:: "``/;k:g/``" are the two color codes: ``/;k`` (black foreground) and ``:g/`` (green background).
 
 .. important:: A colored version of these examples can be seen at :ref:`examples` below.
 
@@ -228,7 +228,7 @@ Examples
 
 The following examples cover the ones shown before, with images. Follow `this link to see more examples <https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md>`_. Note that the exact color shown, may look different depending on which terminal is being used.
 
-.. image:: https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/example-getting-started.png
+.. image:: https://raw.githubusercontent.com/tubi-carrillo/colorparse/master/example/new-example-getting-started.png
     :target: https://github.com/tubi-carrillo/colorparse/blob/master/example/README.md
     :alt: colored terminal example
 

@@ -21,7 +21,7 @@ from colorparse import __version__
 # -- Project information -----------------------------------------------------
 
 project = 'colorparse'
-copyright = '2020, tubi-carrillo'
+copyright = '2019-2020, Esteban Carrillo'
 author = 'tubi-carrillo'
 
 # The version info for the project you're documenting, acts as replacement for

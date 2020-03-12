@@ -43,40 +43,36 @@ Contents
 Installation
 ============
 
-To install, use this command::
+To install the package, upgrade and uninstall, do the following commands::
 
-   $ pip install colorparse
-
-
-After this, the package should be ready to use. To upgrade or uninstall, use the following::
-
-   $ pip install --upgrade colorparse
-   $ pip uninstall colorparse
+	$ pip install colorparse
+	$ pip install --upgrade colorparse
+	$ pip uninstall colorparse
    
    
 Documentation
 =============
 
-Here will be described how color codes work for both terminal and module uses, for the full documentation, visit the `readthedocs <https://colorparse.readthedocs.io/en/latest/>`_ page.
+Here will be described how color codes work for both terminal and module uses, for the full documentation, please `visit the readthedocs page<https://colorparse.readthedocs.io/en/latest/>`_.
 
 About color codes
 -----------------
 
 A ``color code`` has two parts: the ``type`` (``;`` for *foreground* and ``:`` for *background*) and the ``value``.
 
-- A color is initiated when we use a color code. The following command, will return the string " red box" in red (notice the space character at the start of the string)::
+- A color is initiated when we use a color code. The following command, will return the string " red color" in red (notice the space character at the start of the string)::
 
-   $ colorparse ";r red box"
-    red box
+   $ colorparse ";r red color"
+    red color
 
-The ``value`` for that code was the letter ``r``. When the parser reads that, it understands that from there, the color red will be initiated and then removes the ``;r`` (which didn't include the space after it).
+  The ``value`` for that code was the letter ``r``. When the parser reads that, it understands that from there, the color red will be initiated and then removes the ``;r`` (which didn't include the space after it).
 
-- Closing a color code, is optional, and means that it has surrounding characters which separate it from the rest of the string. The following commands will return the same string ("red box") colored in normal red::
+- Closing a color code, is optional, and means that it has surrounding characters which separate it from the rest of the string. The following commands will return the same string ("red color") colored in normal red::
 
-   $ colorparse ";r/red box"   
-   $ colorparse "/;r/red box"
-   $ colorparse "[;r]red box"
-   $ colorparse "( ;r )red box"
+   $ colorparse ";r/red color"   
+   $ colorparse "/;r/red color"
+   $ colorparse "[;r]red color"
+   $ colorparse "( ;r )red color"
    
 - To finish a color, can mean two things: initiating another color, or resetting them to normal (to what the terminal uses, which is normally not white). Resetting to normal, can be done in three major ways, using: ``;:`` to stop both background and foreground colors (or ``:;``, interchangable), ``;;`` to stop only the foreground colors and ``::`` to stop only the background colors::
 
@@ -87,8 +83,8 @@ The ``value`` for that code was the letter ``r``. When the parser reads that, it
    
 - To escape ``color codes``, add a ``\`` (backslash) immediately before the ``type``::
 
-   $ colorparse "[\;r] this text is not red"
-   [;r] this text is not red
+   $ colorparse "[\;r] this color is not red"
+   [;r] this color is not red
 
 - For custom colors, use ``;=`` for RGB values and ``;#`` for HEX values (these color codes may not work on all terminals, see `the custom colors section in the docs <https://colorparse.readthedocs.io/en/latest/source/getting-started.html#custom-colors>`_ for more information). Note that empty values will be considered as ``0``::
 

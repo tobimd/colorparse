@@ -363,17 +363,16 @@ def paint(*value, **options):
 
     if _overflow: # if overflow is true, then color the strings as one
         result = _color_format(_sep.join(map(str, value)))
+
+        if _print:
+            print(result, end=(_end + ec), file=_file, flush=_flush)
     
     else: # else, color one by one and the join them
         result = (ec + _sep).join(map(_color_format, map(str, value)))
 
-    # if out is True, then print
-    if _print and _overflow: # with overflow
-        print(result, end=(_end + ec), file=_file, flush=_flush)
-    
-    if _print and not _overflow: # without overflow
-        print(result, end=(ec + _end + ec), file=_file, flush=_flush)
-    
+        if _print:
+            print(result, end=(ec + _end + ec), file=_file, flush=_flush)
+
     # return
     if _ret:
         return result + ec
@@ -527,11 +526,6 @@ def _arg_parser():
                               more accurate color set (warning: having this\
                               option won\'t work on all terminals as they do\
                               not all support true color).',
-                        action='store_true')
-
-    parser.add_argument('-u', '--uncolor',
-                        help='print strings with ansi escape sequences without\
-                              color.',
                         action='store_true')
 
     parser.add_argument('-s', '--sep',
