@@ -16,6 +16,7 @@
 - Fixed ``end`` argument of ``paint`` function.
 - Now, by default, ``end`` uses ``Color.ENDC`` before the new line character.
 - Fixed the white color being the same as light gray (non-true color version).
+- [d] Changed some examples and other descriptions.
 
 
 ## version 1.1.3   (2019 - 08 - 06)
