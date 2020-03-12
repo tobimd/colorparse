@@ -20,7 +20,7 @@
    :target: https://github.com/tubi-carrillo/colorparse
    :alt: GitHub Link
 
-.. |change log| image:: https://img.shields.io/badge/change%20log-all-lightgrey?style=flat-square
+.. |change log| image:: https://img.shields.io/badge/change%20log-latest-lightgrey?style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest
    :alt: Change Log
 
