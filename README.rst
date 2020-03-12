@@ -1,4 +1,4 @@
-| |python| |version| |wheel| |docs| |github| |change log|
+| |python| |version| |wheel| |docs| |change log|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
    :target: https://pypi.org/project/colorparse/
@@ -15,10 +15,6 @@
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Python Version
-
-.. |github| image:: https://img.shields.io/badge/github-grey?style=flat-square&logo=github
-   :target: https://github.com/tubi-carrillo/colorparse
-   :alt: GitHub Link
 
 .. |change log| image:: https://img.shields.io/badge/change%20log-latest-lightgrey?style=flat-square
    :target: https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest
@@ -221,8 +217,8 @@ Too see previous versions go to the `change-log.md <https://github.com/tubi-carr
 
 .. code:: diff
 
-        ## version 1.1.5   (2020 - 03 - 12)
-        + Fixed raised error when using RGB or HEX color codes without true color active (now jus ignores the color code).
+	## version 1.1.6   (2020 - 03 - 12)
+	+ Fixed color code overflow when ending specific color types consecutively (e.g. "/;g:w/ green text/;; with white background/:: would make this text green", returns the part of the string "would make this text green" with the former color green).
 
 <a name="end"></a>
 License

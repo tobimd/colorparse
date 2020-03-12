@@ -1,4 +1,7 @@
 import setuptools
+import re
+
+__version__ = "1.1.6"
 
 
 with open('log.txt', 'r') as logf:
@@ -10,12 +13,9 @@ with open('README.md', 'r') as fh:
                                          log.replace('``', '"'))
 
 
-version = log[9:17].strip()
-
-
 setuptools.setup(
     name='colorparse',
-    version=version,
+    version=__version__,
     author='Esteban Carrillo',
     author_email='esteban.ac.naranjo@gmail.com',
     description='A string-coloring package for terminals',

@@ -2,6 +2,7 @@
 \* *the prefixes [t], [m] and [d] refer to terminal-only, module-only and docs-only changes, respectively.* *
 
 <a name="list"></a>
+- [1.1.6](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-116---2020---03---12)
 - [1.1.5](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-115---2020---03---12)
 - [1.1.4](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-114---2020---03---10)
 - [1.1.3](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-113---2019---08---06)
@@ -13,6 +14,10 @@
 - [0.0.1](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#release-version-001---2019---07---29)
 
 <a name="latest"></a>
+## version 1.1.6   (2020 - 03 - 12)
+- Fixed color code overflow when ending specific color types consecutively (e.g. "/;g:w/ green text/;; with white background/:: would make this text green", returns the part of the string "would make this text green" with the former color green).
+
+
 ## version 1.1.5   (2020 - 03 - 12)
 - Fixed raised error when using RGB or HEX color codes without true color active (now just ignores the color code).
 

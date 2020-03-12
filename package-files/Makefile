@@ -17,4 +17,5 @@ clean:
 
 copy:
 	@colorparse -p 1 "symlinking ;c/colorparse.py;: here" -S -i "make-color"
+	@rm -f colorparse.py
 	@ln ~/.local/lib/python3.7/site-packages/colorparse.py colorparse.py

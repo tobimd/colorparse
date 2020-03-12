@@ -1,4 +1,4 @@
-| |python| |version| |wheel| |docs| |github| |change log|
+| |python| |version| |wheel| |github| |change log|
 
 .. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
    :target: https://pypi.org/project/colorparse/
@@ -7,10 +7,6 @@
 .. |wheel| image:: https://img.shields.io/pypi/wheel/colorparse?style=flat-square
    :target: https://pypi.org/project/colorparse/
    :alt: Wheel Status
-  
-.. |docs| image:: https://readthedocs.org/projects/colorparse/badge/?version=latest&style=flat-square
-   :target: https://colorparse.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
 
 .. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
    :target: https://pypi.org/project/colorparse/

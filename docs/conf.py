@@ -1,6 +1,6 @@
 import sphinx_rtd_theme
 
-__version__ = "1.1.5"
+__version__ = "1.1.6"
 
 # Configuration file for the Sphinx documentation builder.
 #
