@@ -26,14 +26,14 @@ A ``color code`` consists mainly of two parts. The first is the ``type``, which 
 
 As an example, we will use (a lot) the foreground color red. This color is represented with: ``;r``, where the ``;`` (semicolon) is the foreground type, and the letter ``r`` is the value for the color red. Then, using the string "``;r`` hello" would return ":raw-html:`<font color="#d62020"> hello</font>`" in red (notice the space at the beggining of the string).
 
-We can use background colors as well, with a ``:`` (colon) instead of the foreground type ``;``. That way, "``:r`` hello" would return ":raw-html:`<span style="background-color:#d62020;"> hello</span>`" with its background in red.
+We can use background colors as well, with a ``:`` (colon) instead of the foreground type ``;``. That way, "``:r`` hello" would return ":raw-html:`<span style="background-color:#ff6f6f;"> hello</span>`" with its background in red.
 
 .. tip:: To see the all the available codes, go to the :ref:`list-of-color-codes` section below.
 
 
 Closing
 -------
-Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having ``;rred color`` will return ":raw-html:`<font color="#871212">ed color</font>`" in dark red, because the parser thinks that ``;rr`` is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don't want one, there is the option to "*close*" a color code.
+Sometimes, using the same color as an example, the words that we want to color will start with the same letter as the value. Initiating a darker color, is done by having the value repeated twice, which means that having ``;rred color`` will return ":raw-html:`<font color="#a74141">ed color</font>`" in dark red, because the parser thinks that ``;rr`` is the color for dark red. This may become a problem, so to avoid this, and having to add a space in between where we don't want one, there is the option to "*close*" a color code.
 
 Closing can be done with three elements by using normal brackets: ``(`` and ``)``, square brackets: ``[`` and ``]``, or slashes: ``/`` (they will be consumed by the color code). 
 
