@@ -26,13 +26,13 @@ The following shall be considered as recommendations only. These are for a bette
 More Examples
 *************
 
-You can see `more examples here <https://github.com/tubi-carrillo/colorparse/tree/master/example#more-examples>`_.
+You can see `more examples here <https://github.com/tubi-carrillo/colorparse/tree/master/example>`_.
 
 **********
 Change Log
 **********
 
-See the `change logs here <https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest>`_.
+See the `change logs here <https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md>`_.
 
 *******
 License

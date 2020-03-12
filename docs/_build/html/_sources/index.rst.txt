@@ -1,0 +1,37 @@
+| |python| |version| |wheel| |github| |change log|
+
+.. |version| image:: https://img.shields.io/pypi/v/colorparse?color=dark%20green&style=flat-square
+   :target: https://pypi.org/project/colorparse/
+   :alt: Package Version
+  
+.. |wheel| image:: https://img.shields.io/pypi/wheel/colorparse?style=flat-square
+   :target: https://pypi.org/project/colorparse/
+   :alt: Wheel Status
+
+.. |python| image:: https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?style=flat-square
+   :target: https://pypi.org/project/colorparse/
+   :alt: Python Version
+
+.. |github| image:: https://img.shields.io/badge/github-grey?style=flat-square&logo=github
+   :target: https://github.com/tubi-carrillo/colorparse
+   :alt: GitHub Link
+
+.. |change log| image:: https://img.shields.io/badge/change%20log-latest-lightgrey?style=flat-square
+   :target: https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#latest
+   :alt: Change Log
+
+################
+About colorparse
+################
+
+``colorparse`` is a python package that will read and parse strings with defined color codes, showing their respective colors on the terminal when using it as an imported module or as a command. This way, a string can be easily colored, simplifying the work for the user. 
+
+For the time being, this package has been tested only for python 3.6, 3.7 and 3.8 (if it works fine for other versions, `let me know <https://github.com/tubi-carrillo/colorparse/issues>`_).
+
+.. toctree::
+        :caption: Table of Contents
+
+        source/getting-started
+        source/module-content
+        source/terminal
+        source/further-reading
