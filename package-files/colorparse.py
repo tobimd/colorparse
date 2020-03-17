@@ -8,6 +8,7 @@ import argparse
 __version__ = "1.1.6"
 
 
+# class for default values
 class _Defaults:
     paint = {
         'print': True,
@@ -54,6 +55,7 @@ class _Defaults:
     _ignore_special = False
 
 
+# class for the color values
 class Color:
     @classmethod
     def __init__(cls):
@@ -72,7 +74,7 @@ class Color:
 
 class _Foreground:
     def __init__(self, true_color):
-	    # if the stdout does support rgb color escape sequences
+	# if the stdout does support rgb color escape sequences
         if true_color:
             self.DARK_RED        = '\033[38;2;130;0;0m'       # ;R
             self.DARK_ORANGE     = '\033[38;2;160;50;0m'      # ;O
@@ -107,7 +109,7 @@ class _Foreground:
             self.LIGHT_GRAY      = '\033[38;2;185;185;185m'   # ;aa
             self.WHITE           = '\033[38;2;255;255;255m'   # ;w
 
-	    # if the stdout does *not* support rgb color escape sequences
+	# if the stdout does *not* support rgb color escape sequences
         else:
             self.DARK_RED        = '\033[38;5;88m'   # ;R
             self.DARK_ORANGE     = '\033[38;5;130m'  # ;O
@@ -194,9 +196,11 @@ _rgb_color = r'(?(16)(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?|'
 _hex_color = r'# ?[0-9A-Fa-f]{0,6})|\16)))'
 _suffix = r'(?:/?(?(3)\s*\])(?(9)\s*\))))'
 
+# the complete regex for finding color codes
 regex = f'{_prefix}{_basic_colors}{_rgb_color}{_hex_color}{_suffix}'
 
 
+# clamps values to a min or max if it extends further
 def _clamp(number):
     if number == '':
         number = 0
@@ -213,6 +217,7 @@ def _clamp(number):
     return str(number)
 
 
+# transforms hex string value, to rgb string
 def _hex_to_rgb(string):
     r = int(string[:2], 16)
     g = int(string[2:4], 16)
@@ -221,6 +226,7 @@ def _hex_to_rgb(string):
     return map(_clamp, (r, g, b))
 
 
+# obtains the color code alone and decides how to replace it
 def _color_repl(matchobj):
     # if it was escaped, then return without the backslash
     if '\\' in matchobj[0]:
@@ -258,6 +264,7 @@ def _color_repl(matchobj):
         return getattr(Color.background, _Defaults._color_list[code_val])
 
 
+# obtain the string to parse and edit it
 def _color_format(string):
     global regex # get regex constant
 
@@ -297,6 +304,7 @@ def _color_format(string):
     return re.sub(regex, _color_repl, string)
 
 
+# if a special character is matched, then replace it
 def _repl_special(matchobj):
     special = {'n': '\n', 'a': '\a', 'b': '\b', 
                'f': '\f', 'r': '\r', 'v': '\v',
@@ -310,6 +318,7 @@ def _repl_special(matchobj):
     return string[1:]
 
 
+# if the flag "-I" or "--ignore-special" is active
 def _fix(string):
     if _Defaults._ignore_special or string is None:
         return string
@@ -317,6 +326,7 @@ def _fix(string):
     return re.sub(r'\\+[nrtvabf]', _repl_special, string)
 
 
+# works like the built-in function "print" but parses color codes
 def paint(*value, **options):
     """Returns a string that will have color codes
     converted to ANSI escape sequences.
@@ -393,6 +403,7 @@ def paint(*value, **options):
         return result + ec
 
 
+# prints a pre made list of color codes
 def codes():
     """Prints a list of all the color codes available.
     It also displays what the colors look as
@@ -459,6 +470,7 @@ def codes():
         paint(extra_string, print=True)
 
 
+# changes default values defined in the class _Defaults
 def change_defaults(fn, **kwargs):
     """This function is meant to be used at the
     beggining of the program, to set permanent default
@@ -490,6 +502,7 @@ def change_defaults(fn, **kwargs):
         getattr(_Defaults, fn)[k] = v
 
 
+# changes value for the value "_true_color"
 def true_color(value=None):
     """Changes the global value for true color. When
     set to 'True', it means that the set of foreground
@@ -516,6 +529,7 @@ def true_color(value=None):
     Color._true_color(value)
 
 
+# parses arguments from the terminal
 def _arg_parser():
     # initiate argument parser
     parser = argparse.ArgumentParser(prog='colorparse')
@@ -600,8 +614,9 @@ def _arg_parser():
     return parser, parser.parse_args()
 
 
-Color()
+Color() # instantiate Color class
 
+# main function that runs when using the terminal
 def _main():
     # get arguments
     parser, args = _arg_parser()
