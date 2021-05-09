@@ -66,7 +66,7 @@ class Color:
         cls._true_color(False)
 
     @classmethod
-    def _true_color(cls, value):        
+    def _true_color(cls, value):       
         # set global value for true color
         cls._true_color_active = value
         cls.foreground = _Foreground(value)
@@ -132,7 +132,7 @@ class _Foreground:
             self.STRONG_RED      = '\033[38;5;196m'  # ;rr
             self.STRONG_ORANGE   = '\033[38;5;202m'  # ;oo
             self.STRONG_YELLOW   = '\033[38;5;226m'  # ;yy
-            self.STRONG_GREEN    = '\033[38;5;82m'   # ;gg                
+            self.STRONG_GREEN    = '\033[38;5;82m'   # ;gg               
             self.STRONG_CYAN     = '\033[38;5;45m'   # ;cc
             self.STRONG_BLUE     = '\033[38;5;21m'   # ;bb
             self.STRONG_PURPLE   = '\033[38;5;93m'   # ;pp
@@ -210,10 +210,10 @@ def _clamp(number):
 
     if number < 0:
         number = 0
-    
+
     if number > 255:
         number = 255
-    
+
     return str(number)
 
 
@@ -244,12 +244,12 @@ def _color_repl(matchobj):
     if '#' in code_val or '=' in code_val:
         if true_color():
             mode, val = code_val[0], code_val[1:]
-    
-            fix = ((val + ',' * (2 - val.count(','))).split(',') 
+
+            fix = ((val + ',' * (2 - val.count(','))).split(',')
                     if mode == '='
                     else _hex_to_rgb(val + '0' * (6 - len(val))))
             r, g, b = map(_clamp, fix)
-    
+
             return f'\033[38;2;{r};{g};{b}m'
 
         else:
@@ -269,7 +269,7 @@ def _color_format(string):
     global regex # get regex constant
 
     # get all matches except those escaped with "\" (backslash)
-    all_matches = [s[0] for s in re.findall(regex, string) if '\\' not in s[0]] 
+    all_matches = [s[0] for s in re.findall(regex, string) if '\\' not in s[0]]
 
     # iterate through all matches
     for index, code in enumerate(all_matches):
@@ -279,19 +279,19 @@ def _color_format(string):
             color_type = ';' if '::' in code else ':'
 
             # iterate backwards from current code
-            for prev_code in all_matches[index - 1::-1]: 
-                
+            for prev_code in all_matches[index - 1::-1]:
+
                 # if found a color
-                if (color_type in prev_code and 
+                if (color_type in prev_code and
                     ';:' not in prev_code and
                     ':;' not in prev_code):
-                    
+
                     # replace current code with '[;:]' and the one found
                     string = string.replace(code, f'[;:]{prev_code}', 1)
-                    all_matches[index] = '[;:]' 
+                    all_matches[index] = '[;:]'
                     all_matches.insert(index + 1, prev_code)
                     break
-                
+
                 # if found an ending color code instead
                 elif ';:' in prev_code or ':;' in prev_code:
                     # replace current code with '[;:]' only
@@ -299,18 +299,18 @@ def _color_format(string):
                     all_matches[index] = '[;:]'
                     break
 
-    
+
     # replace color codes with their respective ansi escape sequences
     return re.sub(regex, _color_repl, string)
 
 
 # if a special character is matched, then replace it
 def _repl_special(matchobj):
-    special = {'n': '\n', 'a': '\a', 'b': '\b', 
+    special = {'n': '\n', 'a': '\a', 'b': '\b',
                'f': '\f', 'r': '\r', 'v': '\v',
                't': '\t',}
 
-    string = matchobj[0] 
+    string = matchobj[0]
 
     if len(string) % 2 == 0:
         return string[:-2] + special[string[-1]]
@@ -322,7 +322,7 @@ def _repl_special(matchobj):
 def _fix(string):
     if _Defaults._ignore_special or string is None:
         return string
-    
+
     return re.sub(r'\\+[nrtvabf]', _repl_special, string)
 
 
@@ -391,7 +391,7 @@ def paint(*value, **options):
 
         if _print:
             print(result, end=(_end + ec), file=_file, flush=_flush)
-    
+
     else: # else, color one by one and the join them
         result = (ec + _sep).join(map(_color_format, map(str, value)))
 
@@ -457,7 +457,7 @@ def codes():
 
     extra_string = """   custom colors:
 
-                 rgb         [;w]\;=[;:]    (RGB)         
+                 rgb         [;w]\;=[;:]    (RGB)
                  [from 0 to 255, comma separated]
 
                  hex         [;w]\;#[;:]    (HEXADECIMAL)
@@ -525,7 +525,7 @@ def true_color(value=None):
 
     if value is None:
         return Color._true_color_active
-    
+
     Color._true_color(value)
 
 
@@ -534,8 +534,8 @@ def _arg_parser():
     # initiate argument parser
     parser = argparse.ArgumentParser(prog='colorparse')
 
-    # arguments 
-    parser.add_argument('string', 
+    # arguments
+    parser.add_argument('string',
                         help='one or more input strings.',
                         nargs='*',
                         default=[])
@@ -620,7 +620,7 @@ Color() # instantiate Color class
 def _main():
     # get arguments
     parser, args = _arg_parser()
-    
+
     # set some base values
     true_color(args.true_color)
     all_strings = []
@@ -641,7 +641,7 @@ def _main():
     index = args.position
     if index < 0:
         index = file_len + index - 1 + (file_len % 2)
-    
+
     index = 0 if index < 0 else index
     index = file_len if index > file_len else index
 
