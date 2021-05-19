@@ -4,13 +4,15 @@ import sys
 import re
 import argparse
 
+from functools import partial
 
-__version__ = "1.1.6"
+
+__version__ = "2.0.0"
 
 
-# class for default values
-class _Defaults:
-    paint = {
+# Default values
+class _Options:
+    _paint = {
         'print': True,
         'ret': True,
         'overflow': False,
@@ -20,387 +22,148 @@ class _Defaults:
         'flush': False,
     }
 
-    _color_list = {
-        'rr': 'DARK_RED',
-        'oo': 'DARK_ORANGE',
-        'yy': 'DARK_YELLOW',
-        'gg': 'DARK_GREEN',
-        'cc': 'DARK_CYAN',
-        'bb': 'DARK_BLUE',
-        'pp': 'DARK_PURPLE',
-        'mm': 'DARK_MAGENTA',
-        'r':  'RED',
-        'o':  'ORANGE',
-        'y':  'YELLOW',
-        'g':  'GREEN',
-        'c':  'CYAN',
-        'b':  'BLUE',
-        'p':  'PURPLE',
-        'm':  'MAGENTA',
-        'R':  'STRONG_RED',
-        'O':  'STRONG_ORANGE',
-        'Y':  'STRONG_YELLOW',
-        'G':  'STRONG_GREEN',
-        'C':  'STRONG_CYAN',
-        'B':  'STRONG_BLUE',
-        'P':  'STRONG_PURPLE',
-        'M':  'STRONG_MAGENTA',
-        'k':  'BLACK',
-        'aa': 'DARK_GRAY',
-        'a':  'GRAY',
-        'A':  'LIGHT_GRAY',
-        'w':  'WHITE',
-    }
-
     _ignore_special = False
+    _finish_colors_at_end = True
+    _true_color_active = False
 
 
-# class for the color values
-class Color:
-    @classmethod
-    def __init__(cls):
-        cls.ENDC = '\033[0m'  # ;: | :;
+# Color definitions
+class _Color:
+    class _Foreground:
 
-        cls.foreground = _Foreground(False)
-        cls.background = _Background()
-        cls._true_color(False)
+        # COLOR NAME       # CODE  # ANSI COLOR      # TRUE COLOR
+        DARK_RED          = ('R',  '\033[38;5;88m',  '\033[38;2;130;0;0m')       # ;R
+        DARK_ORANGE       = ('O',  '\033[38;5;130m', '\033[38;2;160;50;0m')      # ;O
+        DARK_YELLOW       = ('Y',  '\033[38;5;142m', '\033[38;2;150;120;0m')     # ;Y
+        DARK_GREEN        = ('G',  '\033[38;5;22m',  '\033[38;2;0;80;0m')        # ;G
+        DARK_CYAN         = ('C',  '\033[38;5;31m',  '\033[38;2;0;120;130m')     # ;C
+        DARK_BLUE         = ('B',  '\033[38;5;24m',  '\033[38;2;20;50;130m')     # ;B
+        DARK_PURPLE       = ('P',  '\033[38;5;54m',  '\033[38;2;90;0;150m')      # ;P
+        DARK_MAGENTA      = ('M',  '\033[38;5;90m',  '\033[38;2;130;0;100m')     # ;M
 
-    @classmethod
-    def _true_color(cls, value):       
-        # set global value for true color
-        cls._true_color_active = value
-        cls.foreground = _Foreground(value)
+        RED               = ('r',  '\033[38;5;124m', '\033[38;2;180;0;0m')       # ;r
+        ORANGE            = ('o',  '\033[38;5;166m', '\033[38;2;200;90;0m')      # ;o
+        YELLOW            = ('y',  '\033[38;5;184m', '\033[38;2;190;170;0m')     # ;y
+        GREEN             = ('g',  '\033[38;5;34m',  '\033[38;2;0;150;0m')       # ;g
+        CYAN              = ('c',  '\033[38;5;39m',  '\033[38;2;0;190;200m')     # ;c
+        BLUE              = ('b',  '\033[38;5;27m',  '\033[38;2;0;70;255m')      # ;b
+        PURPLE            = ('p',  '\033[38;5;57m',  '\033[38;2;100;0;180m')     # ;p
+        MAGENTA           = ('m',  '\033[38;5;127m', '\033[38;2;190;0;150m')     # ;m
 
+        STRONG_RED        = ('rr', '\033[38;5;196m', '\033[38;2;255;0;0m')       # ;rr
+        STRONG_ORANGE     = ('oo', '\033[38;5;202m', '\033[38;2;255;150;0m')     # ;oo
+        STRONG_YELLOW     = ('yy', '\033[38;5;226m', '\033[38;2;255;255;0m')     # ;yy
+        STRONG_GREEN      = ('gg', '\033[38;5;82m',  '\033[38;2;0;255;0m')       # ;gg
+        STRONG_CYAN       = ('cc', '\033[38;5;45m',  '\033[38;2;0;255;255m')     # ;cc
+        STRONG_BLUE       = ('bb', '\033[38;5;21m',  '\033[38;2;0;20;255m')      # ;bb
+        STRONG_PURPLE     = ('pp', '\033[38;5;93m',  '\033[38;2;150;0;255m')     # ;pp
+        STRONG_MAGENTA    = ('mm', '\033[38;5;200m', '\033[38;2;225;0;225m')     # ;mm
 
-class _Foreground:
-    def __init__(self, true_color):
-	# if the stdout does support rgb color escape sequences
-        if true_color:
-            self.DARK_RED        = '\033[38;2;130;0;0m'       # ;R
-            self.DARK_ORANGE     = '\033[38;2;160;50;0m'      # ;O
-            self.DARK_YELLOW     = '\033[38;2;150;120;0m'     # ;Y
-            self.DARK_GREEN      = '\033[38;2;0;80;0m'        # ;G
-            self.DARK_CYAN       = '\033[38;2;0;120;130m'     # ;C
-            self.DARK_BLUE       = '\033[38;2;20;50;130m'     # ;B
-            self.DARK_PURPLE     = '\033[38;2;90;0;150m'      # ;P
-            self.DARK_MAGENTA    = '\033[38;2;130;0;100m'     # ;M
+        BLACK             = ('k',  '\033[38;5;232m', '\033[38;2;0;0;0m')         # ;k
+        DARK_GRAY         = ('A',  '\033[38;5;238m', '\033[38;2;70;70;70m')      # ;A
+        GRAY              = ('a',  '\033[38;5;244m', '\033[38;2;130;130;130m')   # ;a
+        LIGHT_GRAY        = ('aa', '\033[38;5;250m', '\033[38;2;185;185;185m')   # ;aa
+        WHITE             = ('w',  '\033[1;37m',     '\033[38;2;255;255;255m')   # ;w
 
-            self.RED             = '\033[38;2;180;0;0m'       # ;r
-            self.ORANGE          = '\033[38;2;200;90;0m'      # ;o
-            self.YELLOW          = '\033[38;2;190;170;0m'     # ;y
-            self.GREEN           = '\033[38;2;0;150;0m'       # ;g
-            self.CYAN            = '\033[38;2;0;190;200m'     # ;c
-            self.BLUE            = '\033[38;2;0;70;255m'      # ;b
-            self.PURPLE          = '\033[38;2;100;0;180m'     # ;p
-            self.MAGENTA         = '\033[38;2;190;0;150m'     # ;m
+    class _Background:
+        DARK_RED          = ('R',  '\033[48;5;88m')   # :R
+        DARK_ORANGE       = ('O',  '\033[48;5;130m')  # :O
+        DARK_YELLOW       = ('Y',  '\033[48;5;142m')  # :Y
+        DARK_GREEN        = ('G',  '\033[48;5;22m')   # :G
+        DARK_CYAN         = ('C',  '\033[48;5;31m')   # :C
+        DARK_BLUE         = ('B',  '\033[48;5;19m')   # :B
+        DARK_PURPLE       = ('P',  '\033[48;5;54m')   # :P
+        DARK_MAGENTA      = ('M',  '\033[48;5;127m')  # :M
 
-            self.STRONG_RED      = '\033[38;2;255;0;0m'       # ;rr
-            self.STRONG_ORANGE   = '\033[38;2;255;150;0m'     # ;oo
-            self.STRONG_YELLOW   = '\033[38;2;255;255;0m'     # ;yy
-            self.STRONG_GREEN    = '\033[38;2;0;255;0m'       # ;gg
-            self.STRONG_CYAN     = '\033[38;2;0;255;255m'     # ;cc
-            self.STRONG_BLUE     = '\033[38;2;0;20;255m'      # ;bb
-            self.STRONG_PURPLE   = '\033[38;2;150;0;255m'     # ;pp
-            self.STRONG_MAGENTA  = '\033[38;2;225;0;225m'     # ;mm
+        RED               = ('r',  '\033[48;5;124m')  # :r
+        ORANGE            = ('o',  '\033[48;5;166m')  # :o
+        YELLOW            = ('y',  '\033[48;5;184m')  # :y
+        GREEN             = ('g',  '\033[48;5;34m')   # :g
+        CYAN              = ('c',  '\033[48;5;45m')   # :c
+        BLUE              = ('b',  '\033[48;5;27m')   # :b
+        PURPLE            = ('p',  '\033[48;5;93m')   # :p
+        MAGENTA           = ('m',  '\033[48;5;165m')  # :m
 
-            self.BLACK           = '\033[38;2;0;0;0m'         # ;k
-            self.DARK_GRAY       = '\033[38;2;70;70;70m'      # ;A
-            self.GRAY            = '\033[38;2;130;130;130m'   # ;a
-            self.LIGHT_GRAY      = '\033[38;2;185;185;185m'   # ;aa
-            self.WHITE           = '\033[38;2;255;255;255m'   # ;w
+        STRONG_RED        = ('rr', '\033[48;5;196m')  # :rr
+        STRONG_ORANGE     = ('oo', '\033[48;5;202m')  # :oo
+        STRONG_YELLOW     = ('yy', '\033[48;5;226m')  # :yy
+        STRONG_GREEN      = ('gg', '\033[48;5;82m')   # :gg
+        STRONG_CYAN       = ('cc', '\033[48;5;45m')   # :cc
+        STRONG_BLUE       = ('bb', '\033[48;5;21m')   # :bb
+        STRONG_PURPLE     = ('pp', '\033[48;5;128m')  # :pp
+        STRONG_MAGENTA    = ('mm', '\033[48;5;200m')  # :mm
 
-	# if the stdout does *not* support rgb color escape sequences
-        else:
-            self.DARK_RED        = '\033[38;5;88m'   # ;R
-            self.DARK_ORANGE     = '\033[38;5;130m'  # ;O
-            self.DARK_YELLOW     = '\033[38;5;142m'  # ;Y
-            self.DARK_GREEN      = '\033[38;5;22m'   # ;G
-            self.DARK_CYAN       = '\033[38;5;31m'   # ;C
-            self.DARK_BLUE       = '\033[38;5;24m'   # ;B
-            self.DARK_PURPLE     = '\033[38;5;54m'   # ;P
-            self.DARK_MAGENTA    = '\033[38;5;90m'   # ;M
-
-            self.RED             = '\033[38;5;124m'  # ;r
-            self.ORANGE          = '\033[38;5;166m'  # ;o
-            self.YELLOW          = '\033[38;5;184m'  # ;y
-            self.GREEN           = '\033[38;5;34m'   # ;g
-            self.CYAN            = '\033[38;5;39m'   # ;c
-            self.BLUE            = '\033[38;5;27m'   # ;b
-            self.PURPLE          = '\033[38;5;57m'   # ;p
-            self.MAGENTA         = '\033[38;5;127m'  # ;m
-
-            self.STRONG_RED      = '\033[38;5;196m'  # ;rr
-            self.STRONG_ORANGE   = '\033[38;5;202m'  # ;oo
-            self.STRONG_YELLOW   = '\033[38;5;226m'  # ;yy
-            self.STRONG_GREEN    = '\033[38;5;82m'   # ;gg               
-            self.STRONG_CYAN     = '\033[38;5;45m'   # ;cc
-            self.STRONG_BLUE     = '\033[38;5;21m'   # ;bb
-            self.STRONG_PURPLE   = '\033[38;5;93m'   # ;pp
-            self.STRONG_MAGENTA  = '\033[38;5;200m'  # ;mm
-
-            self.BLACK           = '\033[38;5;232m'  # ;k
-            self.DARK_GRAY       = '\033[38;5;238m'  # ;A
-            self.GRAY            = '\033[38;5;244m'  # ;a
-            self.LIGHT_GRAY      = '\033[38;5;250m'  # ;aa
-            self.WHITE           = '\033[1;37m'      # ;w
+        BLACK             = ('k',  '\033[48;5;232m')  # :k
+        DARK_GRAY         = ('A',  '\033[48;5;238m')  # :A
+        GRAY              = ('a',  '\033[48;5;244m')  # :a
+        LIGHT_GRAY        = ('aa', '\033[48;5;250m')  # :aa
+        WHITE             = ('w',  '\033[48;5;255m')  # :w
 
 
-class _Background:
-    def __init__(self):
-        self.DARK_RED        = '\033[48;5;88m'   # :R
-        self.DARK_ORANGE     = '\033[48;5;130m'  # :O
-        self.DARK_YELLOW     = '\033[48;5;142m'  # :Y
-        self.DARK_GREEN      = '\033[48;5;22m'   # :G
-        self.DARK_CYAN       = '\033[48;5;31m'   # :C
-        self.DARK_BLUE       = '\033[48;5;19m'   # :B
-        self.DARK_PURPLE     = '\033[48;5;54m'   # :P
-        self.DARK_MAGENTA    = '\033[48;5;127m'  # :M
-
-        self.RED             = '\033[48;5;124m'  # :r
-        self.ORANGE          = '\033[48;5;166m'  # :o
-        self.YELLOW          = '\033[48;5;184m'  # :y
-        self.GREEN           = '\033[48;5;34m'   # :g
-        self.CYAN            = '\033[48;5;45m'   # :c
-        self.BLUE            = '\033[48;5;27m'   # :b
-        self.PURPLE          = '\033[48;5;93m'   # :p
-        self.MAGENTA         = '\033[48;5;165m'  # :m
-
-        self.STRONG_RED      = '\033[48;5;196m'  # :rr
-        self.STRONG_ORANGE   = '\033[48;5;202m'  # :oo
-        self.STRONG_YELLOW   = '\033[48;5;226m'  # :yy
-        self.STRONG_GREEN    = '\033[48;5;82m'   # :gg
-        self.STRONG_CYAN     = '\033[48;5;45m'   # :cc
-        self.STRONG_BLUE     = '\033[48;5;21m'   # :bb
-        self.STRONG_PURPLE   = '\033[48;5;128m'  # :pp
-        self.STRONG_MAGENTA  = '\033[48;5;200m'  # :mm
-
-        self.BLACK           = '\033[48;5;232m'  # :k
-        self.DARK_GRAY       = '\033[48;5;238m'  # :A
-        self.GRAY            = '\033[48;5;244m'  # :a
-        self.LIGHT_GRAY      = '\033[48;5;250m'  # :aa
-        self.WHITE           = '\033[48;5;255m'  # :w
+# Exception class for printing custom errors
+class ColorparseException(Exception):
+    pass
 
 
-# a failed attempt to make this a less convoluted regex
-_open_sq_brackets = (r'(?:(\[)\s*(?![^/\)]+?\\\])(?=((?:(;)|:)(;|:|'
-                     + r'[ROYGCBPMkAw]|([roygcbpma])\7?|(?(5)'
-                     + r'(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?'
-                     + r'|# ?[0-9A-Fa-f]{0,6})|\5)))\s*\]))')
-_open_rd_brackets = (r'(?:(\()\s*(?![^/\]]+?\\\))(?=((?:(;)|:)(;|:|'
-                     + r'[ROYGCBPMkAw]|([roygcbpma])\13?|(?(11)(= ?\d{0,3}'
-                     + r'(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?'
-                     + r'|# ?[0-9A-Fa-f]{0,6})|\11)))\s*\)))')
-_prefix = rf'(({_open_sq_brackets}|{_open_rd_brackets}|/)?(\\?(?:(;)|:)'
-_basic_colors = r'(;|:|[ROYGCBPMkAw]|([roygcbpma])\18?|'
-_rgb_color = r'(?(16)(= ?\d{0,3}(?:\s?,\s?\d{0,3})?(?:\s?,\s?\d{0,3})?|'
-_hex_color = r'# ?[0-9A-Fa-f]{0,6})|\16)))'
-_suffix = r'(?:/?(?(3)\s*\])(?(9)\s*\))))'
+# Each time there is a change in the color codes, reconstruct regex
+def _construct_regex():
+    global regex
 
-# the complete regex for finding color codes
-regex = f'{_prefix}{_basic_colors}{_rgb_color}{_hex_color}{_suffix}'
+    # Order each attribute by the size of the code (biggest to smallest)
+    def sort(l):
+        return sorted(l, key=lambda c: len(c[0]), reverse=True)
 
+    # Get each color attribute of the class `x` in a list
+    def get_colors(x):
+        return [getattr(x, c) for c in dir(x) if not c.startswith('__')]
 
-# clamps values to a min or max if it extends further
-def _clamp(number):
-    if number == '':
-        number = 0
+    # Get all current attributes in both _Foreground and _Background classes
+    fg_colors = sort(get_colors(_Color._Foreground))
+    bg_colors = sort(get_colors(_Color._Background))
 
-    if type(number) == str:
-        number = int(number)
-
-    if number < 0:
-        number = 0
-
-    if number > 255:
-        number = 255
-
-    return str(number)
+    #
 
 
-# transforms hex string value, to rgb string
+# Keep number between min and max
+def _clamp(num, n_min, n_max):
+    return max(n_min, min(n_max, num))
+
+
+# Stick number between the ranges of 0 to 255
+def _rgb_clamp(num):
+    if type(num) == str:
+        num = int(num) if num != '' else 0
+
+    return str(max(0, min(255, num)))
+
+
+# Transform hex color to rgb color
 def _hex_to_rgb(string):
     r = int(string[:2], 16)
     g = int(string[2:4], 16)
     b = int(string[4:], 16)
 
-    return map(_clamp, (r, g, b))
+    return map(_rgb_clamp, (r, g, b))
 
 
-# obtains the color code alone and decides how to replace it
-def _color_repl(matchobj):
-    # if it was escaped, then return without the backslash
-    if '\\' in matchobj[0]:
-        return matchobj[0].replace('\\', '')
-
-    # get the string of the matched color code and remove unwanted characters
-    code = matchobj.group(15)
-    code_type, code_val = code[0], code[1:]
-
-    # if matched string is ':;' or ';:', then return ENDC (end color)
-    if code in [';:', ':;', ';;', '::']:
-        return Color.ENDC
-
-    # custom color code
-    if '#' in code_val or '=' in code_val:
-        if true_color():
-            mode, val = code_val[0], code_val[1:]
-
-            fix = ((val + ',' * (2 - val.count(','))).split(',')
-                    if mode == '='
-                    else _hex_to_rgb(val + '0' * (6 - len(val))))
-            r, g, b = map(_clamp, fix)
-
-            return f'\033[38;2;{r};{g};{b}m'
-
-        else:
-            return matchobj[0]
-
-    # foreground color code
-    elif code_type == ';':
-        return getattr(Color.foreground, _Defaults._color_list[code_val])
-
-    # background color code
-    else:
-        return getattr(Color.background, _Defaults._color_list[code_val])
-
-
-# obtain the string to parse and edit it
-def _color_format(string):
-    global regex # get regex constant
-
-    # get all matches except those escaped with "\" (backslash)
-    all_matches = [s[0] for s in re.findall(regex, string) if '\\' not in s[0]]
-
-    # iterate through all matches
-    for index, code in enumerate(all_matches):
-
-        # search for ';;' or '::' and replace with end color + prev color codes
-        if (';;' in code or '::' in code) and '\\' not in code:
-            color_type = ';' if '::' in code else ':'
-
-            # iterate backwards from current code
-            for prev_code in all_matches[index - 1::-1]:
-
-                # if found a color
-                if (color_type in prev_code and
-                    ';:' not in prev_code and
-                    ':;' not in prev_code):
-
-                    # replace current code with '[;:]' and the one found
-                    string = string.replace(code, f'[;:]{prev_code}', 1)
-                    all_matches[index] = '[;:]'
-                    all_matches.insert(index + 1, prev_code)
-                    break
-
-                # if found an ending color code instead
-                elif ';:' in prev_code or ':;' in prev_code:
-                    # replace current code with '[;:]' only
-                    string = string.replace(code, f'[;:]', 1)
-                    all_matches[index] = '[;:]'
-                    break
-
-
-    # replace color codes with their respective ansi escape sequences
-    return re.sub(regex, _color_repl, string)
-
-
-# if a special character is matched, then replace it
-def _repl_special(matchobj):
-    special = {'n': '\n', 'a': '\a', 'b': '\b',
-               'f': '\f', 'r': '\r', 'v': '\v',
-               't': '\t',}
-
-    string = matchobj[0]
-
-    if len(string) % 2 == 0:
-        return string[:-2] + special[string[-1]]
-
-    return string[1:]
-
-
-# if the flag "-I" or "--ignore-special" is active
-def _fix(string):
-    if _Defaults._ignore_special or string is None:
+# Replace special characters if "-I" or "--ignore-special" flag is set
+def _try_ignore_special(string):
+    if not _Options._ignore_special:
         return string
 
-    return re.sub(r'\\+[nrtvabf]', _repl_special, string)
+    chars = 'nabfrvt'
 
+    def repl(matchobj):
+        special = { c: rf'\{c}' for c in chars}
 
-# works like the built-in function "print" but parses color codes
-def paint(*value, **options):
-    """Returns a string that will have color codes
-    converted to ANSI escape sequences.
+        match = matchobj[0]
 
-    Having 'print' as 'False', makes the arguments
-    'end', 'file' and 'flush' to not be considered
-    whatever their values may be, because those are
-    only used when printing.
+        double = match[:-2] + special[match[-1]]
+        single = match[1:]
 
-    When there is more than one string and the
-    argument 'overflow' is 'True', any unfinished
-    color will pass through to other strings.
-    Otherwise, colors will be finished at the end of
-    each string.
+        return double if len(match) % 2 == 0 else single
 
-    It's worth noting that regardless of the value
-    this argument has, the function will always finish
-    all color codes at the end of the last string (the
-    same as adding a ';:').
-
-    Arguments            Descriptions
-    -----------------    -----------------------------
-    value                One or more values to be
-                         parsed.
-
-    print=True           If true, the obtained string
-                         will be printed.
-
-    ret=True             If true, the obtained string
-                         will be returned.
-
-    overflow=False       If true, allow unfinished
-                         colors to overflow onto other
-                         strings.
-
-    sep=' '	         Inserted between the given
-                         strings.
-
-    end='\\n'	         Appended after the last
-                         string (when it's printed)
-
-    file=sys.stdout	 A file-like object (stream).
-
-    flush=False 	 Whether to forcibly flush the
-                         stream (when the strings are
-                         printed).
-    """
-    ec = '\033[0m'
-    value = list(value)
-
-    # get the options' arguments
-    _print = options.get('print', _Defaults.paint['print'])
-    _ret = options.get('ret', _Defaults.paint['ret'])
-    _overflow = options.get('overflow', _Defaults.paint['overflow'])
-    _sep = _color_format(options.get('sep', _Defaults.paint['sep']))
-    _end = _color_format(options.get('end', _Defaults.paint['end']))
-    _file = options.get('file', _Defaults.paint['file'])
-    _flush = options.get('flush', _Defaults.paint['flush'])
-
-    if _overflow: # if overflow is true, then color the strings as one
-        result = _color_format(_sep.join(map(str, value)))
-
-        if _print:
-            print(result, end=(_end + ec), file=_file, flush=_flush)
-
-    else: # else, color one by one and the join them
-        result = (ec + _sep).join(map(_color_format, map(str, value)))
-
-        if _print:
-            print(result, end=(ec + _end + ec), file=_file, flush=_flush)
-
-    # return
-    if _ret:
-        return result + ec
+    return re.sub(rf'\\+[{chars}]', repl, string)
 
 
 # prints a pre made list of color codes
@@ -466,12 +229,12 @@ def codes():
 
     paint(help_string, print=True)
 
-    if Color._true_color_active:
+    if _Options._true_color_active:
         paint(extra_string, print=True)
 
 
 # changes default values defined in the class _Defaults
-def change_defaults(fn, **kwargs):
+def options(fn, **kwargs):
     """This function is meant to be used at the
     beggining of the program, to set permanent default
     values. This way, it helps to avoid having to
@@ -499,37 +262,10 @@ def change_defaults(fn, **kwargs):
         fn = fn.__name__
 
     for k, v in kwargs.items():
-        getattr(_Defaults, fn)[k] = v
+        getattr(_Options, fn)[k] = v
 
 
-# changes value for the value "_true_color"
-def true_color(value=None):
-    """Changes the global value for true color. When
-    set to 'True', it means that the set of foreground
-    colors will be using RGB values directly for each
-    ANSI escape sequence. This does not apply to the
-    background colors, as they do not allow RGB values
-    in their codes. Be aware that not all terminal
-    support true colors in ANSI escape sequences, so by
-    default it's set to 'False' at the start.
-
-    When no argument is given, it returns the current
-    state for the global value.
-
-    Arguments            Descriptions
-    -----------------    -----------------------------
-    value=None           If true color should be
-                         activated or not, using
-                         boolean arguments.
-    """
-
-    if value is None:
-        return Color._true_color_active
-
-    Color._true_color(value)
-
-
-# parses arguments from the terminal
+# Parses arguments from the terminal
 def _arg_parser():
     # initiate argument parser
     parser = argparse.ArgumentParser(prog='colorparse')
@@ -614,63 +350,53 @@ def _arg_parser():
     return parser, parser.parse_args()
 
 
-Color() # instantiate Color class
-
-# main function that runs when using the terminal
 def _main():
     # get arguments
     parser, args = _arg_parser()
 
-    # set some base values
-    true_color(args.true_color)
-    all_strings = []
-    _Defaults._ignore_special = args.ignore_special
-    str_len = len(args.string)
-    file_len = len(args.input_file)
+    # Set base values
+    _Options._true_color_active = args.true_color
+    _Options._ignore_special = args.ignore_special
 
-    # exit in these cases
+    all_strings = []
+    n_strings = len(args.string)
+    n_files = len(args.input_file)
+
+    # Exit if 'codes' option is used, or there is no input
     if args.codes:
         codes()
         sys.exit(0)
 
-    if str_len == 0  and file_len == 0:
+    if n_strings == 0 and n_files == 0:
         parser.print_usage()
         sys.exit(0)
 
-    # fix index value
-    index = args.position
-    if index < 0:
-        index = file_len + index - 1 + (file_len % 2)
+    # Clean special characters if value is set
+    args.sep = _try_ignore_special(args.sep)
+    args.end = _try_ignore_special(args.end)
+    args.strip = _try_ignore_special(args.strip)
 
-    index = 0 if index < 0 else index
-    index = file_len if index > file_len else index
-
-    # fix special characters
-    args.sep = _fix(args.sep)
-    args.end = _fix(args.end)
-
-    # add these strings to all_strings
+    # Add input files first.
     for f in args.input_file:
-        all_strings.append(_fix(f.read().strip(_fix(args.strip))))
+        string = _try_ignore_special(f.read().strip(args.strip))
+        all_strings.append(string)
 
     for s in args.string[::-1]:
-        all_strings.insert(index, _fix(s))
+        all_strings.insert(args.position, _try_ignore_special(s))
 
-    # add arguments
-    from functools import partial
+    # Add arguments to _paint
     _paint = partial(paint, print=True, overflow=args.overflow,
                      sep=args.sep, end=args.end, file=args.output_file)
+    for v in all_strings:
+        _paint = partial(_paint, v)
 
-    for s in all_strings:
-        _paint = partial(_paint, s)
-
-    # print
+    # Print
     _paint()
 
 
 if __name__ == '__main__':
     _main()
 
-else:
-    if sys.platform[:3] == 'win':
+
+if sys.platform[:3] == 'win':
         os.system('color')
