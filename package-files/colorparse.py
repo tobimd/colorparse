@@ -12,31 +12,30 @@ __version__ = "2.0.0"
 # Default values
 class _Config:
     paint = {
-        'print': True,
-        'ret': True,
-        'overflow': False,
-        'sep': ' ',
-        'end': '\033[0m\n',
-        'file': sys.stdout,
-        'flush': False,
+        "print": True,
+        "ret": True,
+        "overflow": False,
+        "sep": " ",
+        "end": "\033[0m\n",
+        "file": sys.stdout,
+        "flush": False,
     }
 
     flags = {
-        'ignore_special': False,
-        'always_finish_colors': True,
-        'true_color': False,
-        'auto_fix_bad_rgb': True,
-        'color_defs_were_changed': False
+        "ignore_special": False,
+        "always_finish_colors": True,
+        "true_color": False,
+        "should_update_color_maps": False
     }
 
     data = {
-        'regex': r"((?:(?P<sqb>\[(?=[^\]\(\)\\]*?\]))\s*|(?P<par>\((?=[^\)\[\]\\]*?\)))\s*)|\/)?(?:\\)?((?P<fg>;)|(?P<bg>:))(;|:|(?(fg)(?P<fgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)|(?(bg)(?P<bgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)))|[\+\-](?P<st>[biusdrh])|(?P<eq>=)|(?P<hs>#)|\!)(?(eq)(?P<rgb>\d{0,3},?\d{0,3},?\d{0,3})|(?(hs)(?P<hex>[0-9a-fA-F]{0,6})))(?(sqb)(?:\s*\])|(?(par)(?:\s*\))|\/?))"
+        "regex": r"((?:(?P<sqb>\[(?=[^\]\(\)\\]*?\]))\s*|(?P<par>\((?=[^\)\[\]\\]*?\)))\s*)|\/)?(?:\\)?((?P<fg>;)|(?P<bg>:))(;|:|(?(fg)(?P<fgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)|(?(bg)(?P<bgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)))|[\+\-](?P<st>[biusdrh])|(?P<eq>=)|(?P<hs>#)|\!)(?(eq)(?P<rgb>\d{0,3},?\d{0,3},?\d{0,3})|(?(hs)(?P<hex>[0-9a-fA-F]{0,6})))(?(sqb)(?:\s*\])|(?(par)(?:\s*\))|\/?))"
     }
 
 
 # Color definitions
 class _Color:
-    ENDC = '\033[0m'
+    ENDC = "\033[0m"
 
     class Foreground:
 
@@ -245,21 +244,14 @@ def _hex_to_rgb(string):
     g = int(string[2:4], 16)
     b = int(string[4:], 16)
 
-    if _Config.flags['auto_fix_bad_rgb']:
-        return map(_rgb_clamp, (r, g, b))
+    return map(_rgb_clamp, (r, g, b))
 
-    else:
-        return (r, g, b)
 
 # Clean string to return rgb values from comma separated input
 def _str_to_rgb(string):
     r, g, b = (string + ','*(2 - string.count(','))).split(',')
 
-    if _Config.flags['auto_fix_bad_rgb']:
-        return map(_rgb_clamp, (r, g, b))
-
-    else:
-        return (r, g, b)
+    return map(_rgb_clamp, (r, g, b))
 
 
 # Remove extra code components (e.g. brackets)
@@ -336,11 +328,11 @@ def _color_repl(match):
 
     # Check if color definitions were changed, to update
     # the 'maps' attribute of both color types
-    if _Config.flags['color_defs_were_changed']:
+    if _Config.flags['should_update_color_maps']:
         update_maps(_Color.Foreground)
         update_maps(_Color.Background)
 
-        _Config.flags['color_defs_were_changed'] = False
+        _Config.flags['should_update_color_maps'] = False
 
     index = 2 if _Config.flags['true_color'] else 1
 
@@ -401,6 +393,7 @@ def _match_color_codes(string):
     for index, match in enumerate(matches):
         code = match[0]
 
+
         prev_st = curr_st if curr_st is not None else prev_st
         curr_st = match if color_type(code) == 0 else None
 
@@ -424,7 +417,7 @@ def _match_color_codes(string):
 
                 if prev_st is not None:
                     string = string.replace(code, f"[;:]{prev_st[0]}", 1)
-                    matches.insert(index+1, [prev_st[0]])
+                    matches.insert(index+1, prev_st)
 
                 prev_fg = None
                 prev_bg = None
@@ -444,7 +437,7 @@ def _match_color_codes(string):
 
                 if prev_st is not None:
                     string = string.replace(code, f"[;:]{prev_st[0]}", 1)
-                    matches.insert(index+1, [prev_st[0]])
+                    matches.insert(index+1, prev_st)
 
                 prev_fg = None
 
@@ -463,7 +456,7 @@ def _match_color_codes(string):
 
                 if prev_st is not None:
                     string = string.replace(code, f"[;:]{prev_st[0]}", 1)
-                    matches.insert(index+1, [prev_st[0]])
+                    matches.insert(index+1, prev_st)
 
                 prev_bg = None
 
@@ -476,10 +469,7 @@ def _match_color_codes(string):
                 prev_st = None
 
         elif curr_st_check and prev_st_check and curr_st['st'] != prev_st['st']:
-
-            matches.insert(index+1, [f"[;+{prev_st['st']}]"])
             string = string.replace(code, f"[;-{curr_st['st']}][;+{prev_st['st']}]")
-
             curr_st = prev_st
 
     # Replace color codes with the respective ansi escape sequences
@@ -493,7 +483,8 @@ def codes():
     background type and foreground type.
     """
 
-    help_string = """
+    help_string = """  color list:
+
  [background] [foreground] [code]   [name]
    "(;w):(;a)<code>(;:)"   "(;w);(;a)<code>(;:)"\n
    [:rr]        [;:]     [;rr]red     [;:]     [;w]rr[;:]   (DARK_RED)
@@ -529,16 +520,28 @@ def codes():
    [:A ]        [;:]    [;A ]light gray[;:]    [;w]A [;:]   (LIGHT_GRAY)
    [:w ]        [;:]    [;w ]white     [;:]    [;w]w [;:]   (WHITE)
 
+  starting a style:   "(;w);+(;a)<code>(;:)"
+  stopping a style:   "(;w);-(;a)<code>(;:)"
 
-   color ending:
+              [style]      [code] [name]
 
-               end color  [;w]\;: | \:;[;:] (ENDC)
-               end fg color  [;w]\;;[;:]
-               end bg color  [;w]\::[;:]
+               [;+b]bold[;-b]          [;w]b[;:]    (BOLD)
+               [;+i]italic[;-i]        [;w]i[;:]    (ITALIC)
+               [;+u]underline[;-u]     [;w]u[;:]    (UNDERLINE)
+               [;+s]strike[;-s]        [;w]s[;:]    (STRIKE)
+               [;+d]dim[;-d]           [;w]d[;:]    (DIM)
+               [;+r]reverse[;-r]       [;w]r[;:]    (REVERSE)
+               [;+h]hide[;-h]          [;w]h[;:]    (HIDE)
 
+  color ending:
+
+        end color         [;w]\;: | \:;[;:] (ENDC)
+        end fg color         [;w]\;;[;:]
+        end bg color         [;w]\::[;:]
+        end color & style    [;w]\;![;:]
 """
 
-    extra_string = """   custom colors:
+    extra_string = """  custom colors:
 
                  rgb         [;w]\;=[;:]    (RGB)
                  [from 0 to 255, comma separated]
@@ -674,12 +677,17 @@ def _arg_parser():
     sb = "\033[1m"    # Set text in bold
     eb = "\033[22m"   # End bold style
 
+    sh = "\033["
+
+    nl = "\033[1B"    # Add new line
+
     # Initiate argument parser
     parser = argparse.ArgumentParser(
             prog='colorparse',
+            add_help=False,
             usage=f"colorparse [{su}options{eu}]\n\
        colorparse [{su}options{eu}] [{su}string{eu} ...] [{sb}-o{eb} {su}output file{eu}]\n\
-       colorparse [{su}options{eu}] [{su}string{eu} ...] [{sb}-p{eb} {su}position{eu}] [{sb}-i{eb} {su}input files{eu} ...] [{sb}-o{eb} {su}output-file{eu}]")
+       colorparse [{su}options{eu}] [{su}string{eu} ...] [{sb}-p{eb} {su}position{eu}] [{sb}-i{eb} {su}input file{eu} ...] [{sb}-o{eb} {su}output file{eu}]")
 
     # Arguments
     parser.add_argument('string',
@@ -687,75 +695,95 @@ def _arg_parser():
                         nargs='*',
                         default=[])
 
+    parser.add_argument('-h', '--help',
+                        help=f'show this help message and exit.{nl}',
+                        action='help',
+                        default=argparse.SUPPRESS)
+
     parser.add_argument('-c', '--codes',
-                        help='show the available color codes and exit.',
+                        help=f'show the available color codes and exit.{nl}',
                         action='store_true')
 
     parser.add_argument('-v', '--version',
-                        help='show the current version of this module and\
-                              exit.',
+                        help=f'show the current version of this module and\
+                              exit.{nl}',
                         action='version', version=f'%(prog)s {__version__}')
 
     parser.add_argument('-t', '--true-color',
-                        help='use of RGB values for the ANSI escape sequences.\
+                        help=f'use of RGB values for the ANSI escape sequences.\
                               Allowes customized foreground color codes and a\
-                              more accurate color set (warning: having this\
+                              more accurate color set. {su}Note{eu}: having this\
                               option won\'t work on all terminals as they do\
-                              not all support true color).',
+                              not all support true color (24-bit colors).{nl}',
                         action='store_true')
 
     parser.add_argument('-s', '--sep',
-                        help='specify what string to use, to separate string\
-                              arguments (default is \' \').',
-                        default=_Config.paint['sep'])
+                        help=f'specify what string to use, to separate string\
+                              arguments (default is \' \').{nl}',
+                        default=_Config.paint['sep'],
+                        metavar=f'{su}string{eu}')
 
     parser.add_argument('-e', '--end',
-                        help='specify what string to use at the end of the\
-                              printed string (default is \'\\n\')',
-                        default=_Config.paint['end'])
+                        help=f'specify what string to use at the end of the\
+                              printed string (default is \'\\n\').{nl}',
+                        default=_Config.paint['end'],
+                        metavar=f'{su}string{eu}')
 
     parser.add_argument('-O', '--overflow',
-                        help='make colors overflow to other strings if a color\
-                              code is not finished.',
+                        help=f'make colors overflow to other strings if a color\
+                              code is not finished.{nl}',
+                        action='store_true')
+
+    parser.add_argument('-F', '--dont-finish-colors',
+                        help=f'do not finish colors at the end of the last\
+                              string. Normally, everytime the\
+                              "{su}paint{eu}" function is used, all colors\
+                              and styles are finished at the end to avoid\
+                              making the effects seap to the rest of the\
+                              program or terminal. This option will disable\
+                              that.{nl}',
                         action='store_true')
 
     parser.add_argument('-I', '--ignore-special',
-                        help='tell the parser to ignore special characters\
-                              like (new line, tab, etc.).',
+                        help=f'tell the parser to ignore special characters\
+                              like (new line, tab, etc.).{nl}',
                         action='store_true')
 
     parser.add_argument('-S', '--strip',
-                        help='specify which leading and trailing\
+                        help=f'specify which leading and trailing\
                               characters to remove from input file(s)\
                               (by default removes whitespace if the flag is\
-                              used).',
-                        nargs='?',
+                              used).{nl}',
+                        nargs=1,
                         const=None,
-                        default='')
+                        default='',
+                        metavar=f'{su}chars{eu}')
 
     parser.add_argument('-p', '--position',
-                        help='place all strings after the nth input file.',
-                        nargs='?',
-                        const=0,
+                        help=f'insert all strings at the given index in the\
+                              list of input files.{nl}',
+                        nargs=1,
                         default=0,
-                        type=int)
+                        type=int,
+                        metavar=f'{su}position{eu}')
 
     parser.add_argument('-i', '--input-file',
-                        help='specify one or more files to read the color\
+                        help=f'specify one or more files to read the color\
                               coded strings from. If a file doesn\'t exist, an\
                               error will be raised. It must be used after any \
-                              string argument.',
-                        nargs='*',
+                              {su}string{eu} argument.{nl}',
+                        nargs='+',
                         type=argparse.FileType('r'),
-                        default=[])
+                        default=[],
+                        metavar=f'{su}input file{eu}')
 
     parser.add_argument('-o', '--output-file',
-                        help='specify an output file to append the resulting\
-                              string (default is sys.stdout).',
-                        nargs='?',
+                        help=f'specify an output file to append the resulting\
+                              string (default is sys.stdout).{nl}',
+                        nargs=1,
                         type=argparse.FileType('a'),
-                        const=_Config.paint['file'],
-                        default=_Config.paint['file'])
+                        default=_Config.paint['file'],
+                        metavar=f'{su}output file{eu}')
 
     # Return the arguments to "_main"
     return parser, parser.parse_args()
