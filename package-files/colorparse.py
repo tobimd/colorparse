@@ -25,21 +25,20 @@ class _Config:
         'ignore_special': False,
         'always_finish_colors': True,
         'true_color': False,
-        'always_try_rgb_codes': True,
         'auto_fix_bad_rgb': True,
         'color_defs_were_changed': False
     }
 
     data = {
-        'regex': r"((?:(?P<sqb>\[(?=[^\]\(\)\\]*?\]))\s*|(?P<par>\((?=[^\)\[\]\\]*?\)))\s*)|/)?(?:\\)?((?P<fg>;)|(?P<bg>:))(;|:|(?(fg)(?P<fgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)|(?(bg)(?P<bgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)))|(?P<eq>=)|(?P<hs>#))(?(eq)(?P<rgb>\d{0,3},?\d{0,3},?\d{0,3})|(?(hs)(?P<hex>[0-9a-fA-F]{0,6})))(?(sqb)(?:\s*\])|(?(par)(?:\s*\))|/?))"
+        'regex': r"((?:(?P<sqb>\[(?=[^\]\(\)\\]*?\]))\s*|(?P<par>\((?=[^\)\[\]\\]*?\)))\s*)|\/)?(?:\\)?((?P<fg>;)|(?P<bg>:))(;|:|(?(fg)(?P<fgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)|(?(bg)(?P<bgc>rr|oo|yy|gg|cc|bb|pp|mm|aa|r|o|y|g|c|b|p|m|a|k|w|R|O|Y|G|C|B|P|M|A)))|[\+\-](?P<st>[biusdrh])|(?P<eq>=)|(?P<hs>#)|\!)(?(eq)(?P<rgb>\d{0,3},?\d{0,3},?\d{0,3})|(?(hs)(?P<hex>[0-9a-fA-F]{0,6})))(?(sqb)(?:\s*\])|(?(par)(?:\s*\))|\/?))"
     }
 
 
 # Color definitions
 class _Color:
-    _ENDC = '\033[0m'
+    ENDC = '\033[0m'
 
-    class _Foreground:
+    class Foreground:
 
         # COLOR NAME       # CODE  # ANSI COLOR      # TRUE COLOR
         DARK_RED          = ('rr', '\033[38;5;88m',  '\033[38;2;130;0;0m')       # ;rr
@@ -107,7 +106,7 @@ class _Color:
             'w': 'WHITE'
         }
 
-    class _Background:
+    class Background:
 
         DARK_RED          = ('rr', '\033[48;5;88m',  '\033[48;2;130;0;0m')      # :rr
         DARK_ORANGE       = ('oo', '\033[48;5;130m', '\033[48;2;160;50;0m')     # :oo
@@ -174,6 +173,26 @@ class _Color:
             'w': 'WHITE',
         }
 
+    class Style:
+        BOLD      = ('b', '\033[1m', '\033[22m')
+        ITALIC    = ('i', '\033[3m', '\033[23m')
+        UNDERLINE = ('u', '\033[4m', '\033[24m')
+        STRIKE    = ('s', '\033[9m', '\033[29m')
+        DIM       = ('d', '\033[2m', '\033[22m')
+        REVERSE   = ('r', '\033[7m', '\033[27m')
+        HIDE      = ('h', '\033[8m', '\033[28m')
+
+        maps = {
+            'b': 'BOLD',
+            'i': 'ITALIC',
+            'u': 'UNDERLINE',
+            's': 'STRIKE',
+            'd': 'DIM',
+            'r': 'REVERSE',
+            'h': 'HIDE'
+        }
+
+
 # Exception class for printing custom errors
 class ColorparseException(Exception):
     pass
@@ -182,13 +201,13 @@ class ColorparseException(Exception):
 # Each time there is a change in the color codes, reconstruct regex
 def _construct_regex():
     # Usual parts of the regex:
-    init_enc = r"((?:(?P<sqb>\[(?=[^\]\(\)\\]*?\]))\s*|(?P<par>\((?=[^\)\[\]\\]*?\)))\s*)|/)?"
+    init_enc = r"((?:(?P<sqb>\[(?=[^\]\(\)\\]*?\]))\s*|(?P<par>\((?=[^\)\[\]\\]*?\)))\s*)|\/)?"
     init_codes = r"(?:\\)?((?P<fg>;)|(?P<bg>:))(;|:|"
 
     # Here would go: codes(fg_colors, bg_colors)
 
-    end_codes = r"|(?P<eq>=)|(?P<hs>#))(?(eq)(?P<rgb>\d{0,3},?\d{0,3},?\d{0,3})|(?(hs)(?P<hex>[0-9a-fA-F]{0,6})))"
-    end_enc = r"(?(sqb)(?:\s*\])|(?(par)(?:\s*\))|/?))"
+    end_codes = r"|[\+\-](?P<st>[biusdrh])|(?P<eq>=)|(?P<hs>#)|\!)(?(eq)(?P<rgb>\d{0,3},?\d{0,3},?\d{0,3})|(?(hs)(?P<hex>[0-9a-fA-F]{0,6})))"
+    end_enc = r"(?(sqb)(?:\s*\])|(?(par)(?:\s*\))|\/?))"
 
     # The changing part of the regex, depending on color code definitions
     codes = lambda f, b: rf"(?(fg)(?:{'|'.join(f)})|(?(bg)(?:{'|'.join(b)})))"
@@ -198,8 +217,8 @@ def _construct_regex():
         return [getattr(x, c)[0] for c in dir(x) if not c.startswith('__')]
 
     # Get both color codes and sort them by length in reverse (longest to smallest)
-    fg_colors = sorted(get_colors(_Color._Foreground), key=len, reverse=True)
-    bg_colors = sorted(get_colors(_Color._Background), key=len, reverse=True)
+    fg_colors = sorted(get_colors(_Color.Foreground), key=len, reverse=True)
+    bg_colors = sorted(get_colors(_Color.Background), key=len, reverse=True)
 
     # Join all the regex, and replace the old one
     _Config.data['regex'] = f"{init_enc}{init_codes}{codes(fg_colors, bg_colors)}{end_codes}{end_enc}"
@@ -270,13 +289,28 @@ def _try_ignore_special(string):
 
 # Replace individual matches of each code into the ansi escape sequence
 def _color_repl(match):
+
+    # Get the correct attribute of a class
+    def get_attr(color_class, match, index):
+        return getattr(color_class, color_class.maps[match])[index]
+
+    # Update the 'maps' attribute of the given class
+    def update_maps(color_class):
+        maps = dict()
+
+        for color_name in dir(color_class):
+            if not color_name.startswith('__') and not color_name == "maps":
+                maps[getattr(color_class, color_name)[0]] = color_name
+
+        color_class.maps = maps
+
     gm = match[0] # Global match (0th match)
 
     # If color code was escaped, return without the backslash
     if '\\' in gm: return gm.replace('\\', '')
 
     # If the code is of type "end color", return ENDC
-    if ';:' in gm or ':;' in gm: return _Color._ENDC
+    if ';:' in gm or ':;' in gm: return _Color.ENDC
 
     # If it's a special rgb color code
     if '#' in gm or '=' in gm:
@@ -294,21 +328,17 @@ def _color_repl(match):
 
         return f"\033[{t};2;{r};{g};{b}m"
 
+    # If it's a special style code
+    if '+' in gm or '-' in gm:
+        index = 1 if '+' in gm else 2
 
-    def update_maps(color_class):
-        maps = dict()
-
-        for color_name in dir(color_class):
-            if not color_name.startswith('__') and not color_name == "maps":
-                maps[getattr(color_class, color_name)[0]] = color_name
-
-        color_class.maps = maps
+        return get_attr(_Color.Style, match['st'], index)
 
     # Check if color definitions were changed, to update
     # the 'maps' attribute of both color types
     if _Config.flags['color_defs_were_changed']:
-        update_maps(_Color._Foreground)
-        update_maps(_Color._Background)
+        update_maps(_Color.Foreground)
+        update_maps(_Color.Background)
 
         _Config.flags['color_defs_were_changed'] = False
 
@@ -316,11 +346,11 @@ def _color_repl(match):
 
     # If it's a background-type color code
     if ':' in gm:
-        return getattr(_Color._Background, _Color._Background.maps[match['bgc']])[index]
+        return get_attr(_Color.Background, match['bgc'], index)
 
     # If it's foreground-type color code
     if ';' in gm:
-        return getattr(_Color._Foreground, _Color._Foreground.maps[match['fgc']])[index]
+        return get_attr(_Color.Foreground, match['fgc'], index)
 
     return gm
 
@@ -339,13 +369,17 @@ def _match_color_codes(string):
             return 1
         elif '::' in code:
             return 2
+        elif '!' in code:
+            return 3
         else:
             return -1
 
     # Similarly, check if color code is either forground, background
     # or neither
     def color_type(code):
-        if ';' in code and end_type(code) < 0:
+        if '+' in code or '-' in code:
+            return 0
+        elif ';' in code and end_type(code) < 0:
             return 1
         elif ':' in code and end_type(code) < 0:
             return 2
@@ -358,46 +392,95 @@ def _match_color_codes(string):
     prev_fg = None
     prev_bg = None
 
-    # Iterate through all matches
+    prev_st = None
+    curr_st = None
+
+    # Iterate through all matches and fix both the case of having 
+    # either ';;' and '::', and the case where the special styling codes
+    # are used (with ';+' or ';-')
     for index, match in enumerate(matches):
         code = match[0]
 
-        curr_fg = code if color_type(code) == 1 else prev_fg
-        curr_bg = code if color_type(code) == 2 else prev_bg
+        prev_st = curr_st if curr_st is not None else prev_st
+        curr_st = match if color_type(code) == 0 else None
 
-        prev_fg = curr_fg
-        prev_bg = curr_bg
+        prev_fg = code if color_type(code) == 1 else prev_fg
+        prev_bg = code if color_type(code) == 2 else prev_bg
 
-        # If ';;' or '::' are found
-        if end_type(code) > 0:
+        # Check if the case of ";+b ... ;-d" happened or the reverse case
+        # with with ";+d ... ;-b" happened
+        curr_st_check = (curr_st is not None
+                            and '-' in curr_st[0]
+                            and curr_st['st'] in ['d', 'b'])
+
+        prev_st_check = (prev_st is not None
+                            and '+' in prev_st[0]
+                            and prev_st['st'] in ['d', 'b'])
+
+        # If ';;' or '::' are found, fix this case
+        if end_type(code) > -1:
+            # If it's just ending both colors, remember to reset the variables
+            if end_type(code) == 0:
+
+                if prev_st is not None:
+                    string = string.replace(code, f"[;:]{prev_st[0]}", 1)
+                    matches.insert(index+1, [prev_st[0]])
+
+                prev_fg = None
+                prev_bg = None
 
             # If ending foreground color
             if end_type(code) == 1:
                 matches[index] = ["[;:]"]
 
-                if curr_bg is not None:
-                    string = string.replace(code, f"[;:]{curr_bg}", 1)
-                    matches.insert(index+1, [curr_bg])
-
-                else:
+                if prev_bg is None and prev_st is None:
                     string = string.replace(code, "[;:]", 1)
+
+                if prev_bg is not None:
+                    repl = "[;:]" if prev_st is None else code
+
+                    string = string.replace(code, f"{repl}{prev_bg}", 1)
+                    matches.insert(index+1, [prev_bg])
+
+                if prev_st is not None:
+                    string = string.replace(code, f"[;:]{prev_st[0]}", 1)
+                    matches.insert(index+1, [prev_st[0]])
 
                 prev_fg = None
-                curr_fg = None
 
             # Else, ending the background color
-            else:
+            elif end_type(code) == 2:
                 matches[index] = ["[;:]"]
 
-                if curr_fg is not None:
-                    string = string.replace(code, f"[;:]{curr_fg}", 1)
-                    matches.insert(index+1, [curr_fg])
-
-                else:
+                if prev_fg is None and prev_st is None:
                     string = string.replace(code, "[;:]", 1)
 
+                if prev_fg is not None:
+                    repl = "[;:]" if prev_st is None else code
+
+                    string = string.replace(code, f"{repl}{prev_fg}", 1)
+                    matches.insert(index+1, [prev_fg])
+
+                if prev_st is not None:
+                    string = string.replace(code, f"[;:]{prev_st[0]}", 1)
+                    matches.insert(index+1, [prev_st[0]])
+
                 prev_bg = None
-                curr_bg = None
+
+            # Otherwise, it's the '!' to end all colors and styles
+            else:
+                string = string.replace(code, "[;:]", 1)
+
+                prev_fg = None
+                prev_bg = None
+                prev_st = None
+
+        elif curr_st_check and prev_st_check and curr_st['st'] != prev_st['st']:
+
+            matches.insert(index+1, [f"[;+{prev_st['st']}]"])
+            string = string.replace(code, f"[;-{curr_st['st']}][;+{prev_st['st']}]")
+
+            curr_st = prev_st
 
     # Replace color codes with the respective ansi escape sequences
     return re.sub(_Config.data['regex'], _color_repl, string)
@@ -550,7 +633,7 @@ def paint(*value, **options):
                          stream (when the strings are
                          printed) or not.
     """
-    ec = _Color._ENDC
+    ec = _Color.ENDC
     value = list(value)
 
     # Get the options' arguments
@@ -562,29 +645,41 @@ def paint(*value, **options):
     _file = options.get('file', _Config.paint['file'])
     _flush = options.get('flush', _Config.paint['flush'])
 
+    FC = ec if _Config.flags['always_finish_colors'] else ''
+
     # If overflow is true, then color the strings as one
     if _overflow:
         result = _match_color_codes(_sep.join(map(str, value)))
 
         if _print:
-            print(result, end=(_end + ec), file=_file, flush=_flush)
+            print(result, end=(_end + FC), file=_file, flush=_flush)
 
     # Else, color one by one and the join them
     else:
         result = (ec + _sep).join(map(_match_color_codes, map(str, value)))
 
         if _print:
-            print(result, end=(ec + _end + ec), file=_file, flush=_flush)
+            print(result, end=(ec + _end + FC), file=_file, flush=_flush)
 
     # Return the result
     if _ret:
-        return result + ec
+        return result + FC
 
 
 # Parses arguments from the terminal
 def _arg_parser():
+    su = "\033[4m"    # Set text with underline
+    eu = "\033[24m"   # End underline
+
+    sb = "\033[1m"    # Set text in bold
+    eb = "\033[22m"   # End bold style
+
     # Initiate argument parser
-    parser = argparse.ArgumentParser(prog='colorparse')
+    parser = argparse.ArgumentParser(
+            prog='colorparse',
+            usage=f"colorparse [{su}options{eu}]\n\
+       colorparse [{su}options{eu}] [{su}string{eu} ...] [{sb}-o{eb} {su}output file{eu}]\n\
+       colorparse [{su}options{eu}] [{su}string{eu} ...] [{sb}-p{eb} {su}position{eu}] [{sb}-i{eb} {su}input files{eu} ...] [{sb}-o{eb} {su}output-file{eu}]")
 
     # Arguments
     parser.add_argument('string',
