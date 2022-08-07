@@ -3,7 +3,7 @@
 
 <a name="list"></a>
 - [1.1.6](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-116---2020---03---12)
-- [1.1.5](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-115---2020---03---12)
+- [1.1.5](https://github.com/tubi-carrillo/colorparse/blob/develop/change-log.md#version-1.1.5)
 - [1.1.4](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-114---2020---03---10)
 - [1.1.3](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-113---2019---08---06)
 - [1.1.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-112---2019---08---03)
@@ -17,7 +17,8 @@
 ## version 1.1.6   (2020 - 03 - 12)
 - Fixed color code overflow when ending specific color types consecutively (e.g. "/;g:w/ green text/;; with white background/:: would make this text green", returns the part of the string "would make this text green" with the former color green).
 
-
+<a name="version-1.1.5"></a>
+<a name="1.1.5"></a>
 ## version 1.1.5   (2020 - 03 - 12)
 - Fixed raised error when using RGB or HEX color codes without true color active (now just ignores the color code).
 
