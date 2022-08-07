@@ -3,7 +3,7 @@
 
 <a name="list"></a>
 - [1.1.6](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-116---2020---03---12)
-- [1.1.5](https://github.com/tubi-carrillo/colorparse/blob/develop/change-log.md#version-1.1.5)
+- [1.1.5](https://github.com/tobimd/colorparse/blob/develop/change-log.md#version-1.1.5)
 - [1.1.4](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-114---2020---03---10)
 - [1.1.3](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-113---2019---08---06)
 - [1.1.2](https://github.com/tubi-carrillo/colorparse/blob/master/change-log.md#version-112---2019---08---03)
