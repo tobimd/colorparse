@@ -1,3 +1,0 @@
-"ARGUMENT", "DESCRIPTION"
-"``fn``", "The name or the function itself to set the default values."
-"``**kwargs``", "Key/value pairs for each default argument to set."
