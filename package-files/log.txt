@@ -1,4 +1,0 @@
-## version 2.0.0   (2021 - 05 - XX)
-- Replaced the name of the function ``change_defaults`` to ``options``.
-- Optimized code structure.
-- 

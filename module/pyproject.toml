@@ -1,0 +1,55 @@
+[build-system]
+requires = [
+    "hatchling>=1.5.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "colorparse"
+description = "Read and parse strings with defined color and style commands, changing the look and feel of text."
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+authors = [
+    { name = "tombimd", email = "tobimd@users.noreply.github.com" },
+]
+keywords = [
+    "ansi",
+    "ansi escape",
+    "color",
+    "colorparse",
+    "command",
+    "escape",
+    "parse",
+    "style",
+    "terminal",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Natural Language :: English",
+    "Topic :: Terminals",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Utilities",
+]
+dynamic = ["version"]
+
+[project.scripts]
+colorparse = "colorparse._main:_main"
+
+[project.urls]
+Homepage = "https://github.com/tobimd/colorparse"
+
+[tool.hatch.version]
+path = "colorparse/_main.py"
+
+[tool.hatch.build.targets.sdist]
+include = ["/colorparse"]

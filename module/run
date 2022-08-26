@@ -1,0 +1,42 @@
+#!/bin/zsh
+
+source=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && (pwd -W 2>/dev/null || pwd))
+version=$(grep -E '\d+\.\d+\.\d+' $source/colorparse/_main.py -o)
+cmd=$1
+
+if [[ $cmd == "build" ]]; then
+    echo -e "Running \033[1m\033[38;5;45mbuild\033[0m command\n"
+
+    rm -f "$source/dist/*"
+    hatch build -t wheel
+    rm -rf "$source/colorparse/__pycache__/" "$source/test/__pycache__/"
+    /usr/local/bin/python3 -m pip install "$source/dist/colorparse-$version-py3-none-any.whl" --force
+
+elif [[ $cmd == "all" ]]; then
+    echo -e "\nRunning \033[1m\033[38;5;45mbuild\033[0m command\n"
+    shift
+
+    # build
+    rm -f "$source/dist/*"
+    hatch build -t wheel
+    rm -rf "$source/colorparse/__pycache__/" "$source/test/__pycache__/" "$source/dist" "$source/out"
+    /usr/local/bin/python3 -m pip install "$source/dist/colorparse-$version-py3-none-any.whl" --force
+
+    echo -e "\nRunning \033[1m\033[38;5;45mtests\033[0m\n"
+
+    # default
+    cd $source && /usr/local/bin/python3 -m unittest test "$@"
+    rm -rf "$source/colorparse/__pycache__/" "$source/test/__pycache__/" "$source/dist" "$source/out"
+
+elif [[ $cmd == "clean" ]]; then
+    echo -e "\nRunning \033[1m\033[38;5;45mclean\033[0m command\n"
+
+    rm -rf "$source/colorparse/__pycache__/" "$source/test/__pycache__/" "$source/dist" "$source/out"
+
+elif [[ $cmd == "test" ]]; then
+    echo -e "\nRunning \033[1m\033[38;5;45mtests\033[0m\n"
+
+    rm -rf "$source/colorparse/__pycache__/" "$source/test/__pycache__/" "$source/dist" "$source/out"
+    cd $source && /usr/local/bin/python3 -m unittest test "$@"
+    rm -rf "$source/colorparse/__pycache__/" "$source/test/__pycache__/" "$source/dist" "$source/out"
+fi

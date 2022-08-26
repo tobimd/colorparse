@@ -1,0 +1,10 @@
+{
+    "python.linting.pylintArgs": [ "--max-line-length=88", ],
+    "python.defaultInterpreterPath": "./.env/bin/python",
+    "python.pipenvPath": "./.env/bin/pip",
+    "python.formatting.provider": "black",
+    "python.analysis.extraPaths": ["./colorparse"],
+    "python.analysis.indexing": true,
+    "python.analysis.stubPath": "./colorparse/typeshed",
+    "autoDocstring.customTemplatePath": "./.vscode/docstring-template.txt",
+}
