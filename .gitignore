@@ -1,2 +1,2 @@
-update-versions.py
-Makefile
+module/dist
+.DS_Store
